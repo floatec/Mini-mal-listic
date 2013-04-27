@@ -30,6 +30,7 @@ public class GameScreen implements Screen {
 		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
+		
 		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
 		
 		sprite = new Sprite(region);

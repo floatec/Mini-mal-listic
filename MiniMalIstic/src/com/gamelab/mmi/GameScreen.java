@@ -1,5 +1,6 @@
 package com.gamelab.mmi;
 
+import java.awt.List;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -26,14 +27,13 @@ public class GameScreen implements Screen {
 	private Door door;
 	private Random rand = new Random();
 	private Map map;
-
-	
+		
 	
 	public GameScreen() {		
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
-		map = new Map("data/libgdx.png");
+		map = new Map("data/Mona_Lisa-1024.png");
 		camera = new OrthographicCamera(1, h/w);
 		batch = new SpriteBatch();
 		door=new Door();
@@ -49,7 +49,7 @@ public class GameScreen implements Screen {
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
 		
-		player = new Player(new Vector2(w / 2, h / 2), 0, map.getMapPh());
+		player = new Player(new Vector2(w / 2, h / 2), 3, map);
 		
 		gameScreenInputHandler = new GameScreenInputHandler(this, player);
 		Gdx.input.setInputProcessor(gameScreenInputHandler);

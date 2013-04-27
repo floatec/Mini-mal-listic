@@ -1,6 +1,7 @@
 package com.gamelab.mmi;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Player {
 
 	static final int numberOfAnimations = 1;
+	static final int numberOfTools = 1;
 
 	private Vector2 pos;
 	private Vector2 lockAt = new Vector2(0, 1);
@@ -22,6 +24,7 @@ public class Player {
 	private float toolSize;
 	private double rotation;
 	private float speed;
+	private Tool[] tools;
 	private Vector2 origin;
 	private Circle hitbox;
 	private PlayerTexture[] playerTextures;
@@ -52,7 +55,7 @@ public class Player {
 		return hitbox;
 	}
 
-	public Player(Vector2 pos, int tool) {
+	public Player(Vector2 pos, int tool, PixmapHelper mapPh) {
 		this.pos = pos;
 		this.origin = pos;
 			this.tool = tool;
@@ -65,6 +68,9 @@ public class Player {
 		
 		this.hitbox = new Circle(origin,
 				this.playerTextures[currentPlayerTexture].getFrameHeight());
+		
+		tools = new Tool[numberOfTools];
+		tools[0] = new PixelTool(mapPh.pixmap, mapPh.sprite, mapPh.texture);
 			
 		speed = 100.0f;
 		toolSize = 1.0f;

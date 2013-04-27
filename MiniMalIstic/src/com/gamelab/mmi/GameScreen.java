@@ -25,15 +25,15 @@ public class GameScreen implements Screen {
 	private Player player;
 	private Door door;
 	private Random rand = new Random();
+	private Map map;
 
 	
-	private Pixmap pix;
-	private PixmapHelper pixHelper;
 	
 	public GameScreen() {		
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
+		map = new Map("data/libgdx.png");
 		camera = new OrthographicCamera(1, h/w);
 		batch = new SpriteBatch();
 		door=new Door();
@@ -42,11 +42,6 @@ public class GameScreen implements Screen {
 		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		pix = new Pixmap(Gdx.files.internal("data/libgdx.png"));
-		pixHelper = new PixmapHelper(pix);
-		pixHelper.eraseCircle(200, 200, 50);
-		pixHelper.update();
-				
 		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
 		
 		sprite = new Sprite(region);
@@ -54,7 +49,7 @@ public class GameScreen implements Screen {
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
 		
-		player = new Player(new Vector2(w / 2, h / 2), 0);
+		player = new Player(new Vector2(w / 2, h / 2), 0, map.getMapPh());
 		
 		gameScreenInputHandler = new GameScreenInputHandler(this, player);
 		Gdx.input.setInputProcessor(gameScreenInputHandler);
@@ -70,7 +65,6 @@ public class GameScreen implements Screen {
 		batch.begin();
 		sprite.draw(batch);		
 
-		pixHelper.sprite.draw(batch);
 		
 		batch.end();
 		

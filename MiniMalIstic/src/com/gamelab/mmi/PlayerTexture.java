@@ -18,7 +18,11 @@ public class PlayerTexture {
 	
 	private int frameWidth;
 	private int frameHeight;
-
+	
+	public int getFrameHeight() {
+		return frameHeight;
+	}
+	
 	public void update(float delta) {
 		this.animationTime += delta;
 	}
@@ -58,5 +62,9 @@ public class PlayerTexture {
 	public void dispose() {
 		walkSheet.dispose();
 		sb.dispose();
+	}
+	
+	public Texture getWalkSheet() {
+		return walkSheet;
 	}
 }

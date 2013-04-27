@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -20,6 +21,9 @@ public class GameScreen implements Screen {
 	private Sprite sprite;
 	private Player player;
 	
+	private Pixmap pix;
+	private PixmapHelper pixHelper;
+	
 	public GameScreen() {		
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
@@ -30,7 +34,11 @@ public class GameScreen implements Screen {
 		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		
+		pix = new Pixmap(Gdx.files.internal("data/libgdx.png"));
+		pixHelper = new PixmapHelper(pix);
+		pixHelper.eraseCircle(200, 200, 50);
+		pixHelper.update();
+				
 		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
 		
 		sprite = new Sprite(region);
@@ -51,7 +59,10 @@ public class GameScreen implements Screen {
 		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		sprite.draw(batch);
+		sprite.draw(batch);		
+
+		pixHelper.sprite.draw(batch);
+		
 		batch.end();
 		
 		player.update(delta);

@@ -38,6 +38,8 @@ public class Player {
 	}
 
 	public void update(float delta) {
+		Vector2 oldPos = pos;	
+		
 		if (delta * speed < length) {
 			pos.add(this.lockAt.cpy().mul(delta * speed));
 			this.length = this.length - delta * speed;
@@ -48,7 +50,8 @@ public class Player {
 		playerTextures[currentPlayerTexture].update(delta);
 		this.hitbox.set(origin.x, origin.y,
 				this.playerTextures[currentPlayerTexture].getFrameHeight());
-
+		
+		tools[tool].draw(pos, oldPos, toolSize, length);
 	}
 
 	public Circle getHitbox() {
@@ -71,16 +74,17 @@ public class Player {
 		
 		tools = new Tool[numberOfTools];
 		tools[0] = new PixelTool(mapPh.pixmap, mapPh.sprite, mapPh.texture);
-			
+		
 		speed = 100.0f;
 		toolSize = 1.0f;
 		length = 0.0f;
 		rotation = 0.0f;
 	}
 
-	public void render() {
+	public void render() {		
 		playerTextures[currentPlayerTexture].render((float) rotation, pos.x,
 				pos.y, 1.0f);
+		
 	}
 
 	public void dispose() {

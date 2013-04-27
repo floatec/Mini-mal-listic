@@ -23,6 +23,4 @@ public class PixelTool extends Tool {
 		pixmapHelper.pixmap.drawPixel(0, 6, 0xff888888);
 		pixmapHelper.update();
 	}
-
-
 }

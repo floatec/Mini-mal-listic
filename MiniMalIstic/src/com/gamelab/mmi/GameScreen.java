@@ -29,17 +29,17 @@ public class GameScreen implements Screen {
 
 	
 	
-	public GameScreen() {		
+	public GameScreen( String file) {		
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
-		map = new Map("data/libgdx.png");
+		map = new Map(file);
 		camera = new OrthographicCamera(1, h/w);
 		batch = new SpriteBatch();
 		door=new Door();
 		door.activate(new Vector2(Math.abs(rand.nextInt())%(w-Door.SIZE),Math.abs(rand.nextInt())%(w-Door.SIZE)));
 		
-		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
+		texture = new Texture(Gdx.files.internal(file));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
@@ -61,7 +61,7 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		batch.setProjectionMatrix(camera.combined);
+		
 		batch.begin();
 		sprite.draw(batch);		
 		batch.end();

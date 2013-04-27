@@ -3,12 +3,16 @@ package com.gamelab.mmi;
 import com.badlogic.gdx.Game;
 
 public class Mmi extends Game {
-	private GameScreen gameScreen;
-	
+	private GameScreen[] gameScreen;
+	private int currentScreen=0;
+	public final static int SCREEN_COUNT=1;
 	@Override
 	public void create() {
-		gameScreen = new GameScreen();
-		setScreen(gameScreen);
+		gameScreen=new GameScreen[SCREEN_COUNT];
+		gameScreen[0] = new GameScreen("data/Mona_Lisa-1024.png");
+//		gameScreen[0] = new GameScreen("data/level1.png");
+//		gameScreen[1] = new GameScreen("data/level2.png");
+		setScreen(gameScreen[0]);
 	}
 
 	@Override

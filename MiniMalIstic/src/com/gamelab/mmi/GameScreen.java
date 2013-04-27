@@ -1,5 +1,7 @@
 package com.gamelab.mmi;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -9,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen implements Screen {
@@ -19,6 +22,9 @@ public class GameScreen implements Screen {
 	private Texture texture;
 	private Sprite sprite;
 	private Player player;
+	private Door door;
+	private Random rand = new Random();
+
 	
 	public GameScreen() {		
 		float w = Gdx.graphics.getWidth();
@@ -26,6 +32,8 @@ public class GameScreen implements Screen {
 		
 		camera = new OrthographicCamera(1, h/w);
 		batch = new SpriteBatch();
+		door=new Door();
+		door.activate(new Vector2(Math.abs(rand.nextInt())%(w-Door.SIZE),Math.abs(rand.nextInt())%(w-Door.SIZE)));
 		
 		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -46,6 +54,7 @@ public class GameScreen implements Screen {
 	
 	@Override
 	public void render(float delta) {
+		update(delta);
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
@@ -54,8 +63,16 @@ public class GameScreen implements Screen {
 		sprite.draw(batch);
 		batch.end();
 		
-		player.update(delta);
+		
 		player.render();
+		door.render();
+	}
+	
+	public void update(float delta){
+		player.update(delta);
+		if(door.isActive()&&Intersector.overlapCircleRectangle(player.getHitbox(),door.getHitbox())){
+		System.out.println("win win win");
+		}
 	}
 
 	@Override

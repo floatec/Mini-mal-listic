@@ -1,5 +1,6 @@
 package com.gamelab.mmi;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -14,13 +15,17 @@ public class PixelTool extends Tool {
 	@Override
 	public void draw(Vector2 curPos, Vector2 lastPos, float radius,
 			float distance) {
-		pixmapHelper.pixmap.drawPixel(0, 0, 0xff888888);
-		pixmapHelper.pixmap.drawPixel(0, 1, 0xff888888);
-		pixmapHelper.pixmap.drawPixel(0, 2, 0xff888888);
-		pixmapHelper.pixmap.drawPixel(0, 3, 0xff888888);
-		pixmapHelper.pixmap.drawPixel(0, 4, 0xff888888);
-		pixmapHelper.pixmap.drawPixel(0, 5, 0xff888888);
-		pixmapHelper.pixmap.drawPixel(0, 6, 0xff888888);
-		pixmapHelper.update();
+		
+		int r = (int) radius;
+		//for (int x = -r; x <= r; r++) {
+		//	for *()			
+		//}
+		
+		Color c = new Color(1,0,0,1);
+		
+		pixmapHelper.pixmap.setColor(c);
+		pixmapHelper.pixmap.fillRectangle(0, 0, 100, 100);
+		
+		pixmapHelper.reload();
 	}
 }

@@ -10,7 +10,6 @@ public class Map {
 	private Pixmap mapPm;
 	private PixmapHelper mapPh;
 	
-	
 	public Map(String mapFile) {
 		mapPm = new Pixmap(Gdx.files.internal(mapFile));
 		mapPh = new PixmapHelper(mapPm);

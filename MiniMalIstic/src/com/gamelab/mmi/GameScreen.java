@@ -2,6 +2,7 @@ package com.gamelab.mmi;
 
 import java.awt.List;
 import java.sql.BatchUpdateException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -30,6 +31,7 @@ public class GameScreen implements Screen {
 	private Random rand = new Random();
 	private Map map;
 	private Button[] buttons=new Button[Player.numberOfTools];
+	private ArrayList<Enemy> enemies=new ArrayList<Enemy>();
 	private PercentagePanel percentagePanel;
 		
 	private void createButtons() {
@@ -192,7 +194,54 @@ public class GameScreen implements Screen {
 		percentagePanel.render(Integer.toString((int) (100 * map.getRelativeTouched())) + "%");
 	}
 	
+	private void addEnemy(int enemy) {
+		float randWidth = rand.nextFloat();
+		float randHeight = rand.nextFloat();
+		Vector2 v = new Vector2();
+		if(Math.abs(randWidth-0.5f)<Math.abs(randHeight-0.5f)) {
+			if(randWidth>=0) {
+				randWidth = Gdx.graphics.getWidth();
+			} else {
+				randWidth = 0;
+			}
+		} else {
+			if(randHeight>=0) {
+				randHeight = Gdx.graphics.getHeight();
+			} else {
+				randHeight = 0;
+			}
+		}
+		enemies.add(new Enemy(v, enemy, map));
+	}
+	
+	private void disposeEnemy() {
+		enemies.remove(enemies.size()-1).dispose();
+	}
+	
+	private void updateEnemies(float delta) {
+		if(map.getRelativeTouched()>0.2f && enemies.size()<1) {
+			addEnemy(Enemy.Hipster1Enemy);
+		} else if(map.getRelativeTouched()>0.3f && enemies.size()<2) {
+			addEnemy(Enemy.Hipster2Enemy);
+		} else if(map.getRelativeTouched()>0.4f && enemies.size()<3) {
+			addEnemy(Enemy.SpiesserEnemy);
+		}
+		
+		if(map.getRelativeTouched()<=0.3f && enemies.size()>=3) {
+			disposeEnemy();
+		} else if(map.getRelativeTouched()<=0.2f && enemies.size()>=2) {
+			disposeEnemy();
+		} else if(map.getRelativeTouched()<=0.1f && enemies.size()>=1) {
+			disposeEnemy();
+		}
+		
+		for(Enemy e : enemies) {
+			e.update(delta);
+		}
+	}
+	
 	public void update(float delta){
+		updateEnemies(delta);
 		player.update(delta);
 		if(door.isActive()&&Intersector.overlapCircleRectangle(player.getHitbox(),door.getHitbox())){
 			game.nextLevel();

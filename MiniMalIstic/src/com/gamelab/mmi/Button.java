@@ -27,11 +27,18 @@ public class Button {
 		return state;
 	}
 	
+	
 	public Button(int x, int y, int w, int h, String img, ClickEvent event,
-			int state, int spriteRow) {
+			int state, int spriteRow)
+	{
+		this(x,  y,w,  h,  img,  event,
+				 state, spriteRow,3);
+	}
+	public Button(int x, int y, int w, int h, String img, ClickEvent event,
+			int state, int spriteRow,int statecount) {
 		this.event = event;
 		this.texture = new Texture(Gdx.files.internal(img));
-		this.offset = spriteRow * 3;
+		this.offset = spriteRow * statecount;
 		this.state = state;
 		int col = this.texture.getWidth() / w;
 		int row = this.texture.getHeight() / h;

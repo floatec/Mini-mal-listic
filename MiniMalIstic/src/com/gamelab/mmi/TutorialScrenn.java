@@ -20,7 +20,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
-public class Tutorial implements Screen {
+public class TutorialScrenn implements Screen {
 
 	private Mmi game;
 	private Texture walkSheet;
@@ -36,7 +36,7 @@ public class Tutorial implements Screen {
 	private Screen nextScreen;
 	float onScreen = 0;
 
-	public Tutorial(Mmi game, String file, int frames, Screen nextScreen) {
+	public TutorialScrenn(Mmi game, String file, int frames, Screen nextScreen) {
 		this.game = game;
 		this.nextScreen = nextScreen;
 		float w = Gdx.graphics.getWidth();

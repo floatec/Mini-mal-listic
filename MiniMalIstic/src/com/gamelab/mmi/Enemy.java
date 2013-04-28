@@ -52,7 +52,6 @@ public class Enemy {
 		} else {
 			pos.add(this.lockAt.cpy().mul(this.length));
 			this.length = 0;
-			map.resetPixelsRecentlyTouched();
 		}
 		
 		if (this.length > 0) {
@@ -71,13 +70,18 @@ public class Enemy {
 		return hitbox;
 	}
 
+	public void render() {		
+		playerTextures[currentPlayerTexture].render((float) rotation, pos.x,
+				pos.y, 1.0f);
+		
+	}
+
 	public Enemy(Vector2 pos, int tool, Map map) {
 		this.pos = pos;
 		this.origin = pos;
 		this.map = map;
-			this.tool = tool;
-		// Change here
-		currentPlayerTexture = 0;
+		this.tool = tool;
+		currentPlayerTexture = 2 * tool + 1;;
 
 		playerTextures = new PlayerTexture[numberOfEnemyTextures];
 		createTextureForTool(Hipster1Enemy, "data/Hipster1-w.png");

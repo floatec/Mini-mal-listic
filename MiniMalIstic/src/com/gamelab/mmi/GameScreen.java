@@ -1,5 +1,7 @@
 package com.gamelab.mmi;
 
+import java.awt.List;
+import java.sql.BatchUpdateException;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -27,14 +29,71 @@ public class GameScreen implements Screen {
 	private Door door;
 	private Random rand = new Random();
 	private Map map;
-
-	
+	private Button[] buttons=new Button[4];
+		
 	
 	public GameScreen( Mmi game,String file) {	
 		this.game=game;
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
+		buttons[0]=new Button(5, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
+			
+			@Override
+			public void onClick(int x, int y) {
+					for (Button b : buttons) {
+						if(b.getState()==Button.STATE_ACTIVE){
+							b.setState(Button.STATE_INACTIVE);
+						}
+					}
+					buttons[0].setState(Button.STATE_ACTIVE);
+					player.setTool(Player.TOOL_PIXEL);
+				
+			}
+		},Button.STATE_ACTIVE,0);
+		buttons[1]=new Button(125, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
+			
+			@Override
+			public void onClick(int x, int y) {
+				for (Button b : buttons) {
+					if(b.getState()==Button.STATE_ACTIVE){
+						b.setState(Button.STATE_INACTIVE);
+					}
+				}
+				buttons[1].setState(Button.STATE_ACTIVE);
+				player.setTool(Player.TOOL_COLOR_SUCKER);
+				
+			}
+		},Button.STATE_INACTIVE,1);
+buttons[2]=new Button(245, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
+			
+			@Override
+			public void onClick(int x, int y) {
+				for (Button b : buttons) {
+					if(b.getState()==Button.STATE_ACTIVE){
+						b.setState(Button.STATE_INACTIVE);
+					}
+				}
+				buttons[2].setState(Button.STATE_ACTIVE);
+				player.setTool(Player.TOOL_NEGATRON);
+				
+			}
+		},Button.STATE_INACTIVE,2);
+buttons[3]=new Button(365, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
+	
+	@Override
+	public void onClick(int x, int y) {
+		for (Button b : buttons) {
+			if(b.getState()==Button.STATE_ACTIVE){
+				b.setState(Button.STATE_INACTIVE);
+			}
+		}
+		buttons[3].setState(Button.STATE_ACTIVE);
+		player.setTool(Player.TOOL_PIXEL_SWAPPER);
+		
+	}
+},Button.STATE_INACTIVE,3);
+
 		map = new Map(file);
 		camera = new OrthographicCamera(1, h/w);
 		batch = new SpriteBatch();
@@ -51,9 +110,13 @@ public class GameScreen implements Screen {
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
 		
-		player = new Player(new Vector2(w / 2, h / 2), 0, map.getMapPh());
+		player = new Player(new Vector2(w / 2, h / 2), 3, map);
 		
 		gameScreenInputHandler = new GameScreenInputHandler(this, player);
+		for (Button b : buttons) {
+			gameScreenInputHandler.addEvent(b.getOnClick());
+		}
+		
 		Gdx.input.setInputProcessor(gameScreenInputHandler);
 	}
 	
@@ -73,6 +136,9 @@ public class GameScreen implements Screen {
 		
 		player.render();
 		door.render();
+		for (Button b : buttons) {
+			b.render();
+		}
 	}
 	
 	public void update(float delta){

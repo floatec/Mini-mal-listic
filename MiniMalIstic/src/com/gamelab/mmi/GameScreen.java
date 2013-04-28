@@ -228,19 +228,19 @@ public class GameScreen implements Screen {
 	}
 
 	private void updateEnemies(float delta) {
-		if (map.getRelativeTouched() > 0.01f && enemies.size() < 1) {
+		if (map.getRelativeTouched() > 0.2f && enemies.size() < 1) {
 			addEnemy(Enemy.Hipster1Enemy);
-		} else if (map.getRelativeTouched() > 0.03f && enemies.size() < 2) {
+		} else if (map.getRelativeTouched() > 0.3f && enemies.size() < 2) {
 			addEnemy(Enemy.Hipster2Enemy);
-		} else if (map.getRelativeTouched() > 0.04f && enemies.size() < 3) {
+		} else if (map.getRelativeTouched() > 0.4f && enemies.size() < 3) {
 			addEnemy(Enemy.SpiesserEnemy);
 		}
 
-		if (map.getRelativeTouched() <= 0.003f && enemies.size() >= 3) {
+		if (map.getRelativeTouched() <= 0.3f && enemies.size() >= 3) {
 			disposeEnemy();
-		} else if (map.getRelativeTouched() <= 0.002f && enemies.size() >= 2) {
+		} else if (map.getRelativeTouched() <= 0.2f && enemies.size() >= 2) {
 			disposeEnemy();
-		} else if (map.getRelativeTouched() <= 0.001f && enemies.size() >= 1) {
+		} else if (map.getRelativeTouched() <= 0.1f && enemies.size() >= 1) {
 			disposeEnemy();
 		}
 

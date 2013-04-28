@@ -136,19 +136,9 @@
 			<locationURI>PROJECT_LOC/bin/data/fonts</locationURI>
 		</link>
 		<link>
-			<name>assets/level1.jpg</name>
-			<type>1</type>
-			<locationURI>PROJECT_LOC/bin/data/level1.jpg</locationURI>
-		</link>
-		<link>
 			<name>assets/level1.png</name>
 			<type>1</type>
 			<locationURI>PROJECT_LOC/bin/data/level1.png</locationURI>
-		</link>
-		<link>
-			<name>assets/level2.jpg</name>
-			<type>1</type>
-			<locationURI>PROJECT_LOC/bin/data/level2.jpg</locationURI>
 		</link>
 		<link>
 			<name>assets/level2.png</name>
@@ -160,10 +150,11 @@
 			<type>1</type>
 			<locationURI>PROJECT_LOC/bin/data/level3.png</locationURI>
 		</link>
-		<link>
-			<name>assets/levle3.jpg</name>
-			<type>1</type>
-			<locationURI>PROJECT_LOC/bin/data/levle3.jpg</locationURI>
-		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>miniMallistic</name>
+			<value>file:/Users/floatec/workspace/Mini-mal-listic/MiniMalIstic</value>
+		</variable>
+	</variableList>
 </projectDescription>

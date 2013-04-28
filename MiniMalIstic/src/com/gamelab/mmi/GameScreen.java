@@ -200,6 +200,10 @@ public class GameScreen implements Screen {
 		percentagePanel = new PercentagePanel();
 		
 	}
+	
+	public void setInputProcessor() {
+		Gdx.input.setInputProcessor(gameScreenInputHandler);
+	}
 
 	@Override
 	public void render(float delta) {

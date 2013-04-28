@@ -79,8 +79,12 @@ public class TutorialScrenn implements Screen {
 
 	private void callback() {
 
-		if (1 < onScreen)
+		if (1 < onScreen) {
 			game.setScreen(nextScreen);
+			if(nextScreen instanceof GameScreen) {
+				((GameScreen)nextScreen).omfg();
+			}
+		}
 	}
 
 	public void update(float delta) {

@@ -82,7 +82,7 @@ public class TutorialScrenn implements Screen {
 		if (1 < onScreen) {
 			game.setScreen(nextScreen);
 			if(nextScreen instanceof GameScreen) {
-				((GameScreen)nextScreen).omfg();
+				((GameScreen)nextScreen).setInputProcessor();
 			}
 		}
 	}

@@ -3,6 +3,7 @@ package com.gamelab.mmi;
 import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -18,6 +19,9 @@ public class Map {
 	
 	private int touchedPixel;
 	
+	private float relativeRed;
+	private float relativeGreen;
+	private float relativeBlue;	
 	
 	public Map(String mapFile) {
 		mapOrig = new Pixmap(Gdx.files.internal(mapFile));
@@ -29,7 +33,48 @@ public class Map {
 		pixelsRecentlyTouched = new boolean[Gdx.graphics.getWidth()][Gdx.graphics.getHeight()];
 		
 		touchedPixel = 0;
+		
+		relativeRed = 0.333f;
+		relativeGreen = 0.333f;
+		relativeBlue = 0.333f;
 	}
+	
+	public float getRelRed() {
+		return relativeRed;
+	}
+	public float getRelGreen() {
+		return relativeGreen;
+	}
+	public float getRelBlue() {
+		return relativeBlue;
+	}
+	
+	
+	public void calcRelativeColors() {
+		float countRed = 0;
+		float countGreen = 0;
+		float countBlue = 0;
+		
+		for (int x = 0; x < mapOrig.getWidth() ; x++) {
+			for (int y = 0; y < mapOrig.getHeight(); y++) {
+				int value = mapOrig.getPixel(x, y);
+				
+				Color c = new Color();
+				Color.rgba8888ToColor(c, value);
+				
+				countRed += c.r;
+				countGreen += c.g;
+				countBlue += c.b;
+			}			
+		}
+		
+		float sum = countRed + countGreen + countBlue;
+		
+		relativeRed = countRed / sum;
+		relativeGreen = countGreen / sum;
+		relativeBlue = countBlue / sum;
+		
+	} 
 	
 	public Pixmap getMapOrig() {
 		return mapOrig;

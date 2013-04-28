@@ -33,6 +33,8 @@ public class GameScreen implements Screen {
 	private Button[] buttons = new Button[Player.numberOfTools];
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private PercentagePanel percentagePanel;
+	
+	private MusicController musicController;
 
 	private void createButtons() {
 		buttons[0] = new Button(5, 5, 100, 100, "data/Pinsel.png",
@@ -182,7 +184,13 @@ public class GameScreen implements Screen {
 		}
 
 		Gdx.input.setInputProcessor(gameScreenInputHandler);
-
+		
+		musicController = new MusicController();
+		map.calcRelativeColors();
+		
+		musicController.startRed(map.getRelRed());
+		musicController.startGreen(map.getRelGreen());
+		musicController.startBlue(map.getRelBlue());
 		percentagePanel = new PercentagePanel();
 	}
 
@@ -204,6 +212,12 @@ public class GameScreen implements Screen {
 		door.render();
 		for (Button b : buttons) {
 			b.render();
+		}
+		
+		if (musicController.needVolumeUpdate(delta)) {
+			map.calcRelativeColors();
+			musicController.setRelVolumes(map.getRelRed(), map.getRelGreen(), map.getRelBlue());	
+			musicController.updateVolumes(map.getRelativeTouched());
 		}
 		
 		percentagePanel.render(Integer.toString((int) (100 * map.getRelativeTouched())) + "%");
@@ -259,7 +273,7 @@ public class GameScreen implements Screen {
 		updateEnemies(delta);
 		player.update(delta);
 //<<<<<<< HEAD
-		if(!door.isActive()&&map.getRelativeTouched()>=0.39){
+		if(!door.isActive()&&map.getRelativeTouched()>=0.4){
 			door.activate(new Vector2(Math.abs(rand.nextInt())%(Gdx.graphics.getWidth()-Door.SIZE*2)+Door.SIZE,Math.abs(rand.nextInt())%(Gdx.graphics.getHeight()-Door.SIZE*2)+Door.SIZE));
 			
 		}
@@ -291,8 +305,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
+		musicController.dispose();
 	}
 
 	@Override

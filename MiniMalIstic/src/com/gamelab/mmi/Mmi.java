@@ -8,6 +8,8 @@ public class Mmi extends Game {
 	
 	private int currentScreen=0;
 	private String level[]={"data/level1.png","data/level2.png","data/level3.png"};
+	//private String level[]={"data/redGreen.png","data/green.png","data/blue.png"};
+	
 	public final static int SCREEN_COUNT=2;
 	@Override
 	public void create() {

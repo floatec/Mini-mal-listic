@@ -107,7 +107,7 @@ public class Enemy {
 		tools[SpiesserEnemy] = new EnemyEraseTool(map);
 	
 		speed = 100.0f;
-		toolSize = 30.0f;
+		toolSize = 40.0f;
 		length = 0.0f;
 		rotation = 0.0f;
 	}

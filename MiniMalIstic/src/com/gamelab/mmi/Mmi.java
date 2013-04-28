@@ -11,7 +11,7 @@ public class Mmi extends Game {
 	public final static int SCREEN_COUNT=2;
 	@Override
 	public void create() {
-		setScreen(new SplashScreen(this, "data/libgdx.png"));
+		setScreen(new SplashScreen(this, "data/Logo.png"));
 	}
 	
 	public void nextLevel(){

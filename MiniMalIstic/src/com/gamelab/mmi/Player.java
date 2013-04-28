@@ -37,10 +37,13 @@ public class Player {
 	private PlayerTexture[] playerTextures;
 	private int currentPlayerTexture;
 	private Map map;
+	
+	private ToolSoundController toolSounds;
 
 	public void setTool(int tool) {
 		this.tool = tool;
 		currentPlayerTexture = 2 * tool + 1;
+		toolSounds.changeTool(tool);
 	}
 	
 	public void move(Vector2 wc) {
@@ -54,6 +57,10 @@ public class Player {
 		tools[tool].fixColor((int) target.x, (int) target.y);
 	}
 
+	public Vector2 getPos() {
+		return pos;
+	}
+	
 	public void update(float delta) {
 		Vector2 oldPos = pos;	
 		
@@ -61,9 +68,9 @@ public class Player {
 			pos.add(this.lockAt.cpy().mul(delta * speed));
 			this.length = this.length - delta * speed;
 			
-			Vector2 headPos = new Vector2(46, 16);
+			Vector2 headPos = new Vector2(2 * 46, 2 * 16);
 			
-			Vector2 deltaBrush = new Vector2(42, 47).sub(headPos);
+			Vector2 deltaBrush = new Vector2(2 * 42, 2 * 47).sub(headPos);
 			
 			deltaBrush.rotate((float) this.rotation + 180);
 					
@@ -75,10 +82,15 @@ public class Player {
 		}
 		
 		if (this.length > 0) {
-			currentPlayerTexture = 2 * tool;			
+			currentPlayerTexture = 2 * tool;
+			if (!toolSounds.isPlaying()) {
+				toolSounds.startSound();
+			}
 		} else {
 			currentPlayerTexture = 2 * tool + 1;
 			playerTextures[currentPlayerTexture].resetAnimationTime();
+			
+			toolSounds.stopSound();
 		}
 		
 		playerTextures[currentPlayerTexture].update(delta);
@@ -106,13 +118,13 @@ public class Player {
 		currentPlayerTexture = 0;
 
 		playerTextures = new PlayerTexture[numberOfAnimations];
-		createTextureForTool(TOOL_PIXEL, "data/Listic-PL-c-w.png");
-		createTextureForTool(TOOL_HUETRALIZER, "data/Listic-HT-c-w.png");
-		createTextureForTool(TOOL_COLOR_SUCKER, "data/Listic-CS-c-w.png");
-		createTextureForTool(TOOL_PIXEL_SWAPPER, "data/Listic-PS-c-w.png");
-		createTextureForTool(TOOL_NEGATRON, "data/Listic-NT-c-w.png");
-		createTextureForTool(TOOL_WETWIPER, "data/Listic-WW-c-w.png");
-		createTextureForTool(TOOL_WALK, "data/Listic-SansPencil-c-w.png");
+		createTextureForTool(TOOL_PIXEL, "data/Listic-PL-c-w-big.png");
+		createTextureForTool(TOOL_HUETRALIZER, "data/Listic-HT-c-w-big.png");
+		createTextureForTool(TOOL_COLOR_SUCKER, "data/Listic-CS-c-w-big.png");
+		createTextureForTool(TOOL_PIXEL_SWAPPER, "data/Listic-PS-c-w-big.png");
+		createTextureForTool(TOOL_NEGATRON, "data/Listic-NT-c-w-big.png");
+		createTextureForTool(TOOL_WETWIPER, "data/Listic-WW-c-w-big.png");
+		createTextureForTool(TOOL_WALK, "data/Listic-SansPencil-c-w-big.png");
 		
 		this.hitbox = new Circle(origin,
 				this.playerTextures[currentPlayerTexture].getFrameHeight()/2);
@@ -125,7 +137,9 @@ public class Player {
 		tools[TOOL_NEGATRON] = new NegatronTool(map);
 		tools[TOOL_WETWIPER] = new WetWiperTool(map);
 		tools[TOOL_WALK] = new WalkTool(map);
-	
+		
+		toolSounds = new ToolSoundController(tool);
+		
 		speed = 100.0f;
 		toolSize = 20.0f;
 		length = 0.0f;
@@ -134,7 +148,7 @@ public class Player {
 
 	public void render() {		
 		playerTextures[currentPlayerTexture].render((float) rotation, pos.x,
-				pos.y, 1.0f, 46, 16);
+				pos.y, 1.0f, 2 * 46, 2 * 16);
 		
 	}
 

@@ -275,7 +275,7 @@ public class GameScreen implements Screen {
 		} else if (map.getRelativeTouched() > 0.03f && enemies.size() < 2) {
 			addEnemy(Enemy.Hipster2Enemy);
 		} else if (map.getRelativeTouched() > 0.04f && enemies.size() < 3) {
-			addEnemy(Enemy.SpiesserEnemy);
+			addEnemy(Enemy.SpiesserClnEnemy);
 		}
 
 		if (map.getRelativeTouched() <= 0.03f && enemies.size() >= 3) {

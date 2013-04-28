@@ -42,8 +42,9 @@ public class Mmi extends Game {
 		}
 	}
 	public void continueGame() {
+		currentScreen=prefs.getInt("level", -1);
 		this.gameScreen=new GameScreen(this, level[currentScreen++%level.length]);
-		gameScreen.setLevel(prefs.getInt("level", 0));
+		gameScreen.setLevel(currentScreen);
 		setScreen(gameScreen);
 	}
 	

@@ -158,9 +158,7 @@ public class GameScreen implements Screen {
 		door.activate(new Vector2(Math.abs(rand.nextInt())
 				% (w - Door.SIZE * 2) + Door.SIZE, Math.abs(rand.nextInt())
 				% (h - Door.SIZE * 2) + Door.SIZE));
-		
-
-
+		door.deactivate();
 		texture = new Texture(Gdx.files.internal(file));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
@@ -202,8 +200,9 @@ public class GameScreen implements Screen {
 		for (Button b : buttons) {
 			b.render();
 		}
-		
-		percentagePanel.render(Integer.toString((int) (100 * map.getRelativeTouched())) + "%");
+
+		percentagePanel.render(Integer.toString((int) (100 * map
+				.getRelativeTouched())) + "%");
 	}
 
 	private void addEnemy(int enemy) {
@@ -231,19 +230,19 @@ public class GameScreen implements Screen {
 	}
 
 	private void updateEnemies(float delta) {
-		if (map.getRelativeTouched() > 0.01f && enemies.size() < 1) {
+		if (map.getRelativeTouched() > 0.2f && enemies.size() < 1) {
 			addEnemy(Enemy.Hipster1Enemy);
-		} else if (map.getRelativeTouched() > 0.03f && enemies.size() < 2) {
+		} else if (map.getRelativeTouched() > 0.3f && enemies.size() < 2) {
 			addEnemy(Enemy.Hipster2Enemy);
-		} else if (map.getRelativeTouched() > 0.04f && enemies.size() < 3) {
+		} else if (map.getRelativeTouched() > 0.4f && enemies.size() < 3) {
 			addEnemy(Enemy.SpiesserEnemy);
 		}
 
-		if (map.getRelativeTouched() <= 0.003f && enemies.size() >= 3) {
+		if (map.getRelativeTouched() <= 0.3f && enemies.size() >= 3) {
 			disposeEnemy();
-		} else if (map.getRelativeTouched() <= 0.002f && enemies.size() >= 2) {
+		} else if (map.getRelativeTouched() <= 0.2f && enemies.size() >= 2) {
 			disposeEnemy();
-		} else if (map.getRelativeTouched() <= 0.001f && enemies.size() >= 1) {
+		} else if (map.getRelativeTouched() <= 0.1f && enemies.size() >= 1) {
 			disposeEnemy();
 		}
 
@@ -256,16 +255,21 @@ public class GameScreen implements Screen {
 		updateEnemies(delta);
 		player.update(delta);
 
-		if(!door.isActive()&&map.getRelativeTouched()>=0.39){
-			door.activate(new Vector2(Math.abs(rand.nextInt())%(Gdx.graphics.getWidth()-Door.SIZE*2)+Door.SIZE,Math.abs(rand.nextInt())%(Gdx.graphics.getHeight()-Door.SIZE*2)+Door.SIZE));
-			
+		if (!door.isActive() && map.getRelativeTouched() >= 0.39) {
+			door.activate(new Vector2(Math.abs(rand.nextInt())
+					% (Gdx.graphics.getWidth() - Door.SIZE * 2) + Door.SIZE,
+					Math.abs(rand.nextInt())
+							% (Gdx.graphics.getHeight() - Door.SIZE * 2)
+							+ Door.SIZE));
+
 		}
-		if(map.getRelativeTouched()<0.3){
+		if (map.getRelativeTouched() < 0.3) {
 			door.deactivate();
 		}
-		
-		if(door.isActive()&&Intersector.overlapCircleRectangle(player.getHitbox(),door.getHitbox())){
 
+		if (door.isActive()
+				&& Intersector.overlapCircleRectangle(player.getHitbox(),
+						door.getHitbox())) {
 			game.nextLevel();
 		}
 	}

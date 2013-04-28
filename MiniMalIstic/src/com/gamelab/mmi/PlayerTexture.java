@@ -48,10 +48,10 @@ public class PlayerTexture {
 		this.animationTime = 0;
 	}
 	
-	public void render(float rotation, float x, float y, float scale) {
+	public void render(float rotation, float x, float y, float scale, float headX, float headY) {
 		currentFrame = animation.getKeyFrame(animationTime, true);
 		sb.begin();
-		sb.draw(currentFrame, x - 46, y - 16, 46, 16, frameWidth, frameHeight, scale, scale, rotation + 90, true);
+		sb.draw(currentFrame, x - headX, y - headY, headX, headY, frameWidth, frameHeight, scale, scale, rotation + 90, true);
 		sb.end();
 	}
 

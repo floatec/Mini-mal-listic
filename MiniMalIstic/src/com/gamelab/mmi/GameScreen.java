@@ -153,17 +153,9 @@ public class GameScreen implements Screen {
 		map = new Map(file);
 		camera = new OrthographicCamera(1, h / w);
 		batch = new SpriteBatch();
-//<<<<<<< HEAD
 		door=new Door();
 		door.activate(new Vector2(Math.abs(rand.nextInt())%(w-Door.SIZE*2)+Door.SIZE,Math.abs(rand.nextInt())%(h-Door.SIZE*2)+Door.SIZE));
 		door.deactivate();
-/*=======
-		door = new Door();
-		door.activate(new Vector2(Math.abs(rand.nextInt())
-				% (w - Door.SIZE * 2) + Door.SIZE, Math.abs(rand.nextInt())
-				% (h - Door.SIZE * 2) + Door.SIZE));
-
->>>>>>> 4bcf3affbf68b1c2d749a1570cdcaa52650fea02*/
 		texture = new Texture(Gdx.files.internal(file));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
@@ -226,7 +218,7 @@ public class GameScreen implements Screen {
 			}
 		}
 		enemies.add(new Enemy(new Vector2(randWidth * Gdx.graphics.getWidth(),
-				randHeight * Gdx.graphics.getHeight()), enemy, map));
+				randHeight * Gdx.graphics.getHeight()), enemy, map, player));
 	}
 
 	private void disposeEnemy() {
@@ -234,19 +226,19 @@ public class GameScreen implements Screen {
 	}
 
 	private void updateEnemies(float delta) {
-		if (map.getRelativeTouched() > 0.2f && enemies.size() < 1) {
+		if (map.getRelativeTouched() > 0.02f && enemies.size() < 1) {
 			addEnemy(Enemy.Hipster1Enemy);
-		} else if (map.getRelativeTouched() > 0.3f && enemies.size() < 2) {
+		} else if (map.getRelativeTouched() > 0.03f && enemies.size() < 2) {
 			addEnemy(Enemy.Hipster2Enemy);
-		} else if (map.getRelativeTouched() > 0.4f && enemies.size() < 3) {
+		} else if (map.getRelativeTouched() > 0.04f && enemies.size() < 3) {
 			addEnemy(Enemy.SpiesserEnemy);
 		}
 
-		if (map.getRelativeTouched() <= 0.3f && enemies.size() >= 3) {
+		if (map.getRelativeTouched() <= 0.03f && enemies.size() >= 3) {
 			disposeEnemy();
-		} else if (map.getRelativeTouched() <= 0.2f && enemies.size() >= 2) {
+		} else if (map.getRelativeTouched() <= 0.02f && enemies.size() >= 2) {
 			disposeEnemy();
-		} else if (map.getRelativeTouched() <= 0.1f && enemies.size() >= 1) {
+		} else if (map.getRelativeTouched() <= 0.01f && enemies.size() >= 1) {
 			disposeEnemy();
 		}
 
@@ -258,7 +250,6 @@ public class GameScreen implements Screen {
 	public void update(float delta) {
 		updateEnemies(delta);
 		player.update(delta);
-//<<<<<<< HEAD
 		if(!door.isActive()&&map.getRelativeTouched()>=0.39){
 			door.activate(new Vector2(Math.abs(rand.nextInt())%(Gdx.graphics.getWidth()-Door.SIZE*2)+Door.SIZE,Math.abs(rand.nextInt())%(Gdx.graphics.getHeight()-Door.SIZE*2)+Door.SIZE));
 			
@@ -268,11 +259,6 @@ public class GameScreen implements Screen {
 		}
 		
 		if(door.isActive()&&Intersector.overlapCircleRectangle(player.getHitbox(),door.getHitbox())){
-/*=======
-		if (door.isActive()
-				&& Intersector.overlapCircleRectangle(player.getHitbox(),
-						door.getHitbox())) {
->>>>>>> 4bcf3affbf68b1c2d749a1570cdcaa52650fea02*/
 			game.nextLevel();
 		}
 	}

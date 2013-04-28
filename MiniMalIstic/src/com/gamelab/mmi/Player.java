@@ -134,7 +134,7 @@ public class Player {
 
 	public void render() {		
 		playerTextures[currentPlayerTexture].render((float) rotation, pos.x,
-				pos.y, 1.0f);
+				pos.y, 1.0f, 46, 16);
 		
 	}
 

@@ -27,7 +27,7 @@ public class MenuScreen implements Screen {
 	private Button[] buttons = new Button[2];
 
 	private void startgame() {
-		game.nextLevel();
+		game.startGame();
 	}
 
 	public MenuScreen(Mmi game) {

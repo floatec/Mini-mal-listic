@@ -155,17 +155,12 @@ public class GameScreen implements Screen {
 		map = new Map(file);
 		camera = new OrthographicCamera(1, h / w);
 		batch = new SpriteBatch();
-//<<<<<<< HEAD
-		door=new Door();
-		door.activate(new Vector2(Math.abs(rand.nextInt())%(w-Door.SIZE*2)+Door.SIZE,Math.abs(rand.nextInt())%(h-Door.SIZE*2)+Door.SIZE));
-		door.deactivate();
-/*=======
+
 		door = new Door();
 		door.activate(new Vector2(Math.abs(rand.nextInt())
 				% (w - Door.SIZE * 2) + Door.SIZE, Math.abs(rand.nextInt())
 				% (h - Door.SIZE * 2) + Door.SIZE));
-
->>>>>>> 4bcf3affbf68b1c2d749a1570cdcaa52650fea02*/
+		door.deactivate();
 		texture = new Texture(Gdx.files.internal(file));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
@@ -277,16 +272,13 @@ public class GameScreen implements Screen {
 			door.activate(new Vector2(Math.abs(rand.nextInt())%(Gdx.graphics.getWidth()-Door.SIZE*2)+Door.SIZE,Math.abs(rand.nextInt())%(Gdx.graphics.getHeight()-Door.SIZE*2)+Door.SIZE));
 			
 		}
-		if(map.getRelativeTouched()<0.3){
+		if (map.getRelativeTouched() < 0.3) {
 			door.deactivate();
 		}
-		
-		if(door.isActive()&&Intersector.overlapCircleRectangle(player.getHitbox(),door.getHitbox())){
-/*=======
+
 		if (door.isActive()
 				&& Intersector.overlapCircleRectangle(player.getHitbox(),
 						door.getHitbox())) {
->>>>>>> 4bcf3affbf68b1c2d749a1570cdcaa52650fea02*/
 			game.nextLevel();
 		}
 	}

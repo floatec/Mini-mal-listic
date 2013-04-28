@@ -9,45 +9,29 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class PercentagePanel{
 
-	private Texture texture;
-	private TextureRegion[] tr;
+	private Texture textureCircle;
+	private Texture textureSettings;
 	private SpriteBatch sb = new SpriteBatch();
-	private int offset;
 	
 	private BitmapFont font;
-	
-	private float percentage;
-	
-	//int charWidth, int charHeight, String texFile
-	
+		
 	public PercentagePanel() {
 		font = new BitmapFont(Gdx.files.internal("data/fonts/percentage.fnt"), false);
-//		this.texture = new Texture(texFile);
-//		this.offset = 0;
-//
-//		int rows = this.texture.getHeight() / charHeight;
-//		int cols = this.texture.getWidth() / charWidth;
-//		
-//		TextureRegion[][] tmp = TextureRegion.split(texture, charWidth, charHeight);
-//		this.tr = new TextureRegion[rows * cols];
-//		
-//		int index = 0;
-//		for (int i = 0; i < rows; i++) {
-//			for (int j = 0; j < cols; j++) {
-//				tr[index++] = tmp[i][j];
-//			}
-//		}
-		
+		textureSettings = new Texture(Gdx.files.internal("data/Circle-Settings.png"));
+		textureCircle = new Texture(Gdx.files.internal("data/Circle-Percentage.png"));		
 	}
 	
-	public void render(String text, int x, int y) {
+	public void render(String text) {
+		
+		int x = Gdx.graphics.getWidth() - 200;
+		int y = Gdx.graphics.getHeight() - 16;
+		
 		sb.begin();
+		sb.draw(textureCircle, x - 16, Gdx.graphics.getHeight() - 59);
+		sb.draw(textureSettings, x + 100, Gdx.graphics.getHeight() - 43);
+		
 		font.draw(sb, text, x, y);
 		sb.end();
-//		sb.begin();
-//		for (int i = 0; i < chars.length; i++) {
-//			sb.draw(tr[chars[i]], 0, 0);
-//		}
-//		sb.end();
+
 	}	
 }

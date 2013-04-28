@@ -11,6 +11,8 @@ public class PercentagePanel{
 
 	private Texture textureCircle;
 	private Texture textureSettings;
+	private int x;
+	private int y;
 	private SpriteBatch sb = new SpriteBatch();
 	
 	private BitmapFont font;
@@ -23,8 +25,8 @@ public class PercentagePanel{
 	
 	public void render(String text) {
 		
-		int x = Gdx.graphics.getWidth() - 200;
-		int y = Gdx.graphics.getHeight() - 16;
+		 x = Gdx.graphics.getWidth() - 200;
+		 y = Gdx.graphics.getHeight() - 16;
 		
 		sb.begin();
 		sb.draw(textureCircle, x - 16, Gdx.graphics.getHeight() - 59);
@@ -34,4 +36,10 @@ public class PercentagePanel{
 		sb.end();
 
 	}	
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}
 }

@@ -31,6 +31,7 @@ public class GameScreen implements Screen {
 	private Random rand = new Random();
 	private Map map;
 	private Button[] buttons = new Button[Player.numberOfTools];
+	private Button settings;
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private PercentagePanel percentagePanel;
 	
@@ -142,7 +143,17 @@ public class GameScreen implements Screen {
 
 					}
 				}, Button.STATE_INACTIVE, 8);
-
+		settings =new Button(Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 43, 36,36, "data/Circle-Settings.png", new ClickEvent() {
+			
+			@Override
+			public void onClick(int x, int y) {
+				showMenu();
+			}
+		}, 0,0);
+	}
+	
+	private void showMenu() {
+		game.setScreen(new MenuScreen(game));
 	}
 
 	public GameScreen(Mmi game, String file) {
@@ -177,7 +188,7 @@ public class GameScreen implements Screen {
 		for (Button b : buttons) {
 			gameScreenInputHandler.addEvent(b.getOnClick());
 		}
-
+		gameScreenInputHandler.addEvent(settings.getOnClick());
 		Gdx.input.setInputProcessor(gameScreenInputHandler);
 		
 		musicController = new MusicController();
@@ -187,6 +198,7 @@ public class GameScreen implements Screen {
 		musicController.startGreen(map.getRelGreen());
 		musicController.startBlue(map.getRelBlue());
 		percentagePanel = new PercentagePanel();
+		
 	}
 
 	@Override

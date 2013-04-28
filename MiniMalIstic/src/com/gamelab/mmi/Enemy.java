@@ -3,14 +3,16 @@ package com.gamelab.mmi;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.sun.xml.internal.bind.v2.runtime.reflect.Accessor.SetterOnlyReflection;
 
 public class Enemy {
 	
-	private static final int numberOfEnemies = 3;
+	private static final int numberOfEnemies = 4;
 	private static final int numberOfEnemyTextures = 2*numberOfEnemies;
 	public static final int Hipster1Enemy = 0;
 	public static final int Hipster2Enemy = 1;
-	public static final int SpiesserEnemy = 2;
+	public static final int SpiesserClnEnemy = 2;
+	public static final int SpiesserFlwEnemy = 3;
 	
 	public static final int aiDefault = 0;
 	public static final int aiMove = 1;
@@ -96,29 +98,44 @@ public class Enemy {
 		playerTextures = new PlayerTexture[numberOfEnemyTextures];
 		createTextureForTool(Hipster1Enemy, "data/Hipster-groß-w.png");
 		createTextureForTool(Hipster2Enemy, "data/Kunststudentin-groß-w.png");
-		createTextureForTool(SpiesserEnemy, "data/Spiesser-groß-w.png");
+		createTextureForTool(SpiesserFlwEnemy, "data/Spiesser-groß-w.png");
+		createTextureForTool(SpiesserClnEnemy, "data/Spiesser-groß-w.png");
 		
 		this.hitbox = new Circle(origin,
 				this.playerTextures[currentPlayerTexture].getFrameHeight()/2);
 		
 		tools = new Tool[numberOfEnemies];
 		tools[Hipster1Enemy] = new EnemyEraseTool(map);
-		tools[Hipster2Enemy] = new EnemyEraseTool(map);
-		tools[SpiesserEnemy] = new EnemyEraseTool(map);
+		tools[Hipster2Enemy] = new WalkTool(map);
+		tools[SpiesserFlwEnemy] = new WalkTool(map);
+		tools[SpiesserClnEnemy] = new EnemyEraseTool(map);
 	
-		speed = 100.0f;
+		speed = 70.0f;
 		toolSize = 40.0f;
 		length = 0.0f;
 		rotation = 0.0f;
 	}
 	
 	private void ai() {
-		if(tool==Hipster1Enemy) {
+		switch (tool) {
+		case Hipster1Enemy:
 			hipster1Ai();
-		} else if(tool==Hipster2Enemy) {
+			break;
+
+		case Hipster2Enemy:
 			hipster2Ai();
-		} else if(tool==SpiesserEnemy) {
-			spiesserAi();
+			break;
+
+		case SpiesserFlwEnemy:
+			spiesserFlwAi();
+			break;
+
+		case SpiesserClnEnemy:
+			spiesserClnAi();
+			break;
+
+		default:
+			break;
 		}
 	}
 	
@@ -200,13 +217,49 @@ public class Enemy {
 	}
 	
 	private void hipster2Ai() {
-		
+		switch (aiPhase) {
+		case aiDefault:
+			move(player.getPos());
+			aiPhase = aiMove;
+			break;
+		case aiMove:
+			if(length>200.0f||length==0.0f) {
+				aiPhase = aiDefault;
+			}
+			break;
+		default:
+			aiPhase = aiDefault;
+			break;
+		}
 	}
 	
-	private void spiesserAi() {
-		
+	private void spiesserFlwAi() {
+		Vector2 diff = player.getPos().cpy().sub(pos);
+		if(diff.x*diff.x+diff.y*diff.y>300.0f*300.0f) {
+			setTool(SpiesserClnEnemy);
+			aiPhase = aiDefault;
+			hipster1Ai();
+			return;
+		}
+		hipster2Ai();
 	}
 	
+	private void spiesserClnAi() {
+		Vector2 diff = player.getPos().cpy().sub(pos);
+		if(diff.x*diff.x+diff.y*diff.y<300.0f*300.0f) {
+			setTool(SpiesserFlwEnemy);
+			aiPhase = aiDefault;
+			hipster2Ai();
+			return;
+		}
+		hipster1Ai();
+	}
+
+	public void setTool(int tool) {
+		this.tool = tool;
+		currentPlayerTexture = 2 * tool + 1;
+	}
+
 	private void createTextureForTool(int _tool, String texture) {
 		playerTextures[2 * _tool] = new PlayerTexture(
 				texture, 1, 2, 0.2f);

@@ -54,6 +54,10 @@ public class Player {
 		tools[tool].fixColor((int) target.x, (int) target.y);
 	}
 
+	public Vector2 getPos() {
+		return pos;
+	}
+	
 	public void update(float delta) {
 		Vector2 oldPos = pos;	
 		

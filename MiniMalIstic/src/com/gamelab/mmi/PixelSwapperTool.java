@@ -33,6 +33,12 @@ public class PixelSwapperTool extends Tool {
 				if (x * x + y * y <= r * r) {
 					int pX = (int) (curPos.x + x);
 					int pY = (int) (curPos.y + y);
+					
+					if (map.getRecentlyTouched(pX, pY)) {
+						continue;
+					}
+					map.touchPixel(pX, pY);
+					
 					int value = pixmapHelper.pixmap.getPixel(pX, Gdx.graphics.getHeight() - pY);
 					
 					int dx = (int) ((Math.random() - 0.5f) * 2 * PixelRadius);

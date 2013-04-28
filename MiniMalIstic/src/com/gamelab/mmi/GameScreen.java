@@ -110,7 +110,7 @@ buttons[3]=new Button(365, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
 		
-		player = new Player(new Vector2(w / 2, h / 2), 3, map);
+		player = new Player(new Vector2(w / 2, h / 2), 2, map);
 		
 		gameScreenInputHandler = new GameScreenInputHandler(this, player);
 		for (Button b : buttons) {

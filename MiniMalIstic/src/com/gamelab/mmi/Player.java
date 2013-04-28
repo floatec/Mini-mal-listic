@@ -53,10 +53,19 @@ public class Player {
 			pos.add(this.lockAt.cpy().mul(delta * speed));
 			this.length = this.length - delta * speed;
 			
-			tools[tool].draw(pos, oldPos, toolSize, delta * speed);
+			
+			
+			Vector2 headPos = new Vector2(46, 16);
+			
+			Vector2 deltaBrush = new Vector2(42, 47).sub(headPos);
+			
+			deltaBrush.rotate((float) this.rotation + 180);
+					
+			tools[tool].draw(pos.cpy().add(deltaBrush), oldPos, toolSize, delta * speed);
 		} else {
 			pos.add(this.lockAt.cpy().mul(this.length));
 			this.length = 0;
+			map.resetPixelsRecentlyTouched();
 		}
 		playerTextures[currentPlayerTexture].update(delta);
 		this.hitbox.set(origin.x, origin.y,

@@ -21,7 +21,7 @@ public class PixelTool extends Tool {
 		
 		if (curDistanceUntilDraw > 0) return;
 		
-		curDistanceUntilDraw = 1.8f*radius;
+		curDistanceUntilDraw = 0.8f*radius;
 		
 		int PixelRadius = (int)(radius/2.0f);
 		
@@ -31,7 +31,9 @@ public class PixelTool extends Tool {
 				if (x * x + y * y <= r * r) {
 					int pX = (int) (curPos.x + x);
 					int pY = (int) (curPos.y + y);
-					drawAbstractPixel(pX, pY, PixelRadius);
+					if (!map.getRecentlyTouched(pX, pY)) {
+						drawAbstractPixel(pX, pY, PixelRadius);
+					}
 				}							
 			}			
 		}
@@ -44,6 +46,11 @@ public class PixelTool extends Tool {
 		
 		pixmapHelper.pixmap.setColor(c);
 		pixmapHelper.pixmap.fillRectangle(_x, Gdx.graphics.getHeight() - _y, 2 * pixelRadius, 2 * pixelRadius);
+		for (int x = _x; x < _x + 2 * pixelRadius; x++) {
+			for (int y = _y; y < _y + 2 * pixelRadius; y++) {
+				map.touchPixel(x, y);
+			}			
+		}
 	}
 	
 	private Color getAverageArroundPixel(int _x, int _y, int pixelRadius) {

@@ -26,7 +26,7 @@ public class SplashScreen implements Screen {
 	private Texture texture;
 	private Sprite sprite;
 	private Button[] buttons=new Button[1];
-		
+		 
 	
 	public SplashScreen( Mmi game,String file) {	
 		this.game=game;

@@ -20,7 +20,7 @@ public class NegatronTool extends Tool {
 		
 		if (curDistanceUntilDraw > 0) return;
 		
-		curDistanceUntilDraw = 1.5f*radius;
+		curDistanceUntilDraw = 0.4f*radius;
 		
 		int r = (int) radius;
 		for (int x = -r; x <= r; x++) {
@@ -28,6 +28,11 @@ public class NegatronTool extends Tool {
 				if (x * x + y * y <= r * r) {
 					int pX = (int) (curPos.x + x);
 					int pY = (int) (curPos.y + y);
+					if (map.getRecentlyTouched(pX, pY)) {
+						continue;
+					}
+					map.touchPixel(pX, pY);
+					
 					int value = pixmapHelper.pixmap.getPixel(pX, Gdx.graphics.getHeight() - pY);
 					Color valColor = new Color();
 					Color.rgba8888ToColor(valColor, value);

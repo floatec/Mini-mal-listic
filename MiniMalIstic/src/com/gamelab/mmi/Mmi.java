@@ -9,7 +9,7 @@ public class Mmi extends Game {
 	@Override
 	public void create() {
 		gameScreen=new GameScreen[SCREEN_COUNT];
-		gameScreen[0] = new GameScreen("data/Mona_Lisa-1024.png");
+		gameScreen[0] = new GameScreen("data/Mona_Lisa-512.png");
 //		gameScreen[0] = new GameScreen("data/level1.png");
 //		gameScreen[1] = new GameScreen("data/level2.png");
 		setScreen(gameScreen[0]);

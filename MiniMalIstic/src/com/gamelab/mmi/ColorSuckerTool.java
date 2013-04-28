@@ -21,7 +21,7 @@ public class ColorSuckerTool extends Tool {
 		
 		if (curDistanceUntilDraw > 0) return;
 		
-		curDistanceUntilDraw = 0.8f*radius;
+		curDistanceUntilDraw = 0.4f*radius;
 		
 		int r = (int) radius;
 		for (int x = -r; x <= r; x++) {

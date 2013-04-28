@@ -29,15 +29,21 @@ public class Map {
 	}
 	
 	public void resetPixelsEverTouched () {
-		Arrays.fill(pixelsEverTouched, false);
+		for(int i = 0; i < pixelsEverTouched.length; i++) {
+		    Arrays.fill(pixelsEverTouched[i], false);
+		}
+		//Arrays.fill(pixelsEverTouched, false);
 	}
 	
 	public void resetPixelsRecentlyTouched () {
-		Arrays.fill(pixelsRecentlyTouched, false);
+		for(int i = 0; i < pixelsRecentlyTouched.length; i++) {
+		    Arrays.fill(pixelsRecentlyTouched[i], false);
+		}
+		//Arrays.fill(pixelsRecentlyTouched, false);
 	}
 	
 	public boolean touchPixel(int x, int y) {
-		if (x > pixelsEverTouched.length || x > pixelsEverTouched[0].length) 
+		if (x >= pixelsEverTouched.length || y >= pixelsEverTouched[0].length || y < 0 || x < 0) 
 			return false;
 		
 		if (!pixelsEverTouched[x][y]) {
@@ -51,7 +57,7 @@ public class Map {
 	}
 	
 	public boolean getRecentlyTouched(int x, int y) {
-		if (x > pixelsEverTouched.length || x > pixelsEverTouched[0].length) 
+		if (x > pixelsEverTouched.length || y > pixelsEverTouched[0].length || y < 0 || x < 0) 
 			return false;
 		
 		return pixelsRecentlyTouched[x][y];

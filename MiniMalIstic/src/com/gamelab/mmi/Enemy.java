@@ -96,11 +96,12 @@ public class Enemy {
 		aiPhase = aiDefault;
 
 		playerTextures = new PlayerTexture[numberOfEnemyTextures];
-		createTextureForTool(Hipster1Enemy, "data/Hipster-groﬂ-w.png");
-		createTextureForTool(Hipster2Enemy, "data/Kunststudentin-groﬂ-w.png");
-		createTextureForTool(SpiesserFlwEnemy, "data/Spiesser-groﬂ-w.png");
-		createTextureForTool(SpiesserClnEnemy, "data/Spiesser-groﬂ-w.png");
-		
+
+		createTextureForTool(Hipster1Enemy, "data/Hipster-groß-w.png");
+		createTextureForTool(Hipster2Enemy, "data/Kunststudentin-groß-w.png");
+		createTextureForTool(SpiesserFlwEnemy, "data/Spiesser-groß-w.png");
+		createTextureForTool(SpiesserClnEnemy, "data/Spiesser-groß-w.png");
+	
 		this.hitbox = new Circle(origin,
 				this.playerTextures[currentPlayerTexture].getFrameHeight()/2);
 		

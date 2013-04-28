@@ -21,7 +21,7 @@ public class Door {
 	private boolean active=false;
 	public static final int SIZE=64;
 	
-	public Door() {
+	public Door(Mmi game) {
 		this.texture= new Texture(Gdx.files.internal("data/door.png"));
 		hitbox = new Rectangle(pos.x,pos.y,SIZE,SIZE);
 	}

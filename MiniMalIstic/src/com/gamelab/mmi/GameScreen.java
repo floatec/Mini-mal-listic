@@ -189,7 +189,7 @@ public class GameScreen implements Screen {
 			b.render();
 		}
 		
-		percentagePanel.render(Integer.toString((int) (100 * map.getRelativeTouched())) + "%", Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 16);
+		percentagePanel.render(Integer.toString((int) (100 * map.getRelativeTouched())) + "%");
 	}
 	
 	public void update(float delta){

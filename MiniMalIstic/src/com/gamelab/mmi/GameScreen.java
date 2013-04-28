@@ -1,6 +1,7 @@
 package com.gamelab.mmi;
 
 import java.awt.List;
+import java.sql.BatchUpdateException;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -17,7 +18,8 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen implements Screen {
-
+	
+	private Mmi game;
 	private GameScreenInputHandler gameScreenInputHandler;
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
@@ -27,17 +29,76 @@ public class GameScreen implements Screen {
 	private Door door;
 	private Random rand = new Random();
 	private Map map;
+	private Button[] buttons=new Button[4];
 		
 	
-	public GameScreen( String file) {		
+	public GameScreen( Mmi game,String file) {	
+		this.game=game;
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
+		buttons[0]=new Button(5, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
+			
+			@Override
+			public void onClick(int x, int y) {
+					for (Button b : buttons) {
+						if(b.getState()==Button.STATE_ACTIVE){
+							b.setState(Button.STATE_INACTIVE);
+						}
+					}
+					buttons[0].setState(Button.STATE_ACTIVE);
+					player.setTool(Player.TOOL_PIXEL);
+				
+			}
+		},Button.STATE_ACTIVE,0);
+		buttons[1]=new Button(125, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
+			
+			@Override
+			public void onClick(int x, int y) {
+				for (Button b : buttons) {
+					if(b.getState()==Button.STATE_ACTIVE){
+						b.setState(Button.STATE_INACTIVE);
+					}
+				}
+				buttons[1].setState(Button.STATE_ACTIVE);
+				player.setTool(Player.TOOL_COLOR_SUCKER);
+				
+			}
+		},Button.STATE_INACTIVE,1);
+buttons[2]=new Button(245, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
+			
+			@Override
+			public void onClick(int x, int y) {
+				for (Button b : buttons) {
+					if(b.getState()==Button.STATE_ACTIVE){
+						b.setState(Button.STATE_INACTIVE);
+					}
+				}
+				buttons[2].setState(Button.STATE_ACTIVE);
+				player.setTool(Player.TOOL_NEGATRON);
+				
+			}
+		},Button.STATE_INACTIVE,2);
+buttons[3]=new Button(365, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
+	
+	@Override
+	public void onClick(int x, int y) {
+		for (Button b : buttons) {
+			if(b.getState()==Button.STATE_ACTIVE){
+				b.setState(Button.STATE_INACTIVE);
+			}
+		}
+		buttons[3].setState(Button.STATE_ACTIVE);
+		player.setTool(Player.TOOL_PIXEL_SWAPPER);
+		
+	}
+},Button.STATE_INACTIVE,3);
+
 		map = new Map(file);
 		camera = new OrthographicCamera(1, h/w);
 		batch = new SpriteBatch();
 		door=new Door();
-		door.activate(new Vector2(Math.abs(rand.nextInt())%(w-Door.SIZE),Math.abs(rand.nextInt())%(w-Door.SIZE)));
+		door.activate(new Vector2(Math.abs(rand.nextInt())%(w-Door.SIZE*2)+Door.SIZE,Math.abs(rand.nextInt())%(h-Door.SIZE*2)+Door.SIZE));
 		
 		texture = new Texture(Gdx.files.internal(file));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -52,6 +113,10 @@ public class GameScreen implements Screen {
 		player = new Player(new Vector2(w / 2, h / 2), 2, map);
 		
 		gameScreenInputHandler = new GameScreenInputHandler(this, player);
+		for (Button b : buttons) {
+			gameScreenInputHandler.addEvent(b.getOnClick());
+		}
+		
 		Gdx.input.setInputProcessor(gameScreenInputHandler);
 	}
 	
@@ -71,12 +136,15 @@ public class GameScreen implements Screen {
 		
 		player.render();
 		door.render();
+		for (Button b : buttons) {
+			b.render();
+		}
 	}
 	
 	public void update(float delta){
 		player.update(delta);
 		if(door.isActive()&&Intersector.overlapCircleRectangle(player.getHitbox(),door.getHitbox())){
-		System.out.println("win win win");
+			game.nextLevel();
 		}
 	}
 

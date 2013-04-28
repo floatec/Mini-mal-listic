@@ -15,7 +15,11 @@ public class Player {
 
 	static final int numberOfAnimations = 1;
 	static final int numberOfTools = 4;
-
+	public static final int TOOL_PIXEL=0x0;
+	public static final int TOOL_COLOR_SUCKER=0x1;
+	public static final int TOOL_NEGATRON=0x2;
+	public static final int TOOL_PIXEL_SWAPPER=0x3;
+	
 	private Vector2 pos;
 	private Vector2 lockAt = new Vector2(0, 1);
 
@@ -31,6 +35,10 @@ public class Player {
 	private int currentPlayerTexture;
 	private Map map;
 
+	public void setTool(int tool) {
+		this.tool = tool;
+	}
+	
 	public void move(Vector2 wc) {
 		this.lockAt = wc.cpy().sub(pos);
 		this.length = this.lockAt.len();
@@ -81,13 +89,13 @@ public class Player {
 				"data/Listic-PL-c-w.png", 1, 2, 0.2f);
 		
 		this.hitbox = new Circle(origin,
-				this.playerTextures[currentPlayerTexture].getFrameHeight());
+				this.playerTextures[currentPlayerTexture].getFrameHeight()/2);
 		
 		tools = new Tool[numberOfTools];
-		tools[0] = new PixelTool(map);
-		tools[1] = new ColorSuckerTool(map);
-		tools[2] = new NegatronTool(map);
-		tools[3] = new PixelSwapperTool(map);
+		tools[TOOL_PIXEL] = new PixelTool(map);
+		tools[TOOL_COLOR_SUCKER] = new ColorSuckerTool(map);
+		tools[TOOL_NEGATRON] = new NegatronTool(map);
+		tools[TOOL_PIXEL_SWAPPER] = new PixelSwapperTool(map);
 	
 		speed = 100.0f;
 		toolSize = 20.0f;

@@ -37,10 +37,13 @@ public class Player {
 	private PlayerTexture[] playerTextures;
 	private int currentPlayerTexture;
 	private Map map;
+	
+	private ToolSoundController toolSounds;
 
 	public void setTool(int tool) {
 		this.tool = tool;
 		currentPlayerTexture = 2 * tool + 1;
+		toolSounds.changeTool(tool);
 	}
 	
 	public void move(Vector2 wc) {
@@ -65,9 +68,9 @@ public class Player {
 			pos.add(this.lockAt.cpy().mul(delta * speed));
 			this.length = this.length - delta * speed;
 			
-			Vector2 headPos = new Vector2(46, 16);
+			Vector2 headPos = new Vector2(2 * 46, 2 * 16);
 			
-			Vector2 deltaBrush = new Vector2(42, 47).sub(headPos);
+			Vector2 deltaBrush = new Vector2(2 * 42, 2 * 47).sub(headPos);
 			
 			deltaBrush.rotate((float) this.rotation + 180);
 					
@@ -79,10 +82,15 @@ public class Player {
 		}
 		
 		if (this.length > 0) {
-			currentPlayerTexture = 2 * tool;			
+			currentPlayerTexture = 2 * tool;
+			if (!toolSounds.isPlaying()) {
+				toolSounds.startSound();
+			}
 		} else {
 			currentPlayerTexture = 2 * tool + 1;
 			playerTextures[currentPlayerTexture].resetAnimationTime();
+			
+			toolSounds.stopSound();
 		}
 		
 		playerTextures[currentPlayerTexture].update(delta);
@@ -129,7 +137,9 @@ public class Player {
 		tools[TOOL_NEGATRON] = new NegatronTool(map);
 		tools[TOOL_WETWIPER] = new WetWiperTool(map);
 		tools[TOOL_WALK] = new WalkTool(map);
-	
+		
+		toolSounds = new ToolSoundController(tool);
+		
 		speed = 100.0f;
 		toolSize = 20.0f;
 		length = 0.0f;
@@ -138,7 +148,7 @@ public class Player {
 
 	public void render() {		
 		playerTextures[currentPlayerTexture].render((float) rotation, pos.x,
-				pos.y, 1.0f, 46, 16);
+				pos.y, 1.0f, 2 * 46, 2 * 16);
 		
 	}
 

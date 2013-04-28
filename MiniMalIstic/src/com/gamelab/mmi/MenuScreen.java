@@ -24,10 +24,13 @@ public class MenuScreen implements Screen {
 	private SpriteBatch batch = new SpriteBatch();
 	private Texture texture;
 	private Sprite sprite;
-	private Button[] buttons = new Button[2];
+	private Button[] buttons = new Button[3];
 
 	private void startgame() {
 		game.startGame();
+	}
+	private void continueGame(){
+		game.continueGame();
 	}
 
 	public MenuScreen(Mmi game) {
@@ -44,7 +47,16 @@ public class MenuScreen implements Screen {
 
 					}
 				}, Button.STATE_ACTIVE, 0);
-		buttons[1] = new Button(Gdx.graphics.getWidth() / 2 - 26, Gdx.graphics.getHeight()-27-80-55, 53	, 28,
+		buttons[1] = new Button(Gdx.graphics.getWidth() / 2 - 42, Gdx.graphics.getHeight()-27-80-55, 84	, 27,
+				"data/Load.png", new ClickEvent() {
+
+					@Override
+					public void onClick(int x, int y) {
+						
+						continueGame();
+					}
+				}, Button.STATE_ACTIVE, 0);
+		buttons[2] = new Button(Gdx.graphics.getWidth() / 2 - 26, Gdx.graphics.getHeight()-27-80-2*55, 53	, 28,
 				"data/End.png", new ClickEvent() {
 
 					@Override

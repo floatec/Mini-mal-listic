@@ -1,11 +1,14 @@
 package com.gamelab.mmi;
 
+import java.util.prefs.Preferences;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 
 public class Mmi extends Game {
 	private GameScreen gameScreen;
 	public boolean gameactive=false;
+	public Preferences prefs;
 	
 	private int currentScreen=0;
 	private String level[]={"data/level1.png","data/level2.png","data/level3.png"};
@@ -14,11 +17,13 @@ public class Mmi extends Game {
 	public final static int SCREEN_COUNT=2;
 	@Override
 	public void create() {
+		prefs= Preferences.userRoot().node(this.getClass().getName());
 		setScreen(new SplashScreen(this, "data/Logo.png"));
 	}
 	
 	public void nextLevel(){
 		this.gameScreen=new GameScreen(this, level[currentScreen++%level.length]);
+		gameScreen.setLevel(currentScreen);
 		setScreen(gameScreen);
 	}
 	
@@ -35,6 +40,11 @@ public class Mmi extends Game {
 		
 		setScreen(tut1);
 		}
+	}
+	public void continueGame() {
+		this.gameScreen=new GameScreen(this, level[currentScreen++%level.length]);
+		gameScreen.setLevel(prefs.getInt("level", 0));
+		setScreen(gameScreen);
 	}
 	
 	public void showMenu(){

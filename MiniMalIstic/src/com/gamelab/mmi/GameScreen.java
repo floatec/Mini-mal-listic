@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -34,7 +35,8 @@ public class GameScreen implements Screen {
 	private Button settings;
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private PercentagePanel percentagePanel;
-	
+	private int level = 0;
+
 	private MusicController musicController;
 
 	private void createButtons() {
@@ -143,15 +145,25 @@ public class GameScreen implements Screen {
 
 					}
 				}, Button.STATE_INACTIVE, 8);
-		settings =new Button(Gdx.graphics.getWidth() - 100, Gdx.graphics.getHeight() - 43, 36,36, "data/Circle-Settings.png", new ClickEvent() {
-			
-			@Override
-			public void onClick(int x, int y) {
-				showMenu();
-			}
-		}, 0,0);
+		settings = new Button(Gdx.graphics.getWidth() - 100,
+				Gdx.graphics.getHeight() - 43, 36, 36,
+				"data/Circle-Settings.png", new ClickEvent() {
+
+					@Override
+					public void onClick(int x, int y) {
+						showMenu();
+					}
+				}, 0, 0);
 	}
-	
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
 	private void showMenu() {
 		game.setScreen(new MenuScreen(game));
 	}
@@ -167,7 +179,7 @@ public class GameScreen implements Screen {
 		camera = new OrthographicCamera(1, h / w);
 		batch = new SpriteBatch();
 
-		door = new Door();
+		door = new Door(game);
 		door.activate(new Vector2(Math.abs(rand.nextInt())
 				% (w - Door.SIZE * 2) + Door.SIZE, Math.abs(rand.nextInt())
 				% (h - Door.SIZE * 2) + Door.SIZE));
@@ -190,15 +202,14 @@ public class GameScreen implements Screen {
 		}
 		gameScreenInputHandler.addEvent(settings.getOnClick());
 		Gdx.input.setInputProcessor(gameScreenInputHandler);
-		
+
 		musicController = new MusicController();
 		map.calcRelativeColors();
-		
-		
+
 		percentagePanel = new PercentagePanel();
-		
+
 	}
-	
+
 	public void setInputProcessor() {
 		Gdx.input.setInputProcessor(gameScreenInputHandler);
 	}
@@ -222,14 +233,16 @@ public class GameScreen implements Screen {
 		for (Button b : buttons) {
 			b.render();
 		}
-		
+
 		if (musicController.needVolumeUpdate(delta)) {
 			map.calcRelativeColors();
-			musicController.setRelVolumes(map.getRelRed(), map.getRelGreen(), map.getRelBlue());	
+			musicController.setRelVolumes(map.getRelRed(), map.getRelGreen(),
+					map.getRelBlue());
 			musicController.updateVolumes(map.getRelativeTouched());
 		}
-		
-		percentagePanel.render(Integer.toString((int) (100 * map.getRelativeTouched())) + "%");
+
+		percentagePanel.render(Integer.toString((int) (100 * map
+				.getRelativeTouched())) + "%");
 	}
 
 	private void addEnemy(int enemy) {
@@ -281,10 +294,14 @@ public class GameScreen implements Screen {
 	public void update(float delta) {
 		updateEnemies(delta);
 		player.update(delta);
-//<<<<<<< HEAD
-		if(!door.isActive()&&map.getRelativeTouched()>=0.4){
-			door.activate(new Vector2(Math.abs(rand.nextInt())%(Gdx.graphics.getWidth()-Door.SIZE*2)+Door.SIZE,Math.abs(rand.nextInt())%(Gdx.graphics.getHeight()-Door.SIZE*2)+Door.SIZE));
-			
+		// <<<<<<< HEAD
+		if (!door.isActive() && map.getRelativeTouched() >= 0.4) {
+			door.activate(new Vector2(Math.abs(rand.nextInt())
+					% (Gdx.graphics.getWidth() - Door.SIZE * 2) + Door.SIZE,
+					Math.abs(rand.nextInt())
+							% (Gdx.graphics.getHeight() - Door.SIZE * 2)
+							+ Door.SIZE));
+
 		}
 		if (map.getRelativeTouched() < 0.3) {
 			door.deactivate();
@@ -293,6 +310,7 @@ public class GameScreen implements Screen {
 		if (door.isActive()
 				&& Intersector.overlapCircleRectangle(player.getHitbox(),
 						door.getHitbox())) {
+			game.prefs.putInt("level",level);
 			game.nextLevel();
 		}
 	}

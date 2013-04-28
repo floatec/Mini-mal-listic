@@ -46,8 +46,8 @@ public class PixelTool extends Tool {
 		
 		Pixmap pm = pixmapHelper.pixmap;
 		pm.setColor(c);
-		for (int x = _x; x < _x + 2 * pixelRadius; x++) {
-			for (int y = _y; y < _y + 2 * pixelRadius; y++) {
+		for (int x = _x-pixelRadius; x < _x + pixelRadius; x++) {
+			for (int y = _y-pixelRadius; y < _y + pixelRadius; y++) {
 				pm.drawPixel(x, Gdx.graphics.getHeight()-y);
 				map.touchPixel(x, y);
 			}			

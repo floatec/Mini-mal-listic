@@ -124,7 +124,7 @@ public class Player {
 		tools[TOOL_PIXEL_SWAPPER] = new PixelSwapperTool(map);
 		tools[TOOL_NEGATRON] = new NegatronTool(map);
 		tools[TOOL_WETWIPER] = new WetWiperTool(map);
-		tools[TOOL_WALK] = new PixelTool(map);
+		tools[TOOL_WALK] = new WalkTool(map);
 	
 		speed = 100.0f;
 		toolSize = 20.0f;

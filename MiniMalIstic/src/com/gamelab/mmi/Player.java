@@ -107,12 +107,12 @@ public class Player {
 
 		playerTextures = new PlayerTexture[numberOfAnimations];
 		createTextureForTool(TOOL_PIXEL, "data/Listic-PL-c-w.png");
-		createTextureForTool(TOOL_HUETRALIZER, "data/Listic-PL-c-w.png");
+		createTextureForTool(TOOL_HUETRALIZER, "data/Listic-HT-c-w.png");
 		createTextureForTool(TOOL_COLOR_SUCKER, "data/Listic-CS-c-w.png");
 		createTextureForTool(TOOL_PIXEL_SWAPPER, "data/Listic-PS-c-w.png");
 		createTextureForTool(TOOL_NEGATRON, "data/Listic-NT-c-w.png");
 		createTextureForTool(TOOL_WETWIPER, "data/Listic-WW-c-w.png");
-		createTextureForTool(TOOL_WALK, "data/Listic-PL-c-w.png");
+		createTextureForTool(TOOL_WALK, "data/Listic-SansPencil-c-w.png");
 		
 		this.hitbox = new Circle(origin,
 				this.playerTextures[currentPlayerTexture].getFrameHeight()/2);

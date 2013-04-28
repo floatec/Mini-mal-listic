@@ -57,7 +57,7 @@ public class Map {
 	}
 	
 	public boolean getRecentlyTouched(int x, int y) {
-		if (x > pixelsEverTouched.length || y > pixelsEverTouched[0].length || y < 0 || x < 0) 
+		if (x >= pixelsEverTouched.length || y >= pixelsEverTouched[0].length || y < 0 || x < 0) 
 			return false;
 		
 		return pixelsRecentlyTouched[x][y];

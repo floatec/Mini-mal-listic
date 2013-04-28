@@ -43,8 +43,10 @@ public class GameScreenInputHandler implements InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		//System.out.println(screenX+ " " + screenY + "\n");
-		if(screenY+105<Gdx.graphics.getHeight())
-		player.move(new Vector2(screenX, Gdx.graphics.getHeight() - screenY));		
+		if(screenY+105<Gdx.graphics.getHeight()) {
+			player.move(new Vector2(screenX, Gdx.graphics.getHeight() - screenY));
+			player.newTarget(new Vector2(screenX, Gdx.graphics.getHeight() - screenY));
+		}
 		for (int i = 0; i < events.size(); i++) {
 			events.get(i).onClick(screenX, screenY);
 		}

@@ -12,6 +12,8 @@ public class ToolSoundController {
 	private int currentTool;
 	private boolean isPlaying;
 	
+	private float volume;
+	
 	public ToolSoundController(int initTool) {
 		currentTool = initTool;
 		isPlaying = false;
@@ -27,6 +29,8 @@ public class ToolSoundController {
 		toolSounds[Player.TOOL_WETWIPER] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/pixelizer.mp3"));
 		toolSounds[Player.TOOL_WALK] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/pixelizer.mp3"));
 		
+		volume = 0.05f;
+		
 		for (int i = 0; i < Player.numberOfTools; i++)
 			soundID[i] = 0;
 	}
@@ -38,8 +42,12 @@ public class ToolSoundController {
 	
 	public void startSound() {
 		isPlaying = true;
-		soundID[currentTool] = toolSounds[currentTool].play(1.0f);      // plays the sound a second time, this is treated as a different instance
+		soundID[currentTool] = toolSounds[currentTool].play(volume);      // plays the sound a second time, this is treated as a different instance
 		toolSounds[currentTool].setLooping(soundID[currentTool], true);       // keeps the sound looping
+	}
+	
+	public void changeVolume(float volume) {
+		toolSounds[currentTool].setVolume(soundID[currentTool], Math.max(volume, 0.01f));
 	}
 	
 	public boolean isPlaying() {
@@ -49,6 +57,14 @@ public class ToolSoundController {
 	public void stopSound() {
 		isPlaying = false;
 		toolSounds[currentTool].stop(soundID[currentTool]);
+	}
+	
+	public void dispose() {
+		for (int i = 0; i < toolSounds.length; i++) {
+			toolSounds[i].stop(soundID[currentTool]);
+			toolSounds[i].dispose();
+		}
+		
 	}
 
 }

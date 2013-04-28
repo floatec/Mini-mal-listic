@@ -14,6 +14,9 @@ public abstract class Tool {
 	protected PixmapHelper pixmapHelper;
 	protected float curDistanceUntilDraw;
 	
+	protected float maxToolSize;
+	protected int currentPixelsChanged;
+	
 	//set the Channel to zero where we want to erase
 	protected Color color;
 	
@@ -37,10 +40,16 @@ public abstract class Tool {
 	public Tool(Map map) {
 		color = new Color(1,1,1,1);
 		this.map = map;
+		this.maxToolSize = 100.f;
+		this.currentPixelsChanged = 0;
 		pixmapHelper = new PixmapHelper(map.getMapPh().pixmap, map.getMapPh().sprite, map.getMapPh().texture);
 	}
 	
 	public abstract void draw(Vector2 curPos, Vector2 lastPos, float radius, float distance);
+	
+	public float getRelPixelChanged (){
+		return (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());		
+	}
 	
 	public boolean checkIfRecentlyTouched(int x, int y) {
 		return map.getRecentlyTouched(x, y);

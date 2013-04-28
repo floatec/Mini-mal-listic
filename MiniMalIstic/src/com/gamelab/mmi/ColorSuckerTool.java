@@ -13,14 +13,17 @@ public class ColorSuckerTool extends Tool {
 	@Override
 	public void draw(Vector2 curPos, Vector2 lastPos, float radius,
 			float distance) {
+		float dynamicToolSize = (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());
+		dynamicToolSize *= maxToolSize;
+		dynamicToolSize = Math.max(dynamicToolSize, radius);
 		
-curDistanceUntilDraw -= distance;
+		curDistanceUntilDraw -= distance;
 		
 		if (curDistanceUntilDraw > 0) return;
 		
-		curDistanceUntilDraw = 0.4f*radius;
+		curDistanceUntilDraw = 0.4f*dynamicToolSize;
 		
-		int r = (int) radius;
+		int r = (int) dynamicToolSize;
 		for (int x = -r; x <= r; x++) {
 			for (int y = -r; y <= r; y++) {
 				if (x * x + y * y <= r * r) {
@@ -36,14 +39,13 @@ curDistanceUntilDraw -= distance;
 					Color.rgba8888ToColor(valColor, value);
 					valColor.mul(this.color);
 					
+					currentPixelsChanged += 1;
 					pixmapHelper.pixmap.drawPixel(pX, Gdx.graphics.getHeight() -pY, Color.rgba8888(valColor));
 				}							
 			}			
 		}
 		
 		pixmapHelper.reload();
-		
-
 	}
 
 }

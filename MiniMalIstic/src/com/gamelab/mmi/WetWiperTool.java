@@ -19,15 +19,19 @@ public class WetWiperTool extends Tool {
 	@Override
 	public void draw(Vector2 curPos, Vector2 lastPos, float radius,
 			float distance) {
+		float dynamicToolSize = (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());
+		dynamicToolSize *= maxToolSize;
+		dynamicToolSize = Math.max(dynamicToolSize, radius);
+		
 		curDistanceUntilDraw -= distance;
 		
 		if (curDistanceUntilDraw > 0) return;
 		
-		curDistanceUntilDraw = 0.3f*radius;
+		curDistanceUntilDraw = 0.3f*dynamicToolSize;
 		
-		int PixelRadius = (int)(radius/2.0f);
+		int PixelRadius = (int)(dynamicToolSize/2.0f);
 		
-		int r = (int) radius;
+		int r = (int) dynamicToolSize;
 		for (int x = -r; x <= r; x+= 1) {
 			for (int y = -r; y <= r; y+= 1) {
 				if (x * x + y * y <= r * r) {
@@ -48,7 +52,7 @@ public class WetWiperTool extends Tool {
 					valColor.b = (0.5f * (valColor.b + lastAVGColor.b));
 					
 					pixmapHelper.pixmap.drawPixel(pX, Gdx.graphics.getHeight() -pY, Color.rgba8888(valColor));
-					
+					currentPixelsChanged += 1;
 					map.touchPixel(pX, pY);					
 				}							
 			}			
@@ -57,8 +61,6 @@ public class WetWiperTool extends Tool {
 		lastDrawPos = curPos.cpy();
 		
 		pixmapHelper.reload();
-		
-
 	}
 
 	private Color getAverageArroundPixel(int _x, int _y, int pixelRadius) {

@@ -73,8 +73,10 @@ public class Player {
 			Vector2 deltaBrush = new Vector2(2 * 42, 2 * 47).sub(headPos);
 			
 			deltaBrush.rotate((float) this.rotation + 180);
-					
+			
 			tools[tool].draw(pos.cpy().add(deltaBrush), oldPos, toolSize, delta * speed);
+			toolSounds.changeVolume(tools[tool].getRelPixelChanged());
+			
 		} else {
 			pos.add(this.lockAt.cpy().mul(this.length));
 			this.length = 0;
@@ -114,6 +116,7 @@ public class Player {
 		this.origin = pos;
 		this.map = map;
 			this.tool = tool;
+			
 		// Change here
 		currentPlayerTexture = 0;
 
@@ -141,7 +144,7 @@ public class Player {
 		toolSounds = new ToolSoundController(tool);
 		
 		speed = 100.0f;
-		toolSize = 20.0f;
+		toolSize = 10.0f;
 		length = 0.0f;
 		rotation = 0.0f;
 	}
@@ -156,6 +159,10 @@ public class Player {
 		for (int i = 0; i < playerTextures.length; i++) {
 			playerTextures[i].dispose();
 		}
+	}
+	
+	public void disposeSounds() {
+		toolSounds.dispose();		
 	}
 
 	public Texture getTexture() {

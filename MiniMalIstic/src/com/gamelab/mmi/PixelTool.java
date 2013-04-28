@@ -16,23 +16,26 @@ public class PixelTool extends Tool {
 	@Override
 	public void draw(Vector2 curPos, Vector2 lastPos, float radius,
 			float distance) {
+		float dynamicToolSize = (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());
+		dynamicToolSize *= maxToolSize;
+		dynamicToolSize = Math.max(dynamicToolSize, radius);	
 		
 		curDistanceUntilDraw -= distance;
 		
 		if (curDistanceUntilDraw > 0) return;
 		
-		curDistanceUntilDraw = 0.8f*radius;
+		curDistanceUntilDraw = 0.8f*dynamicToolSize;
 		
-		int PixelRadius = (int)(radius/2.0f);
+		int PixelRadius = (int)(dynamicToolSize/2.0f);
 		
-		int r = (int) radius;
+		int r = (int) dynamicToolSize;
 		for (int x = -r; x <= r; x+= PixelRadius) {
 			for (int y = -r; y <= r; y+= PixelRadius) {
 				if (x * x + y * y <= r * r) {
 					int pX = (int) (curPos.x + x);
 					int pY = (int) (curPos.y + y);
 					if (!map.getRecentlyTouched(pX, pY)) {
-						drawAbstractPixel(pX, pY, PixelRadius);
+						currentPixelsChanged += drawAbstractPixel(pX, pY, PixelRadius);
 					}
 				}							
 			}			
@@ -41,7 +44,9 @@ public class PixelTool extends Tool {
 		pixmapHelper.reload();
 	}
 	
-	private void drawAbstractPixel(int _x, int _y, int pixelRadius) {
+	private int drawAbstractPixel(int _x, int _y, int pixelRadius) {
+		int pixelsChanged = 0;
+		
 		Color c = getAverageArroundPixel(_x, _y, pixelRadius);
 		
 		Pixmap pm = pixmapHelper.pixmap;
@@ -49,9 +54,11 @@ public class PixelTool extends Tool {
 		for (int x = _x-pixelRadius; x < _x + pixelRadius; x++) {
 			for (int y = _y-pixelRadius; y < _y + pixelRadius; y++) {
 				pm.drawPixel(x, Gdx.graphics.getHeight()-y);
+				pixelsChanged += 1;
 				map.touchPixel(x, y);
 			}			
 		}
+		return pixelsChanged;
 	}
 	
 	private Color getAverageArroundPixel(int _x, int _y, int pixelRadius) {

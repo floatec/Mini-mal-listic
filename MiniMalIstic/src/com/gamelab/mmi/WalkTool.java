@@ -11,6 +11,7 @@ public class WalkTool extends Tool {
 	@Override
 	public void draw(Vector2 curPos, Vector2 lastPos, float radius,
 			float distance) {
+		
 	}
 	
 	

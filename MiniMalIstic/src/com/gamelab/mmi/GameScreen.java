@@ -314,6 +314,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void hide() {
 		musicController.dispose();
+		player.disposeSounds();
 	}
 
 	@Override

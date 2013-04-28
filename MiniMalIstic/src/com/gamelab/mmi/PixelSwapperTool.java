@@ -18,15 +18,19 @@ public class PixelSwapperTool extends Tool {
 	@Override
 	public void draw(Vector2 curPos, Vector2 lastPos, float radius,
 			float distance) {
+		float dynamicToolSize = (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());
+		dynamicToolSize *= maxToolSize;
+		dynamicToolSize = Math.max(dynamicToolSize, radius);
+		
 		curDistanceUntilDraw -= distance;
 		
 		if (curDistanceUntilDraw > 0) return;
 		
-		curDistanceUntilDraw = 0.8f*radius;
+		curDistanceUntilDraw = 0.8f*dynamicToolSize;
 		
-		int PixelRadius = (int)(radius/2.0f);
+		int PixelRadius = (int)(dynamicToolSize/2.0f);
 		
-		int r = (int) radius;
+		int r = (int) dynamicToolSize;
 		
 		for (int x = -r; x <= r; x++) {
 			for (int y = -r; y <= r; y++) {
@@ -48,13 +52,14 @@ public class PixelSwapperTool extends Tool {
 					int pY2 = pY + dy;
 					int value2 = pixmapHelper.pixmap.getPixel(pX2, Gdx.graphics.getHeight() - pY2);
 					
+					currentPixelsChanged +=1;
 					pixmapHelper.pixmap.drawPixel(pX, Gdx.graphics.getHeight() -pY, value2);
 					pixmapHelper.pixmap.drawPixel(pX2, Gdx.graphics.getHeight() -pY2, value);
 				}							
 			}			
 		}
 		
-		pixmapHelper.reload();		
+		pixmapHelper.reload();
 	}
 
 }

@@ -12,12 +12,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.List;
 
 public class GameScreenInputHandler implements InputProcessor {
 	
-	private GameScreen gameScreen;
+	
 	private Player player;
 	private ArrayList<ClickEvent> events=new ArrayList<ClickEvent>();
 	
+	public GameScreenInputHandler() {
+		
+	}
+	
 	public GameScreenInputHandler(GameScreen _screen, Player pl) {
-				this.gameScreen = _screen;
+				
 				player = pl;
 	}
 	
@@ -43,7 +47,7 @@ public class GameScreenInputHandler implements InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		//System.out.println(screenX+ " " + screenY + "\n");
-		if(screenY+105<Gdx.graphics.getHeight()) {
+		if(screenY+105<Gdx.graphics.getHeight()&&player!=null) {
 			player.move(new Vector2(screenX, Gdx.graphics.getHeight() - screenY));
 			player.newTarget(new Vector2(screenX, Gdx.graphics.getHeight() - screenY));
 		}

@@ -34,6 +34,8 @@ public class GameScreen implements Screen {
 	private Button settings;
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 	private PercentagePanel percentagePanel;
+	
+	private MusicController musicController;
 
 	private void createButtons() {
 		buttons[0] = new Button(5, 5, 100, 100, "data/Pinsel.png",
@@ -188,7 +190,13 @@ public class GameScreen implements Screen {
 		}
 		gameScreenInputHandler.addEvent(settings.getOnClick());
 		Gdx.input.setInputProcessor(gameScreenInputHandler);
-
+		
+		musicController = new MusicController();
+		map.calcRelativeColors();
+		
+		musicController.startRed(map.getRelRed());
+		musicController.startGreen(map.getRelGreen());
+		musicController.startBlue(map.getRelBlue());
 		percentagePanel = new PercentagePanel();
 		
 	}
@@ -212,9 +220,14 @@ public class GameScreen implements Screen {
 		for (Button b : buttons) {
 			b.render();
 		}
-		settings.render();
-		percentagePanel.render(Integer.toString((int) (100 * map
-				.getRelativeTouched())) + "%");
+		
+		if (musicController.needVolumeUpdate(delta)) {
+			map.calcRelativeColors();
+			musicController.setRelVolumes(map.getRelRed(), map.getRelGreen(), map.getRelBlue());	
+			musicController.updateVolumes(map.getRelativeTouched());
+		}
+		
+		percentagePanel.render(Integer.toString((int) (100 * map.getRelativeTouched())) + "%");
 	}
 
 	private void addEnemy(int enemy) {
@@ -266,14 +279,10 @@ public class GameScreen implements Screen {
 	public void update(float delta) {
 		updateEnemies(delta);
 		player.update(delta);
-
-		if (!door.isActive() && map.getRelativeTouched() >= 0.39) {
-			door.activate(new Vector2(Math.abs(rand.nextInt())
-					% (Gdx.graphics.getWidth() - Door.SIZE * 2) + Door.SIZE,
-					Math.abs(rand.nextInt())
-							% (Gdx.graphics.getHeight() - Door.SIZE * 2)
-							+ Door.SIZE));
-
+//<<<<<<< HEAD
+		if(!door.isActive()&&map.getRelativeTouched()>=0.4){
+			door.activate(new Vector2(Math.abs(rand.nextInt())%(Gdx.graphics.getWidth()-Door.SIZE*2)+Door.SIZE,Math.abs(rand.nextInt())%(Gdx.graphics.getHeight()-Door.SIZE*2)+Door.SIZE));
+			
 		}
 		if (map.getRelativeTouched() < 0.3) {
 			door.deactivate();
@@ -300,8 +309,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
+		musicController.dispose();
 	}
 
 	@Override

@@ -32,6 +32,7 @@ public class GameScreen implements Screen {
 	private Map map;
 	private Button[] buttons=new Button[Player.numberOfTools];
 	private ArrayList<Enemy> enemies=new ArrayList<Enemy>();
+	private PercentagePanel percentagePanel;
 		
 	private void createButtons() {
 		buttons[0]=new Button(5, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
@@ -131,7 +132,7 @@ public class GameScreen implements Screen {
 				player.setTool(Player.TOOL_WALK);
 				
 			}
-			},Button.STATE_INACTIVE,6);	
+			},Button.STATE_INACTIVE,8);	
 		
 	}
 	
@@ -166,6 +167,8 @@ public class GameScreen implements Screen {
 		}
 		
 		Gdx.input.setInputProcessor(gameScreenInputHandler);
+		
+		percentagePanel = new PercentagePanel();
 	}
 	
 	@Override
@@ -187,6 +190,8 @@ public class GameScreen implements Screen {
 		for (Button b : buttons) {
 			b.render();
 		}
+		
+		percentagePanel.render(Integer.toString((int) (100 * map.getRelativeTouched())) + "%", Gdx.graphics.getWidth() - 200, Gdx.graphics.getHeight() - 16);
 	}
 	
 	private void addEnemy(int enemy) {

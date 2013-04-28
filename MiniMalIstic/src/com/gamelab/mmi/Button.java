@@ -75,7 +75,7 @@ public class Button {
 
 	public void render() {
 		sb.begin();
-		sb.draw(tr[offset + state], hitbox.x, hitbox.y);
+		sb.draw(tr[offset + 2 * state], hitbox.x, hitbox.y);
 		sb.end();
 	}
 

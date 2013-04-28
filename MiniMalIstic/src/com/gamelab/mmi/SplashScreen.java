@@ -38,7 +38,7 @@ public class SplashScreen implements Screen {
 		texture = new Texture(Gdx.files.internal(file));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
+		TextureRegion region = new TextureRegion(texture, 0, 0, 544, 338);
 		
 		sprite = new Sprite(region);
 		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
@@ -102,14 +102,14 @@ public class SplashScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		update(delta);
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 
 		batch.begin();
 
 		
-		batch.draw(sprite,0,0);
+		batch.draw(sprite,Gdx.graphics.getWidth()/2-227,Gdx.graphics.getHeight()/2-338/2);
 		batch.end();
 		
 		

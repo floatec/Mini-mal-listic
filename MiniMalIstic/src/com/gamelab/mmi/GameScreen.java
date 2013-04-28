@@ -148,7 +148,7 @@ public class GameScreen implements Screen {
 		batch = new SpriteBatch();
 		door=new Door();
 		door.activate(new Vector2(Math.abs(rand.nextInt())%(w-Door.SIZE*2)+Door.SIZE,Math.abs(rand.nextInt())%(h-Door.SIZE*2)+Door.SIZE));
-		
+		door.deactivate();
 		texture = new Texture(Gdx.files.internal(file));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
@@ -243,6 +243,14 @@ public class GameScreen implements Screen {
 	public void update(float delta){
 		updateEnemies(delta);
 		player.update(delta);
+		if(!door.isActive()&&map.getRelativeTouched()>=0.39){
+			door.activate(new Vector2(Math.abs(rand.nextInt())%(Gdx.graphics.getWidth()-Door.SIZE*2)+Door.SIZE,Math.abs(rand.nextInt())%(Gdx.graphics.getHeight()-Door.SIZE*2)+Door.SIZE));
+			
+		}
+		if(map.getRelativeTouched()<0.3){
+			door.deactivate();
+		}
+		
 		if(door.isActive()&&Intersector.overlapCircleRectangle(player.getHitbox(),door.getHitbox())){
 			game.nextLevel();
 		}

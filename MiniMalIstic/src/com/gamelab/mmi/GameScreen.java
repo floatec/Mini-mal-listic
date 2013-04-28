@@ -29,14 +29,9 @@ public class GameScreen implements Screen {
 	private Door door;
 	private Random rand = new Random();
 	private Map map;
-	private Button[] buttons=new Button[4];
+	private Button[] buttons=new Button[Player.numberOfTools];
 		
-	
-	public GameScreen( Mmi game,String file) {	
-		this.game=game;
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
-		
+	private void createButtons() {
 		buttons[0]=new Button(5, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
 			
 			@Override
@@ -61,11 +56,11 @@ public class GameScreen implements Screen {
 					}
 				}
 				buttons[1].setState(Button.STATE_ACTIVE);
-				player.setTool(Player.TOOL_COLOR_SUCKER);
+				player.setTool(Player.TOOL_HUETRALIZER);
 				
 			}
-		},Button.STATE_INACTIVE,1);
-buttons[2]=new Button(245, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
+		},Button.STATE_INACTIVE,5);
+		buttons[2]=new Button(245, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
 			
 			@Override
 			public void onClick(int x, int y) {
@@ -75,24 +70,75 @@ buttons[2]=new Button(245, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
 					}
 				}
 				buttons[2].setState(Button.STATE_ACTIVE);
+				player.setTool(Player.TOOL_COLOR_SUCKER);
+				
+			}
+		},Button.STATE_INACTIVE,1);
+		buttons[3]=new Button(365, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
+	
+		@Override
+		public void onClick(int x, int y) {
+			for (Button b : buttons) {
+				if(b.getState()==Button.STATE_ACTIVE){
+					b.setState(Button.STATE_INACTIVE);
+				}
+			}
+			buttons[3].setState(Button.STATE_ACTIVE);
+			player.setTool(Player.TOOL_PIXEL_SWAPPER);
+			
+		}
+		},Button.STATE_INACTIVE,3);
+		buttons[4]=new Button(485, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
+			
+			@Override
+			public void onClick(int x, int y) {
+				for (Button b : buttons) {
+					if(b.getState()==Button.STATE_ACTIVE){
+						b.setState(Button.STATE_INACTIVE);
+					}
+				}
+				buttons[4].setState(Button.STATE_ACTIVE);
 				player.setTool(Player.TOOL_NEGATRON);
 				
 			}
-		},Button.STATE_INACTIVE,2);
-buttons[3]=new Button(365, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
-	
-	@Override
-	public void onClick(int x, int y) {
-		for (Button b : buttons) {
-			if(b.getState()==Button.STATE_ACTIVE){
-				b.setState(Button.STATE_INACTIVE);
+			},Button.STATE_INACTIVE,4);	
+		buttons[5]=new Button(605, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
+			
+			@Override
+			public void onClick(int x, int y) {
+				for (Button b : buttons) {
+					if(b.getState()==Button.STATE_ACTIVE){
+						b.setState(Button.STATE_INACTIVE);
+					}
+				}
+				buttons[5].setState(Button.STATE_ACTIVE);
+				player.setTool(Player.TOOL_WETWIPER);
+				
 			}
-		}
-		buttons[3].setState(Button.STATE_ACTIVE);
-		player.setTool(Player.TOOL_PIXEL_SWAPPER);
+			},Button.STATE_INACTIVE,2);	
+		buttons[6]=new Button(725, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
+			
+			@Override
+			public void onClick(int x, int y) {
+				for (Button b : buttons) {
+					if(b.getState()==Button.STATE_ACTIVE){
+						b.setState(Button.STATE_INACTIVE);
+					}
+				}
+				buttons[6].setState(Button.STATE_ACTIVE);
+				player.setTool(Player.TOOL_WALK);
+				
+			}
+			},Button.STATE_INACTIVE,6);	
 		
 	}
-},Button.STATE_INACTIVE,3);
+	
+	public GameScreen( Mmi game,String file) {	
+		this.game=game;
+		float w = Gdx.graphics.getWidth();
+		float h = Gdx.graphics.getHeight();
+		
+		createButtons();
 
 		map = new Map(file);
 		camera = new OrthographicCamera(1, h/w);
@@ -110,7 +156,7 @@ buttons[3]=new Button(365, 5, 100, 100, "data/Pinsel.png", new ClickEvent() {
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
 		
-		player = new Player(new Vector2(w / 2, h / 2), 2, map);
+		player = new Player(new Vector2(w / 2, h / 2), Player.TOOL_PIXEL, map);
 		
 		gameScreenInputHandler = new GameScreenInputHandler(this, player);
 		for (Button b : buttons) {

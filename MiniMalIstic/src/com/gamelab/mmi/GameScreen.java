@@ -194,9 +194,7 @@ public class GameScreen implements Screen {
 		musicController = new MusicController();
 		map.calcRelativeColors();
 		
-		musicController.startRed(map.getRelRed());
-		musicController.startGreen(map.getRelGreen());
-		musicController.startBlue(map.getRelBlue());
+		
 		percentagePanel = new PercentagePanel();
 		
 	}
@@ -307,7 +305,10 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+		musicController.startRed(map.getRelRed());
+		musicController.startGreen(map.getRelGreen());
+		musicController.startBlue(map.getRelBlue());
+		Gdx.input.setInputProcessor(gameScreenInputHandler);
 
 	}
 

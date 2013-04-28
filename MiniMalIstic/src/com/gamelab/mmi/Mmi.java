@@ -23,7 +23,10 @@ public class Mmi extends Game {
 	}
 	
 	public void startGame() {
-
+		if(gameactive){
+			setScreen(gameScreen);
+		}else{
+			gameactive=true;
 		currentScreen=0;
 		this.gameScreen=new GameScreen(this, level[currentScreen++%level.length]);
 		Screen tut3=new TutorialScrenn(this, "data/Tutorial3.png", 2, gameScreen);
@@ -31,6 +34,7 @@ public class Mmi extends Game {
 		Screen tut1=new TutorialScrenn(this, "data/Tutorial1.png", 1, tut2);
 		
 		setScreen(tut1);
+		}
 	}
 	
 	public void showMenu(){

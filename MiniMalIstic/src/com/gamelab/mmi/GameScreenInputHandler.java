@@ -65,6 +65,7 @@ public class GameScreenInputHandler implements InputProcessor {
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		if(player != null)
 		player.move(new Vector2(screenX, Gdx.graphics.getHeight() - screenY));	
 		return true;
 	}

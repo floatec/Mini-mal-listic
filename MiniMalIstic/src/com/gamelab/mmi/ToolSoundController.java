@@ -25,8 +25,8 @@ public class ToolSoundController {
 		toolSounds[Player.TOOL_PIXEL_SWAPPER] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/pixelizer.mp3"));
 		toolSounds[Player.TOOL_COLOR_SUCKER] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/colorsucker.mp3"));
 		toolSounds[Player.TOOL_HUETRALIZER] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/huetralizer.mp3"));
-		toolSounds[Player.TOOL_NEGATRON] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/pixelizer.mp3"));
-		toolSounds[Player.TOOL_WETWIPER] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/pixelizer.mp3"));
+		toolSounds[Player.TOOL_NEGATRON] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/negatron.mp3"));
+		toolSounds[Player.TOOL_WETWIPER] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/wetwiper.mp3"));
 		toolSounds[Player.TOOL_WALK] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/pixelizer.mp3"));
 		
 		volume = 0.05f;
@@ -46,8 +46,9 @@ public class ToolSoundController {
 		toolSounds[currentTool].setLooping(soundID[currentTool], true);       // keeps the sound looping
 	}
 	
-	public void changeVolume(float volume) {
-		toolSounds[currentTool].setVolume(soundID[currentTool], Math.max(volume, 0.01f));
+	public void changeVolume(float _volume) {
+		toolSounds[currentTool].setVolume(soundID[currentTool], Math.max(_volume, 0.01f));
+		volume = _volume;
 	}
 	
 	public boolean isPlaying() {

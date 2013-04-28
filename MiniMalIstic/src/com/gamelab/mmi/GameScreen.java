@@ -54,7 +54,7 @@ public class GameScreen implements Screen {
 						player.setTool(Player.TOOL_PIXEL);
 
 					}
-				}, Button.STATE_ACTIVE, 0);
+				}, Button.STATE_INACTIVE, 0);
 		buttons[1] = new Button(125, 5, 100, 100, "data/Pinsel.png",
 				new ClickEvent() {
 
@@ -144,7 +144,7 @@ public class GameScreen implements Screen {
 						player.setTool(Player.TOOL_WALK);
 
 					}
-				}, Button.STATE_INACTIVE, 8);
+				}, Button.STATE_ACTIVE, 8);
 		settings = new Button(Gdx.graphics.getWidth() - 100,
 				Gdx.graphics.getHeight() - 43, 36, 36,
 				"data/Circle-Settings.png", new ClickEvent() {
@@ -194,7 +194,7 @@ public class GameScreen implements Screen {
 		sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		sprite.setPosition(-sprite.getWidth() / 2, -sprite.getHeight() / 2);
 
-		player = new Player(new Vector2(w / 2, h / 2), Player.TOOL_PIXEL, map);
+		player = new Player(new Vector2(w / 2, h / 2), Player.TOOL_WALK, map);
 
 		gameScreenInputHandler = new GameScreenInputHandler(this, player);
 		for (Button b : buttons) {

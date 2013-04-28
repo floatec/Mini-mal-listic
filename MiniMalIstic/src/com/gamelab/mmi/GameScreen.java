@@ -16,7 +16,8 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen implements Screen {
-
+	
+	private Mmi game;
 	private GameScreenInputHandler gameScreenInputHandler;
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
@@ -29,7 +30,8 @@ public class GameScreen implements Screen {
 
 	
 	
-	public GameScreen( String file) {		
+	public GameScreen( Mmi game,String file) {	
+		this.game=game;
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
@@ -37,7 +39,7 @@ public class GameScreen implements Screen {
 		camera = new OrthographicCamera(1, h/w);
 		batch = new SpriteBatch();
 		door=new Door();
-		door.activate(new Vector2(Math.abs(rand.nextInt())%(w-Door.SIZE),Math.abs(rand.nextInt())%(w-Door.SIZE)));
+		door.activate(new Vector2(Math.abs(rand.nextInt())%(w-Door.SIZE*2)+Door.SIZE,Math.abs(rand.nextInt())%(h-Door.SIZE*2)+Door.SIZE));
 		
 		texture = new Texture(Gdx.files.internal(file));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -76,7 +78,7 @@ public class GameScreen implements Screen {
 	public void update(float delta){
 		player.update(delta);
 		if(door.isActive()&&Intersector.overlapCircleRectangle(player.getHitbox(),door.getHitbox())){
-		System.out.println("win win win");
+			game.nextLevel();
 		}
 	}
 

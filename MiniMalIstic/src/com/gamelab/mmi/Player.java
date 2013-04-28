@@ -94,7 +94,7 @@ public class Player {
 		tools = new Tool[numberOfTools];
 		tools[TOOL_PIXEL] = new PixelTool(map);
 		tools[TOOL_COLOR_SUCKER] = new ColorSuckerTool(map);
-		tools[TOOL_NEGATRON] = new NegatronTool(map);
+		tools[TOOL_NEGATRON] = new EnemyEraseTool(map);
 		tools[TOOL_PIXEL_SWAPPER] = new PixelSwapperTool(map);
 	
 		speed = 100.0f;

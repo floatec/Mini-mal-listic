@@ -44,10 +44,11 @@ public class PixelTool extends Tool {
 	private void drawAbstractPixel(int _x, int _y, int pixelRadius) {
 		Color c = getAverageArroundPixel(_x, _y, pixelRadius);
 		
-		pixmapHelper.pixmap.setColor(c);
-		pixmapHelper.pixmap.fillRectangle(_x, Gdx.graphics.getHeight() - _y, 2 * pixelRadius, 2 * pixelRadius);
+		Pixmap pm = pixmapHelper.pixmap;
+		pm.setColor(c);
 		for (int x = _x; x < _x + 2 * pixelRadius; x++) {
 			for (int y = _y; y < _y + 2 * pixelRadius; y++) {
+				pm.drawPixel(x, Gdx.graphics.getHeight()-y);
 				map.touchPixel(x, y);
 			}			
 		}

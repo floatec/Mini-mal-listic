@@ -1,17 +1,17 @@
 package com.gamelab.mmi;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
-public class ColorSuckerTool extends Tool {
+public class EnemyEraseTool extends Tool {
 
-	public ColorSuckerTool(Map map) {
+	private Pixmap mapOrig;
+	
+	public EnemyEraseTool(Map map) {
 		super(map);
+		mapOrig = map.getMapOrig();
 	}
 
 	@Override
@@ -21,7 +21,7 @@ public class ColorSuckerTool extends Tool {
 		
 		if (curDistanceUntilDraw > 0) return;
 		
-		curDistanceUntilDraw = 0.4f*radius;
+		curDistanceUntilDraw = 1.0f;
 		
 		int r = (int) radius;
 		for (int x = -r; x <= r; x++) {
@@ -29,18 +29,17 @@ public class ColorSuckerTool extends Tool {
 				if (x * x + y * y <= r * r) {
 					int pX = (int) (curPos.x + x);
 					int pY = (int) (curPos.y + y);
-					int value = pixmapHelper.pixmap.getPixel(pX, Gdx.graphics.getHeight() - pY);
-					Color valColor = new Color();
-					Color.rgba8888ToColor(valColor, value);
-					float v = Math.max(valColor.r, Math.max(valColor.g, valColor.b));
-					pixmapHelper.pixmap.drawPixel(pX, Gdx.graphics.getHeight() -pY, v>=0.5f?0xffffffff:0x000000ff);
-					map.touchPixel(pX, pY);
+					if (!map.getEverTouched(pX, pY)) {
+						continue;
+					}
+					map.untouchPixel(pX, pY);
+					
+					pixmapHelper.pixmap.drawPixel(pX, Gdx.graphics.getHeight() -pY, mapOrig.getPixel(pX, Gdx.graphics.getHeight() - pY));
 				}							
 			}			
 		}
 		
 		pixmapHelper.reload();
-
 	}
-
+	
 }

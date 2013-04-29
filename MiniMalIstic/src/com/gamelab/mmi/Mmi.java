@@ -27,7 +27,8 @@ public class Mmi extends Game {
 		lt = new LevelTransporter();
 		createLevels();
 		prefs = Preferences.userRoot().node(this.getClass().getName());
-		setScreen(new SplashScreen(this, "data/Logo.png"));
+		showMenu();
+//		setScreen(new SplashScreen(this, "data/Logo.png"));
 	}
 
 	public void nextScreen() {

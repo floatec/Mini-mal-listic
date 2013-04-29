@@ -40,6 +40,7 @@ public class Enemy {
 	private float idleRadius;
 	private float idleRadiusSq;
 	private float slothDist;
+	private float enemyRadius;
 	
 	public void move(Vector2 wc) {
 		this.lockAt = wc.cpy().sub(pos);
@@ -77,8 +78,7 @@ public class Enemy {
 		}
 		
 		playerTextures[currentPlayerTexture].update(delta);
-		this.hitbox.set(origin.x, origin.y,
-				this.playerTextures[currentPlayerTexture].getFrameHeight());		
+		this.hitbox.set(origin.x, origin.y,enemyRadius);		
 	}
 	
 	public void setSpiesserChaseRadius(float radius) {
@@ -117,18 +117,17 @@ public class Enemy {
 		createTextureForTool(SpiesserFlwEnemy, "data/Spiesser-big-w.png");
 		createTextureForTool(SpiesserClnEnemy, "data/Spiesser-big-w.png");
 	
-		this.hitbox = new Circle(origin,
-				this.playerTextures[currentPlayerTexture].getFrameHeight()/2);
-		
 		tools = new Tool[numberOfEnemies];
 		tools[Hipster1Enemy] = new EnemyEraseTool(map);
 		tools[Hipster2Enemy] = new WalkTool(map);
 		tools[SpiesserFlwEnemy] = new WalkTool(map);
 		tools[SpiesserClnEnemy] = new EnemyEraseTool(map);
 	
-		toolSize = 40.0f;
+		toolSize = 32.0f;
 		length = 0.0f;
 		rotation = 0.0f;
+		enemyRadius = 24.0f;
+		this.hitbox = new Circle(origin,enemyRadius);
 		setEnemy(enemy);
 	}
 	
@@ -217,6 +216,11 @@ public class Enemy {
 		case aiDefault:
 			Vector2 found = searchTouched();
 			if(found!=null) {
+				Vector2 v = pos.cpy().sub(found);
+				if(v.len2()<1) {
+					found.x += (float) (4*2*(Math.random()-0.5)*toolSize);
+					found.y += (float) (4*2*(Math.random()-0.5)*toolSize);
+				}
 				move(found);
 				aiPhase = aiMove;
 			}

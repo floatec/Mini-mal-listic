@@ -225,11 +225,11 @@ public class GameScreen implements Screen {
 		map.getMapPh().sprite.draw(batch);
 		batch.end();
 
+		door.render();
 		player.render();
 		for (Enemy e : enemies) {
 			e.render();
 		}
-		door.render();
 		for (Button b : buttons) {
 			b.render();
 		}

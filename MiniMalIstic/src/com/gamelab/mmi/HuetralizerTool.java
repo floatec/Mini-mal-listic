@@ -19,6 +19,8 @@ public class HuetralizerTool extends Tool {
 			float distance) {
 		float dynamicToolSize = getDynamicToolSize(radius);
 		dynamicToolSize = Math.max(dynamicToolSize, radius);
+
+		int oldPixelsChanged = currentPixelsChanged;
 		
 		curDistanceUntilDraw -= distance;
 		
@@ -47,6 +49,8 @@ public class HuetralizerTool extends Tool {
 				}							
 			}			
 		}
+		
+		increaseXP(currentPixelsChanged - oldPixelsChanged);
 		
 		pixmapHelper.reload();
 	}

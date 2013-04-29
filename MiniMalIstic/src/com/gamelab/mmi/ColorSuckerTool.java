@@ -16,6 +16,8 @@ public class ColorSuckerTool extends Tool {
 		
 		float dynamicToolSize = getDynamicToolSize(radius);
 		dynamicToolSize = Math.max(dynamicToolSize, radius);
+
+		int oldPixelsChanged = currentPixelsChanged;
 		
 		curDistanceUntilDraw -= distance;
 		
@@ -44,6 +46,7 @@ public class ColorSuckerTool extends Tool {
 				}							
 			}			
 		}
+		increaseXP(currentPixelsChanged - oldPixelsChanged);
 		
 		pixmapHelper.reload();
 	}

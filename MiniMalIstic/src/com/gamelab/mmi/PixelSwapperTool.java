@@ -20,6 +20,8 @@ public class PixelSwapperTool extends Tool {
 			float distance) {
 		float dynamicToolSize = getDynamicToolSize(radius);
 		dynamicToolSize = Math.max(dynamicToolSize, radius);
+
+		int oldPixelsChanged = currentPixelsChanged;
 		
 		curDistanceUntilDraw -= distance;
 		
@@ -57,6 +59,8 @@ public class PixelSwapperTool extends Tool {
 				}							
 			}			
 		}
+
+		increaseXP(currentPixelsChanged - oldPixelsChanged);
 		
 		pixmapHelper.reload();
 	}

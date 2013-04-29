@@ -19,6 +19,9 @@ public class NegatronTool extends Tool {
 		float dynamicToolSize = getDynamicToolSize(radius);
 		dynamicToolSize = Math.max(dynamicToolSize, radius);
 				
+
+		int oldPixelsChanged = currentPixelsChanged;
+		
 		curDistanceUntilDraw -= distance;
 		
 		if (curDistanceUntilDraw > 0) return;
@@ -48,6 +51,9 @@ public class NegatronTool extends Tool {
 				}							
 			}			
 		}
+
+		
+		increaseXP(currentPixelsChanged - oldPixelsChanged);
 		
 		pixmapHelper.reload();
 	}

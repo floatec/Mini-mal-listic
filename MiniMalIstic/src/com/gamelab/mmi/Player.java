@@ -155,7 +155,7 @@ public class Player {
 		toolSize = 10.0f;
 		length = 0.0f;
 		rotation = 0.0f;
-		playerRadius = 24.0f;
+		playerRadius = 16.0f;
 		this.hitbox = new Circle(origin, playerRadius);
 	}
 

@@ -128,7 +128,7 @@ public class Enemy {
 		toolSize = 32.0f;
 		length = 0.0f;
 		rotation = 0.0f;
-		enemyRadius = 24.0f;
+		enemyRadius = 16.0f;
 		this.hitbox = new Circle(origin,enemyRadius);
 		setEnemy(enemy);
 	}
@@ -157,31 +157,36 @@ public class Enemy {
 	}
 	
 	private Vector2 searchBlock(int radius) {
-		Vector2 out = new Vector2();
 		int w = Gdx.graphics.getWidth();
 		int h = Gdx.graphics.getHeight();
 		int t = 0; 
+		int outX = 0;
+		int outY = 0;
 		int sqDist = w*w + h*h;
 		int minY = 0;
 		int maxY = h-1;
 		int minX = 0;
 		int maxX = w-1;
 		boolean found = false;
+		int posX = (int) pos.x;
+		int posY = (int) pos.y;
+		int diffX = 0;
+		int diffY = 0;
 
 		if(radius>0) {
-			t = (int)pos.y-radius;
+			t = posY-radius;
 			if(t>0) {
 				minY = t;
 			}
-			t = (int)pos.y+radius;
+			t = posY+radius;
 			if(t<h-1) {
 				maxY = t;
 			}
-			t = (int)pos.x-radius;
+			t = posX-radius;
 			if(t>0) {
 				minX = t;
 			}
-			t = (int)pos.x+radius;
+			t = posX+radius;
 			if(t<w-1) {
 				maxX = t;
 			}
@@ -189,16 +194,18 @@ public class Enemy {
 		
 		for(int i=minY; i<maxY; i++) {
 			for(int j=minX; j<maxX; j++) {
-				t = i*i+j*j; 
+				diffY = i-posY;
+				diffX = j-posX;
+				t = diffY*diffY+diffX*diffX; 
 				if((t<sqDist)&&map.getEverTouched(j, i)) {
-					out.x = j;
-					out.y = i;
+					outX = j;
+					outY = i;
 					sqDist = t;
 					found = true;
 				}
 			}
 		}
-		return found?out:null;
+		return found?new Vector2(outX, outY):null;
 	}
 	
 	private Vector2 searchTouched() {

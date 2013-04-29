@@ -24,7 +24,7 @@ public class MenuScreen implements Screen {
 	private SpriteBatch batch = new SpriteBatch();
 	private Texture texture;
 	private Sprite sprite;
-	private Button[] buttons = new Button[3];
+	private Button[] buttons = new Button[4];
 
 	private void startgame() {
 		game.startGame();
@@ -38,10 +38,19 @@ public class MenuScreen implements Screen {
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
-		texture = new Texture(Gdx.files.internal("data/Grey_field.png"));
+		texture = new Texture(Gdx.files.internal("data/Menu-points/layout.png"));
 
-		buttons[0] = new Button(Gdx.graphics.getWidth() / 2 - 49, Gdx.graphics.getHeight()-27-80, 95	, 27,
-				game.gameactive?"data/Resume.png":"data/Start.png", new ClickEvent() {
+//		buttons[0] = new Button(Gdx.graphics.getWidth() / 2 - 49, Gdx.graphics.getHeight()-27-80, 95	, 27,
+//				game.gameactive?"data/Menu-points/New-Game.png":"data/Menu-points/New-Game.png", new ClickEvent() {
+//
+//					@Override
+//					public void onClick(int x, int y) {
+//						startgame();
+//
+//					}
+//				}, Button.STATE_ACTIVE, 0);
+		buttons[0] = new Button(Gdx.graphics.getWidth() / 2 - 75, Gdx.graphics.getHeight()-27-80 - 400, 151	, 25,
+				"data/Menu-points/New-Game.png", new ClickEvent() {
 
 					@Override
 					public void onClick(int x, int y) {
@@ -49,8 +58,8 @@ public class MenuScreen implements Screen {
 
 					}
 				}, Button.STATE_ACTIVE, 0);
-		buttons[1] = new Button(Gdx.graphics.getWidth() / 2 - 42, Gdx.graphics.getHeight()-27-80-55, 84	, 27,
-				"data/Load.png", new ClickEvent() {
+		buttons[1] = new Button(Gdx.graphics.getWidth() / 2 - 35, Gdx.graphics.getHeight()-27-80-55 - 400, 70	, 30,
+				"data/Menu-points/Load.png", new ClickEvent() {
 
 					@Override
 					public void onClick(int x, int y) {
@@ -58,13 +67,21 @@ public class MenuScreen implements Screen {
 						continueGame();
 					}
 				}, Button.STATE_ACTIVE, 0);
-		buttons[2] = new Button(Gdx.graphics.getWidth() / 2 - 26, Gdx.graphics.getHeight()-27-80-2*55, 53	, 28,
-				"data/End.png", new ClickEvent() {
+		buttons[2] = new Button(Gdx.graphics.getWidth() / 2 - 40, Gdx.graphics.getHeight()-27-80-2*55 - 400, 80	, 30,
+				"data/Menu-points/Credits.png", new ClickEvent() {
 
 					@Override
 					public void onClick(int x, int y) {
 						Gdx.app.exit();
 
+					}
+				}, Button.STATE_ACTIVE, 0);
+		buttons[3] = new Button(Gdx.graphics.getWidth() / 2 - 70, Gdx.graphics.getHeight()-27-80-3*55 - 400, 141	, 30,
+				"data/Menu-points/End-Game.png", new ClickEvent() {
+
+					@Override
+					public void onClick(int x, int y) {
+						Gdx.app.exit();
 					}
 				}, Button.STATE_ACTIVE, 0);
 
@@ -96,7 +113,7 @@ public class MenuScreen implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		//batch.draw(texture, 212, 0, 200, 300, texture.getHeight(), texture.getWidth());
-		batch.draw(texture, Gdx.graphics.getWidth() / 2 - 200, 100);
+		batch.draw(texture, 0, 0);
 		batch.end();
 		for (Button b : buttons) {
 			b.render();

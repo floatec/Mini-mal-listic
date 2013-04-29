@@ -386,6 +386,9 @@ public class GameScreen implements Screen {
 	public void hide() {
 		musicController.dispose();
 		player.disposeSounds();
+		batch.dispose();
+		texture.dispose();
+		player.dispose();
 		map.dispose();
 		for (Enemy enemy : enemies) {
 			enemy.dispose();
@@ -406,10 +409,6 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		batch.dispose();
-		texture.dispose();
-
-		player.dispose();
 	}
 
 }

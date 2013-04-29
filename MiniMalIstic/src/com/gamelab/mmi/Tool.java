@@ -23,8 +23,9 @@ public abstract class Tool {
 	protected int maxLevel = 0;
 	protected float currentExp = 0;
 	
-	protected static float[] levelCaps = {0.1f, 0.6f, 0.7f, 0.9f};
-	protected static float[] growSpeed = {0.35f, 0.45f, 0.65f, 1.0f};
+	protected static float[] levelCaps = {0.1f, 0.25f, 0.5f, 0.7f};
+	//protected static float[] growSpeed = {0.25f, 0.45f, 0.65f, 1.0f};
+	protected static float[] growSpeed = {1.0f, 1.15f, 1.2f, 1.25f};
 	
 	protected float growAdjust = 1.0f;
 	
@@ -75,9 +76,11 @@ public abstract class Tool {
 	protected float getDynamicToolSize(float radius) {
 		float dynamicToolSize = (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());
 		dynamicToolSize = (float) Math.sqrt(Math.sqrt(dynamicToolSize));
-		dynamicToolSize *= growAdjust * growSpeed[currentLevel] * 100.f;
+		//dynamicToolSize *= growAdjust * growSpeed[currentLevel] * 100.f;
+		dynamicToolSize *= growAdjust * 50.f;
 		
-		dynamicToolSize = Math.min(dynamicToolSize, maxToolSize);
+		dynamicToolSize = (float) Math.pow(dynamicToolSize, growSpeed[currentLevel]);
+		dynamicToolSize = Math.min(dynamicToolSize, 100.f * maxToolSize);
 		
 		return dynamicToolSize;
 	}

@@ -97,7 +97,7 @@ public class Enemy {
 		}
 		
 		playerTextures[currentPlayerTexture].update(delta);
-		this.hitbox.set(origin.x, origin.y,enemyRadius);		
+		this.hitbox.set(pos.x, pos.y,enemyRadius);		
 	}
 	
 	public void setSpiesserChaseRadius(float radius) {

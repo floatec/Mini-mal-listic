@@ -38,7 +38,7 @@ public class PixelTool extends Tool {
 		
 		curDistanceUntilDraw = 0.8f*dynamicToolSize;
 		
-		int PixelRadius = (int)(dynamicToolSize/2.0f);
+		int PixelRadius = (int)(dynamicToolSize/1.5f);
 		
 		int r = (int) dynamicToolSize;
 		for (int x = -r; x <= r; x+= PixelRadius) {

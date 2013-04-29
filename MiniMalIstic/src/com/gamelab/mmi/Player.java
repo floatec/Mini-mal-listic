@@ -45,6 +45,8 @@ public class Player {
 		this.tool = tool;
 		currentPlayerTexture = 2 * tool + 1;
 		toolSounds.changeTool(tool);
+
+		map.resetPixelsRecentlyTouched();
 	}
 	
 	public void move(Vector2 wc) {

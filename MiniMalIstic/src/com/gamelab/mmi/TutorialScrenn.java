@@ -35,6 +35,8 @@ public class TutorialScrenn implements Screen {
 	private float frameDuration = 0.4f;
 	private Screen nextScreen;
 	float onScreen = 0;
+	
+	private boolean onceKlicked = false;
 
 	public TutorialScrenn(Mmi game, String file, int frames, Screen nextScreen) {
 		this.game = game;
@@ -78,13 +80,13 @@ public class TutorialScrenn implements Screen {
 	}
 
 	private void callback() {
-
-		if (1 < onScreen) {
+		if (2 < onScreen || onceKlicked) {
 			game.setScreen(nextScreen);
 			if(nextScreen instanceof GameScreen) {
 				((GameScreen)nextScreen).setInputProcessor();
 			}
 		}
+		onceKlicked = true;
 	}
 
 	public void update(float delta) {

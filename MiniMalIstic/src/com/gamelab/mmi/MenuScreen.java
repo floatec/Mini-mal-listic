@@ -123,7 +123,6 @@ public class MenuScreen implements Screen {
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

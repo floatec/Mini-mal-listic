@@ -25,12 +25,12 @@ public class PercentagePanel{
 	
 	public void render(String text) {
 		
-		 x = Gdx.graphics.getWidth() - 200;
+		 x = Gdx.graphics.getWidth() - 110;
 		 y = Gdx.graphics.getHeight() - 16;
 		
 		sb.begin();
 		sb.draw(textureCircle, x - 16, Gdx.graphics.getHeight() - 59);
-		sb.draw(textureSettings, x + 100, Gdx.graphics.getHeight() - 43);
+		sb.draw(textureSettings, x + 65, Gdx.graphics.getHeight() - 43);
 		
 		font.draw(sb, text, x, y);
 		sb.end();

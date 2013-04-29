@@ -12,6 +12,7 @@ public class PixelTool extends Tool {
 	public PixelTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
 		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
 //		this.maxToolSize *= 0.75f;
+		this.growAdjust = 0.55f;
 	}
 	
 	@Override
@@ -44,7 +45,7 @@ public class PixelTool extends Tool {
 			}			
 		}
 		
-		increaseXP(currentPixelsChanged - oldPixelsChanged);
+		increaseXP((int) (growAdjust * (currentPixelsChanged - oldPixelsChanged)));
 		
 		pixmapHelper.reload();
 	}

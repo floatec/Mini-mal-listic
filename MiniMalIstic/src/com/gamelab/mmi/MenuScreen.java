@@ -37,6 +37,8 @@ public class MenuScreen implements Screen {
 		this.game = game;
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
+		
+		texture = new Texture(Gdx.files.internal("data/Grey_field.png"));
 
 		buttons[0] = new Button(Gdx.graphics.getWidth() / 2 - 49, Gdx.graphics.getHeight()-27-80, 95	, 27,
 				game.gameactive?"data/Resume.png":"data/Start.png", new ClickEvent() {
@@ -90,8 +92,12 @@ public class MenuScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		update(delta);
-		Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
+		Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		batch.begin();
+		//batch.draw(texture, 212, 0, 200, 300, texture.getHeight(), texture.getWidth());
+		batch.draw(texture, Gdx.graphics.getWidth() / 2 - 200, 100);
+		batch.end();
 		for (Button b : buttons) {
 			b.render();
 		}

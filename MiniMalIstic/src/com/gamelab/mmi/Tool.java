@@ -24,7 +24,9 @@ public abstract class Tool {
 	protected float currentExp = 0;
 	
 	protected static float[] levelCaps = {0.1f, 0.6f, 0.7f, 0.9f};
-	protected static float[] growSpeed = {0.7f, 0.9f, 1.1f, 1.3f};
+	protected static float[] growSpeed = {0.35f, 0.45f, 0.65f, 1.0f};
+	
+	protected float growAdjust = 1.0f;
 	
 	//set the Channel to zero where we want to erase
 	protected Color color;
@@ -70,8 +72,8 @@ public abstract class Tool {
 	
 	protected float getDynamicToolSize(float radius) {
 		float dynamicToolSize = (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());
-		dynamicToolSize = (float) Math.sqrt(dynamicToolSize);
-		dynamicToolSize *= growSpeed[currentLevel] * 100.f;
+		dynamicToolSize = (float) Math.sqrt(Math.sqrt(dynamicToolSize));
+		dynamicToolSize *= growAdjust * growSpeed[currentLevel] * 100.f;
 		
 		dynamicToolSize = Math.min(dynamicToolSize, maxToolSize);
 		

@@ -2,6 +2,7 @@ package com.gamelab.mmi;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.sun.xml.internal.bind.v2.runtime.reflect.Accessor.SetterOnlyReflection;
 
@@ -16,6 +17,7 @@ public class Enemy {
 	
 	public static final int aiDefault = 0;
 	public static final int aiMove = 1;
+	public static final int aiIdle = 2;
 	
 	public static final int enemyEraseTool = 0;
 	
@@ -247,6 +249,11 @@ public class Enemy {
 				aiPhase = aiDefault;
 			}
 			break;
+		case aiIdle:
+			if(player.getPos().cpy().sub(pos).len2()>=idleRadiusSq) {
+				aiPhase = aiDefault;
+			}
+			break;
 		default:
 			aiPhase = aiDefault;
 			break;
@@ -255,7 +262,7 @@ public class Enemy {
 	
 	private void spiesserFlwAi() {
 		Vector2 diff = player.getPos().cpy().sub(pos);
-		if(diff.x*diff.x+diff.y*diff.y>spiesserChaseRadiusSq) {
+		if(diff.len2()>spiesserChaseRadiusSq) {
 			setEnemy(SpiesserClnEnemy);
 			cleanAi();
 		} else {
@@ -265,7 +272,7 @@ public class Enemy {
 	
 	private void spiesserClnAi() {
 		Vector2 diff = player.getPos().cpy().sub(pos);
-		if(diff.x*diff.x+diff.y*diff.y<spiesserChaseRadiusSq) {
+		if(diff.len2()<spiesserChaseRadiusSq) {
 			setEnemy(SpiesserFlwEnemy);
 			followAi();
 		} else {
@@ -311,6 +318,22 @@ public class Enemy {
 	public void dispose() {
 		for (int i = 0; i < playerTextures.length; i++) {
 			playerTextures[i].dispose();
+		}
+	}
+
+	public void collide() {
+		switch (enemy) {
+		case Hipster2Enemy:
+		case SpiesserFlwEnemy:
+			if(Intersector.overlapCircles(player.getHitbox(), hitbox)) {
+				aiPhase = aiIdle;
+				length = 0;
+				//TODO player.resetBrush();
+			}
+			break;
+
+		default:
+			break;
 		}
 	}
 

@@ -22,7 +22,7 @@ public class ToolSoundController {
 		soundID = new long[Player.numberOfTools];
 		
 		toolSounds[Player.TOOL_PIXEL] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/pixelizer.mp3"));
-		toolSounds[Player.TOOL_PIXEL_SWAPPER] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/pixelizer.mp3"));
+		toolSounds[Player.TOOL_PIXEL_SWAPPER] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/pixelswapper.mp3"));
 		toolSounds[Player.TOOL_COLOR_SUCKER] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/colorsucker.mp3"));
 		toolSounds[Player.TOOL_HUETRALIZER] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/huetralizer.mp3"));
 		toolSounds[Player.TOOL_NEGATRON] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/negatron.mp3"));

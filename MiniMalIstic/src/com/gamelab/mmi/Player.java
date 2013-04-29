@@ -47,10 +47,21 @@ public class Player {
 	}
 	
 	public void move(Vector2 wc) {
-		this.lockAt = wc.cpy().sub(pos);
-		this.length = this.lockAt.len();
-		this.lockAt = this.lockAt.nor();
-		this.rotation = lockAt.angle();
+		Vector2 newLookAt = new Vector2();
+		
+		newLookAt = wc.cpy().sub(pos);
+		this.length = newLookAt.len();
+		newLookAt = newLookAt.nor();
+		
+		float angle = newLookAt.angle();
+//		if (angle > 10.0f) {
+//			newLookAt.rotate(10 - angle);
+//		}
+		
+		this.rotation = angle;
+		this.lockAt = newLookAt;
+		
+		//this.rotation = lockAt.angle();
 	}
 	
 	public void newTarget(Vector2 target) {

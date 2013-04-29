@@ -9,8 +9,8 @@ public class EnemyEraseTool extends Tool {
 
 	private Pixmap mapOrig;
 	
-	public EnemyEraseTool(Map map) {
-		super(map);
+	public EnemyEraseTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
+		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
 		mapOrig = map.getMapOrig();
 	}
 

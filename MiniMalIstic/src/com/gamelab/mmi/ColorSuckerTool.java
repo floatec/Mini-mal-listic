@@ -6,8 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class ColorSuckerTool extends Tool {
 
-	public ColorSuckerTool(Map map) {
-		super(map);
+	public ColorSuckerTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
+		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
 	}
 	
 	@Override

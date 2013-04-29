@@ -11,8 +11,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class PixelSwapperTool extends Tool {
 
-	public PixelSwapperTool(Map map) {
-		super(map);
+	public PixelSwapperTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
+		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
 	}
 
 	@Override

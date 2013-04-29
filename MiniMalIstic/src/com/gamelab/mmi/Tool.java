@@ -19,6 +19,13 @@ public abstract class Tool {
 	protected float maxToolSize;
 	protected int currentPixelsChanged;
 	
+	protected int currentLevel = 0;
+	protected int maxLevel = 0;
+	protected float currentExp = 0;
+	
+	protected static float[] levelCaps = {0.1f, 0.6f, 0.7f, 0.9f};
+	protected static float[] growSpeed = {0.7f, 0.9f, 1.1f, 1.3f};
+	
 	//set the Channel to zero where we want to erase
 	protected Color color;
 	
@@ -39,22 +46,52 @@ public abstract class Tool {
 				this.color = new Color(1,1,0,1);
 	}
 	
-	public Tool(Map map) {
+	public Tool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
 		color = new Color(1,1,1,1);
 		this.map = map;
-		this.maxToolSize = 100.f;
+		this.maxToolSize = maxToolSize;
+		this.currentExp = currentXP;
+		this.maxLevel = maxLevel;
+		this.currentLevel = currentLevel;
+		
 		this.currentPixelsChanged = 0;
 		pixmapHelper = new PixmapHelper(map.getMapPh().pixmap, map.getMapPh().sprite, map.getMapPh().texture);
 	}
 	
 	public abstract void draw(Vector2 curPos, Vector2 lastPos, float radius, float distance);
 	
+	public float getCurrentXP() {
+		return currentExp;
+	}
+	
+	public int getCurrentLevel() {
+		return currentLevel;
+	}
+	
 	protected float getDynamicToolSize(float radius) {
 		float dynamicToolSize = (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());
 		dynamicToolSize = (float) Math.sqrt(dynamicToolSize);
-		dynamicToolSize *= maxToolSize;
+		dynamicToolSize *= growSpeed[currentLevel] * 100.f;
+		
+		dynamicToolSize = Math.min(dynamicToolSize, maxToolSize);
 		
 		return dynamicToolSize;
+	}
+	
+	public void increaseXP(int pixels) {
+		float xp = (float) pixels / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());
+		
+		if (currentLevel < maxLevel) {
+			if (currentExp + xp > levelCaps[currentLevel]) {
+				currentExp = 0;
+				currentLevel++;
+				
+				System.out.println("Wohoo level up:" + currentLevel);
+			} else {
+				currentExp += xp;	
+				//System.out.println("CurrentXP" + currentExp);			
+			}
+		}
 	}
 	
 	public void decreaseToolSize() {

@@ -10,8 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class HuetralizerTool extends Tool {
 
-	public HuetralizerTool(Map map) {
-		super(map);
+	public HuetralizerTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
+		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
 	}
 
 	@Override

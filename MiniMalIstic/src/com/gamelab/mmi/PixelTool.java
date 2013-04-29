@@ -9,9 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public class PixelTool extends Tool {
 
-	public PixelTool(Map map) {
-		super(map);
-		this.maxToolSize = 75.f;
+	public PixelTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
+		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
+//		this.maxToolSize *= 0.75f;
 	}
 	
 	@Override
@@ -19,7 +19,9 @@ public class PixelTool extends Tool {
 			float distance) {
 		
 		float dynamicToolSize = getDynamicToolSize(radius);
-		dynamicToolSize = Math.max(dynamicToolSize, radius);	
+		dynamicToolSize = Math.max(dynamicToolSize, radius);
+		
+		int oldPixelsChanged = currentPixelsChanged;
 		
 		curDistanceUntilDraw -= distance;
 		
@@ -41,6 +43,8 @@ public class PixelTool extends Tool {
 				}							
 			}			
 		}
+		
+		increaseXP(currentPixelsChanged - oldPixelsChanged);
 		
 		pixmapHelper.reload();
 	}

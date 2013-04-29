@@ -43,6 +43,7 @@ public class Enemy {
 	private float idleRadiusSq;
 	private float slothDist;
 	private float enemyRadius;
+	private boolean active;
 	
 	public void move(Vector2 wc) {
 		this.lockAt = wc.cpy().sub(pos);
@@ -51,7 +52,23 @@ public class Enemy {
 		this.rotation = lockAt.angle();
 	}
 	
+	public void activate(Vector2 pos) {
+		this.pos = pos;
+		this.active = true;
+	}
+	
+	public void deactivate() {
+		this.active = false;
+	}
+	
+	public boolean getActive() {
+		return active;
+	}
+	
 	public void update(float delta) {
+		if(!active) {
+			return;
+		}
 		ai();
 		
 		Vector2 oldPos = pos;	
@@ -98,6 +115,9 @@ public class Enemy {
 	}
 
 	public void render() {		
+		if(!active) {
+			return;
+		}
 		playerTextures[currentPlayerTexture].render((float) rotation, pos.x,
 				pos.y, 1.0f, 28, 32);
 		
@@ -329,6 +349,9 @@ public class Enemy {
 	}
 
 	public void collide() {
+		if(!active) {
+			return;
+		}
 		switch (enemy) {
 		case Hipster2Enemy:
 		case SpiesserFlwEnemy:

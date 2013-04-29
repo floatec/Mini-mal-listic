@@ -1,13 +1,12 @@
 	package com.gamelab.mmi;
 
+import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 
 public class Mmi extends Game {
-	public static final int numberOfTutorials = 3;
-	public static final int numberOfLevels = 17;
 
 	private Screen currentScreen;
 	public boolean gameactive = false;
@@ -16,7 +15,7 @@ public class Mmi extends Game {
 	private LevelTransporter lt;
 
 	private int currentScreenIndex = 0;
-	private ScreenParameters screens[];
+	private ArrayList<ScreenParameters> screens;
 	// private String
 	// level[]={"data/redGreen.png","data/green.png","data/blue.png"};
 
@@ -34,7 +33,11 @@ public class Mmi extends Game {
 		if(currentScreen instanceof GameScreen) {
 			((GameScreen)currentScreen).fillLt();
 		}
-		screens[currentScreenIndex++%screens.length].setScreen(this);
+		screens.get(currentScreenIndex++%screens.size()).setScreen(this);
+	}
+	
+	public void setScreenReturnToMenue() {
+		showMenu();
 	}
 
 	public void setScreenGameScreen(LevelParameters levelParameters) {
@@ -96,10 +99,10 @@ public class Mmi extends Game {
 	}
 
 	private void createLevels() {
-		screens = new ScreenParameters[numberOfLevels+numberOfTutorials];
-		createTutorial01();
-		createTutorial02();
-		createTutorial03();
+		screens = new ArrayList<ScreenParameters>();
+		screens.add(new TutorialParameters("data/Tutorial1.png", 1));
+		screens.add(new TutorialParameters("data/Tutorial2.png", 1));
+		screens.add(new TutorialParameters("data/Tutorial3.png", 2));
 		createLevel00();
 		createLevel01();
 		createLevel02();
@@ -117,28 +120,14 @@ public class Mmi extends Game {
 		createLevel14();
 		createLevel15();
 		createLevel16();
+		screens.add(new ReturnToMenueParameters());
 	}
 
-	private void createTutorial01() {
-		final TutorialParameters tp = new TutorialParameters("data/Tutorial1.png", 1);
-		screens[0] = tp;
-	}
-	
-	private void createTutorial02() {
-		final TutorialParameters tp = new TutorialParameters("data/Tutorial2.png", 1);
-		screens[1] = tp;
-	}
-	
-	private void createTutorial03() {
-		final TutorialParameters tp = new TutorialParameters("data/Tutorial3.png", 2);
-		screens[2] = tp;
-	}
-	
 	private void createLevel00() {
 		final LevelParameters lp = new LevelParameters("data/levels/level01.png", 0.10f,
 				0.00f, 0.30f, 1, Player.TOOL_PIXEL, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit);
-		screens[3] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel01() {
@@ -146,7 +135,7 @@ public class Mmi extends Game {
 				0.10f, 0.30f, 1, Player.TOOL_COLOR_SUCKER,
 				LevelParameters.walkToolBit | LevelParameters.pixelToolBit
 						| LevelParameters.colorSuckerToolBit);
-		screens[4] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel02() {
@@ -156,7 +145,7 @@ public class Mmi extends Game {
 						| LevelParameters.colorSuckerToolBit);
 		lp.addEnemy(new EnemyParameters(Enemy.Hipster1Enemy, 0.10f,
 				0.05f));
-		screens[5] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel03() {
@@ -166,7 +155,7 @@ public class Mmi extends Game {
 						| LevelParameters.colorSuckerToolBit);
 		lp.addEnemy(new EnemyParameters(Enemy.Hipster1Enemy, 0.10f,
 				0.05f));
-		screens[6] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel04() {
@@ -184,7 +173,7 @@ public class Mmi extends Game {
 				0.20f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.40f,
 				0.30f));
-		screens[7] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel05() {
@@ -202,7 +191,7 @@ public class Mmi extends Game {
 				0.20f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.40f,
 				0.30f));
-		screens[8] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel06() {
@@ -220,7 +209,7 @@ public class Mmi extends Game {
 				0.20f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.40f,
 				0.30f));
-		screens[9] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel07() {
@@ -238,7 +227,7 @@ public class Mmi extends Game {
 				0.20f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.40f,
 				0.30f));
-		screens[10] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel08() {
@@ -256,7 +245,7 @@ public class Mmi extends Game {
 				0.20f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.40f,
 				0.30f));
-		screens[11] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel09() {
@@ -274,7 +263,7 @@ public class Mmi extends Game {
 				0.20f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.40f,
 				0.30f));
-		screens[12] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel10() {
@@ -292,7 +281,7 @@ public class Mmi extends Game {
 				0.20f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.40f,
 				0.30f));
-		screens[13] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel11() {
@@ -310,7 +299,7 @@ public class Mmi extends Game {
 				0.20f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.40f,
 				0.30f));
-		screens[14] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel12() {
@@ -328,7 +317,7 @@ public class Mmi extends Game {
 				0.20f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.40f,
 				0.30f));
-		screens[15] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel13() {
@@ -346,7 +335,7 @@ public class Mmi extends Game {
 				0.20f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.40f,
 				0.30f));
-		screens[16] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel14() {
@@ -364,7 +353,7 @@ public class Mmi extends Game {
 				0.20f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.40f,
 				0.30f));
-		screens[17] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel15() {
@@ -382,7 +371,7 @@ public class Mmi extends Game {
 				0.20f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.40f,
 				0.30f));
-		screens[18] = lp;
+		screens.add(lp);
 	}
 
 	private void createLevel16() {
@@ -400,7 +389,7 @@ public class Mmi extends Game {
 				0.20f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.40f,
 				0.30f));
-		screens[19] = lp;
+		screens.add(lp);
 	}
 
 

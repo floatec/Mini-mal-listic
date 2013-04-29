@@ -335,7 +335,7 @@ public class Enemy {
 			if(Intersector.overlapCircles(player.getHitbox(), hitbox)) {
 				aiPhase = aiIdle;
 				length = 0;
-				//TODO player.resetBrush();
+				player.decreaseToolSize();
 			}
 			break;
 

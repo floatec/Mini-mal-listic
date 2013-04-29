@@ -158,6 +158,10 @@ public class Player {
 		playerRadius = 16.0f;
 		this.hitbox = new Circle(origin, playerRadius);
 	}
+	
+	public void decreaseToolSize() {
+		tools[tool].decreaseToolSize();
+	}
 
 	public void render() {		
 		playerTextures[currentPlayerTexture].render((float) rotation, pos.x,

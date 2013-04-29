@@ -185,4 +185,19 @@ public class Player {
 	public Texture getTexture() {
 		return playerTextures[currentPlayerTexture].getWalkSheet();
 	}
+
+	public void fillLt(LevelTransporter lt) {
+		lt.colorSuckerToolXp.currentLevel = tools[TOOL_COLOR_SUCKER].getCurrentLevel();
+		lt.colorSuckerToolXp.currentXp = tools[TOOL_COLOR_SUCKER].getCurrentXP();
+		lt.huetralizerToolXp.currentLevel = tools[TOOL_HUETRALIZER].getCurrentLevel();
+		lt.huetralizerToolXp.currentXp = tools[TOOL_HUETRALIZER].getCurrentXP();
+		lt.negatronToolXp.currentLevel = tools[TOOL_NEGATRON].getCurrentLevel();
+		lt.negatronToolXp.currentXp = tools[TOOL_NEGATRON].getCurrentXP();
+		lt.pixelSwappeToolXp.currentLevel = tools[TOOL_PIXEL_SWAPPER].getCurrentLevel();
+		lt.pixelSwappeToolXp.currentXp = tools[TOOL_PIXEL_SWAPPER].getCurrentXP();
+		lt.pixelToolXp.currentLevel = tools[TOOL_PIXEL].getCurrentLevel();
+		lt.pixelToolXp.currentXp = tools[TOOL_PIXEL].getCurrentXP();
+		lt.wetWiperToolXp.currentLevel = tools[TOOL_WETWIPER].getCurrentLevel();
+		lt.wetWiperToolXp.currentXp = tools[TOOL_WETWIPER].getCurrentXP();
+	}
 }

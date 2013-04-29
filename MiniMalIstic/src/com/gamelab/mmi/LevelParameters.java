@@ -2,7 +2,7 @@ package com.gamelab.mmi;
 
 import java.util.ArrayList;
 
-public class LevelParameters {
+public class LevelParameters extends ScreenParameters {
 	
 	public static final int pixelToolBit = 1 << Player.TOOL_PIXEL;
 	public static final int colorSuckerToolBit = 1 << Player.TOOL_COLOR_SUCKER;
@@ -104,6 +104,11 @@ public class LevelParameters {
 
 	public boolean getWalkTool() {
 		return (toolFlags & walkToolBit) != 0;
+	}
+
+	@Override
+	public void setScreen(Mmi mmi) {
+		mmi.setScreenGameScreen(this);
 	}
 
 }

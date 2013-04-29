@@ -35,8 +35,9 @@ public class GameScreen implements Screen {
 	private Button settings;
 	private Enemy[] enemies;
 	private PercentagePanel percentagePanel;
-	private int level = 0;
+	private int screenIndex = 0;
 	private LevelParameters lvlParm;
+	private LevelTransporter lt;
 
 	private MusicController musicController;
 
@@ -235,12 +236,12 @@ public class GameScreen implements Screen {
 				}, 0, 0);
 	}
 
-	public void setLevel(int level) {
-		this.level = level;
+	public void setScreenIndex(int screenIndex) {
+		this.screenIndex = screenIndex;
 	}
 
-	public int getLevel() {
-		return level;
+	public int getScreenIndex() {
+		return screenIndex;
 	}
 
 	private void showMenu() {
@@ -248,6 +249,7 @@ public class GameScreen implements Screen {
 	}
 
 	public GameScreen(Mmi game, LevelParameters lvlParm, LevelTransporter lt) {
+		this.lt = lt;
 		this.game = game;
 		this.lvlParm = lvlParm;
 		float w = Gdx.graphics.getWidth();
@@ -403,8 +405,8 @@ public class GameScreen implements Screen {
 		if (door.isActive()
 				&& Intersector.overlapCircleRectangle(player.getHitbox(),
 						door.getHitbox())) {
-			game.prefs.putInt("level", level);
-			game.nextLevel();
+			game.prefs.putInt("level", screenIndex);
+			game.nextScreen();
 			return false;
 		}
 		return true;
@@ -433,6 +435,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void hide() {
+		fillLt();
 		musicController.dispose();
 		batch.dispose();
 		texture.dispose();
@@ -457,6 +460,10 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
+	}
+
+	public void fillLt() {
+		player.fillLt(lt);
 	}
 
 }

@@ -20,7 +20,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
-public class TutorialScrenn implements Screen {
+public class TutorialScreen implements Screen {
 
 	private Mmi game;
 	private Texture walkSheet;
@@ -33,12 +33,11 @@ public class TutorialScrenn implements Screen {
 	private int frameWidth;
 	private int frameHeight;
 	private float frameDuration = 0.4f;
-	private Screen nextScreen;
 	float onScreen = 0;
+	private int screenIndex;
 
-	public TutorialScrenn(Mmi game, String file, int frames, Screen nextScreen) {
+	public TutorialScreen(Mmi game, String file, int frames) {
 		this.game = game;
-		this.nextScreen = nextScreen;
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		walkSheet = new Texture(Gdx.files.internal(file));
@@ -78,13 +77,8 @@ public class TutorialScrenn implements Screen {
 	}
 
 	private void callback() {
-
-		if (1 < onScreen) {
-			game.setScreen(nextScreen);
-			if(nextScreen instanceof GameScreen) {
-				((GameScreen)nextScreen).setInputProcessor();
-			}
-		}
+		game.prefs.putInt("level", screenIndex);
+		game.nextScreen();
 	}
 
 	public void update(float delta) {
@@ -177,6 +171,14 @@ public class TutorialScrenn implements Screen {
 		walkSheet.dispose();
 		sb.dispose();
 
+	}
+
+	public void setScreenIndex(int screenIndex) {
+		this.screenIndex = screenIndex;
+	}
+	
+	public int getScreenIndex() {
+		return screenIndex;
 	}
 
 }

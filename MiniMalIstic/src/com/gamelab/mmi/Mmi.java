@@ -32,6 +32,9 @@ public class Mmi extends Game {
 	}
 
 	public void nextScreen() {
+		if(currentScreen instanceof GameScreen) {
+			((GameScreen)currentScreen).fillLt();
+		}
 		screens[currentScreenIndex++%screens.length].setScreen(this);
 	}
 

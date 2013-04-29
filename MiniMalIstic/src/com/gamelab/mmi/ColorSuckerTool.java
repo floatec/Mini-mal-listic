@@ -6,8 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class ColorSuckerTool extends Tool {
 
-	public ColorSuckerTool(Map map) {
-		super(map);
+	public ColorSuckerTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
+		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
 	}
 	
 	@Override
@@ -16,6 +16,8 @@ public class ColorSuckerTool extends Tool {
 		
 		float dynamicToolSize = getDynamicToolSize(radius);
 		dynamicToolSize = Math.max(dynamicToolSize, radius);
+
+		int oldPixelsChanged = currentPixelsChanged;
 		
 		curDistanceUntilDraw -= distance;
 		
@@ -44,6 +46,7 @@ public class ColorSuckerTool extends Tool {
 				}							
 			}			
 		}
+		increaseXP(currentPixelsChanged - oldPixelsChanged);
 		
 		pixmapHelper.reload();
 	}

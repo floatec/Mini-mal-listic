@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class NegatronTool extends Tool {
 
-	public NegatronTool(Map map) {
-		super(map);
+	public NegatronTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
+		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
 	}
 
 	@Override
@@ -19,6 +19,9 @@ public class NegatronTool extends Tool {
 		float dynamicToolSize = getDynamicToolSize(radius);
 		dynamicToolSize = Math.max(dynamicToolSize, radius);
 				
+
+		int oldPixelsChanged = currentPixelsChanged;
+		
 		curDistanceUntilDraw -= distance;
 		
 		if (curDistanceUntilDraw > 0) return;
@@ -48,6 +51,9 @@ public class NegatronTool extends Tool {
 				}							
 			}			
 		}
+
+		
+		increaseXP(currentPixelsChanged - oldPixelsChanged);
 		
 		pixmapHelper.reload();
 	}

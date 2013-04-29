@@ -1,4 +1,4 @@
-package com.gamelab.mmi;
+	package com.gamelab.mmi;
 
 import java.util.prefs.Preferences;
 

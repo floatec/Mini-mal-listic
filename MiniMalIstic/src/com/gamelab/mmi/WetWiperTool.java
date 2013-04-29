@@ -11,8 +11,8 @@ public class WetWiperTool extends Tool {
 	
 	private Vector2 lastDrawPos;
 
-	public WetWiperTool(Map map) {
-		super(map);
+	public WetWiperTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
+		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
 		lastDrawPos = new Vector2();
 		this.maxToolSize = 100.f;
 	}
@@ -22,6 +22,8 @@ public class WetWiperTool extends Tool {
 			float distance) {
 		float dynamicToolSize = getDynamicToolSize(radius);
 		dynamicToolSize = Math.max(dynamicToolSize, radius);
+		
+		int oldPixelsChanged = currentPixelsChanged;
 		
 		curDistanceUntilDraw -= distance;
 		
@@ -61,6 +63,8 @@ public class WetWiperTool extends Tool {
 				}							
 			}			
 		}
+
+		increaseXP(currentPixelsChanged - oldPixelsChanged);
 		
 		lastDrawPos = curPos.cpy();
 		

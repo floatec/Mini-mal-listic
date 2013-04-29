@@ -82,7 +82,7 @@ public class Player {
 			
 			Vector2 headPos = new Vector2(2 * 46, 2 * 16);
 			
-			Vector2 deltaBrush = new Vector2(2 * 42, 2 * 47).sub(headPos);
+			Vector2 deltaBrush = new Vector2(2 * 44, 2 * 49).sub(headPos);
 			
 			deltaBrush.rotate((float) this.rotation + 180);
 			
@@ -141,13 +141,18 @@ public class Player {
 		createTextureForTool(TOOL_WALK, "data/Listic-SansPencil-c-w-big.png");
 		
 		tools = new Tool[numberOfTools];
-		tools[TOOL_PIXEL] = new PixelTool(map);
-		tools[TOOL_HUETRALIZER] = new HuetralizerTool(map);
-		tools[TOOL_COLOR_SUCKER] = new ColorSuckerTool(map);
-		tools[TOOL_PIXEL_SWAPPER] = new PixelSwapperTool(map);
-		tools[TOOL_NEGATRON] = new NegatronTool(map);
-		tools[TOOL_WETWIPER] = new WetWiperTool(map);
-		tools[TOOL_WALK] = new WalkTool(map);
+		int tool_currentLevel = 0;
+		int tool_maxLevel = 3;
+		float tool_currentXP = 0;
+		float tool_maxToolSize = 100;
+		
+		tools[TOOL_PIXEL] = new PixelTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
+		tools[TOOL_HUETRALIZER] = new HuetralizerTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
+		tools[TOOL_COLOR_SUCKER] = new ColorSuckerTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
+		tools[TOOL_PIXEL_SWAPPER] = new PixelSwapperTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
+		tools[TOOL_NEGATRON] = new NegatronTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
+		tools[TOOL_WETWIPER] = new WetWiperTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
+		tools[TOOL_WALK] = new WalkTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
 		
 		toolSounds = new ToolSoundController(tool);
 		

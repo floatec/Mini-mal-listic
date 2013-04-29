@@ -140,10 +140,10 @@ public class Enemy {
 		createTextureForTool(SpiesserClnEnemy, "data/Spiesser-big-w.png");
 	
 		tools = new Tool[numberOfEnemies];
-		tools[Hipster1Enemy] = new EnemyEraseTool(map);
-		tools[Hipster2Enemy] = new WalkTool(map);
-		tools[SpiesserFlwEnemy] = new WalkTool(map);
-		tools[SpiesserClnEnemy] = new EnemyEraseTool(map);
+		tools[Hipster1Enemy] = new EnemyEraseTool(map, 0, 0, 0, 100.f);
+		tools[Hipster2Enemy] = new WalkTool(map, 0, 0, 0, 100.f);
+		tools[SpiesserFlwEnemy] = new WalkTool(map, 0, 0, 0, 100.f);
+		tools[SpiesserClnEnemy] = new EnemyEraseTool(map, 0, 0, 0, 100.f);
 	
 		toolSize = 32.0f;
 		length = 0.0f;

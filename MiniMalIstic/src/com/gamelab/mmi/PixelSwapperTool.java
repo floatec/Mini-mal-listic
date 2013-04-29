@@ -11,8 +11,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class PixelSwapperTool extends Tool {
 
-	public PixelSwapperTool(Map map) {
-		super(map);
+	public PixelSwapperTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
+		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
 	}
 
 	@Override
@@ -20,6 +20,8 @@ public class PixelSwapperTool extends Tool {
 			float distance) {
 		float dynamicToolSize = getDynamicToolSize(radius);
 		dynamicToolSize = Math.max(dynamicToolSize, radius);
+
+		int oldPixelsChanged = currentPixelsChanged;
 		
 		curDistanceUntilDraw -= distance;
 		
@@ -57,6 +59,8 @@ public class PixelSwapperTool extends Tool {
 				}							
 			}			
 		}
+
+		increaseXP(currentPixelsChanged - oldPixelsChanged);
 		
 		pixmapHelper.reload();
 	}

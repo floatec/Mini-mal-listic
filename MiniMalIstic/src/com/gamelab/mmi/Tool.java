@@ -46,12 +46,14 @@ public abstract class Tool {
 				this.color = new Color(1,1,0,1);
 	}
 	
-	public Tool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
+	public Tool(LevelParameters lp, Map map, int currentLevel, float currentExp) {
 		color = new Color(1,1,1,1);
 		this.map = map;
-		this.maxToolSize = maxToolSize;
-		this.currentExp = currentXP;
-		this.maxLevel = maxLevel;
+		if(lp!=null) {
+			this.maxToolSize = lp.toolMaxRadius;
+			this.maxLevel = lp.toolMaxLevel;
+		}
+		this.currentExp = currentExp;
 		this.currentLevel = currentLevel;
 		
 		this.currentPixelsChanged = 0;

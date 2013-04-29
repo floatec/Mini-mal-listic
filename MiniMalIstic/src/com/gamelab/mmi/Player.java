@@ -122,7 +122,7 @@ public class Player {
 				texture, 1, 2, 10.0f);		
 	}
 	
-	public Player(Vector2 pos, int tool, Map map) {
+	public Player(Vector2 pos, int tool, Map map, LevelTransporter lt, LevelParameters lp) {
 		this.pos = pos;
 		this.origin = pos;
 		this.map = map;
@@ -141,18 +141,19 @@ public class Player {
 		createTextureForTool(TOOL_WALK, "data/Listic-SansPencil-c-w-big.png");
 		
 		tools = new Tool[numberOfTools];
+		/*
 		int tool_currentLevel = 0;
 		int tool_maxLevel = 3;
 		float tool_currentXP = 0;
 		float tool_maxToolSize = 100;
-		
-		tools[TOOL_PIXEL] = new PixelTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
-		tools[TOOL_HUETRALIZER] = new HuetralizerTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
-		tools[TOOL_COLOR_SUCKER] = new ColorSuckerTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
-		tools[TOOL_PIXEL_SWAPPER] = new PixelSwapperTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
-		tools[TOOL_NEGATRON] = new NegatronTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
-		tools[TOOL_WETWIPER] = new WetWiperTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
-		tools[TOOL_WALK] = new WalkTool(map, tool_currentLevel, tool_maxLevel, tool_currentXP, tool_maxToolSize);
+		*/
+		tools[TOOL_PIXEL] = new PixelTool(lp, map, lt);
+		tools[TOOL_HUETRALIZER] = new HuetralizerTool(lp, map, lt);
+		tools[TOOL_COLOR_SUCKER] = new ColorSuckerTool(lp, map, lt);
+		tools[TOOL_PIXEL_SWAPPER] = new PixelSwapperTool(lp, map, lt);
+		tools[TOOL_NEGATRON] = new NegatronTool(lp, map, lt);
+		tools[TOOL_WETWIPER] = new WetWiperTool(lp, map, lt);
+		tools[TOOL_WALK] = new WalkTool(map);
 		
 		toolSounds = new ToolSoundController(tool);
 		
@@ -178,12 +179,9 @@ public class Player {
 		for (int i = 0; i < playerTextures.length; i++) {
 			playerTextures[i].dispose();
 		}
-	}
-	
-	public void disposeSounds() {
 		toolSounds.dispose();		
 	}
-
+	
 	public Texture getTexture() {
 		return playerTextures[currentPlayerTexture].getWalkSheet();
 	}

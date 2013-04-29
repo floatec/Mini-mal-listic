@@ -10,8 +10,16 @@ import com.badlogic.gdx.math.Vector2;
 
 public class HuetralizerTool extends Tool {
 
-	public HuetralizerTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
-		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
+	private static int getCurrentLevel(LevelTransporter lt) {
+		return lt!=null?lt.huetralizerToolXp.currentLevel:0;
+	}
+	
+	private static float getCurrentXP(LevelTransporter lt) {
+		return lt!=null?lt.huetralizerToolXp.currentXp:0;
+	}
+	
+	public HuetralizerTool(LevelParameters lp, Map map, LevelTransporter lt) {
+		super(lp, map, getCurrentLevel(lt), getCurrentXP(lt));
 	}
 
 	@Override

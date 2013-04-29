@@ -47,6 +47,11 @@ public abstract class Tool {
 	
 	public abstract void draw(Vector2 curPos, Vector2 lastPos, float radius, float distance);
 	
+	public void decreaseToolSize() {
+		currentPixelsChanged = 0;
+//		currentPixelsChanged /= 2.0f;
+	}
+	
 	public float getRelPixelChanged (){
 		return (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());		
 	}

@@ -32,7 +32,7 @@ public class TutorialScrenn implements Screen {
 
 	private int frameWidth;
 	private int frameHeight;
-	private float frameDuration = 0.02f;
+	private float frameDuration = 0.4f;
 	private Screen nextScreen;
 	float onScreen = 0;
 
@@ -69,7 +69,7 @@ public class TutorialScrenn implements Screen {
 		float h = Gdx.graphics.getHeight();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		currentFrame = animation.getKeyFrame(animationTime, true);
+		currentFrame = animation.getKeyFrame(onScreen, true);
 		sb.begin();
 		sb.draw(currentFrame, 212, 0, 200, 300, frameHeight, frameWidth, 1, 1,
 				90, true);

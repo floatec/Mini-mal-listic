@@ -80,14 +80,10 @@ public class TutorialScreen implements Screen {
 
 	private void callback() {
 		if (2 < onScreen || onceKlicked) {
-			game.setScreen(nextScreen);
-			if(nextScreen instanceof GameScreen) {
-				((GameScreen)nextScreen).setInputProcessor();
-			}
+			game.prefs.putInt("level", screenIndex);
+			game.nextScreen();
+			onceKlicked = true;
 		}
-		game.prefs.putInt("level", screenIndex);
-		game.nextScreen();
-		onceKlicked = true;
 	}
 
 	public void update(float delta) {

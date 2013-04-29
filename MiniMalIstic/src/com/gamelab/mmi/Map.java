@@ -148,4 +148,9 @@ public class Map {
 		return mapPh;
 	}
 
+	public void dispose() {
+		mapOrig.dispose();
+		mapPh.dispose();
+	}
+
 }

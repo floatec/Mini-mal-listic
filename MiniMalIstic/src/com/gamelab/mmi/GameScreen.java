@@ -31,120 +31,150 @@ public class GameScreen implements Screen {
 	private Door door;
 	private Random rand = new Random();
 	private Map map;
-	private Button[] buttons = new Button[Player.numberOfTools];
+	private Button[] buttons;
 	private Button settings;
-	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	private Enemy[] enemies;
 	private PercentagePanel percentagePanel;
 	private int level = 0;
+	private LevelParameters lvlParm;
 
 	private MusicController musicController;
 
 	private void createButtons() {
-		buttons[0] = new Button(5, 5, 100, 100, "data/Pinsel.png",
-				new ClickEvent() {
+		buttons = new Button[Player.numberOfTools];
+		if (lvlParm.getPixelTool()) {
+			buttons[0] = new Button(5, 5, 100, 100, "data/Pinsel.png",
+					new ClickEvent() {
 
-					@Override
-					public void onClick(int x, int y) {
-						for (Button b : buttons) {
-							if (b.getState() == Button.STATE_ACTIVE) {
-								b.setState(Button.STATE_INACTIVE);
+						@Override
+						public void onClick(int x, int y) {
+							for (Button b : buttons) {
+								if (b != null) {
+									if (b.getState() == Button.STATE_ACTIVE) {
+										b.setState(Button.STATE_INACTIVE);
+									}
+								}
 							}
+							buttons[0].setState(Button.STATE_ACTIVE);
+							player.setTool(Player.TOOL_PIXEL);
+
 						}
-						buttons[0].setState(Button.STATE_ACTIVE);
-						player.setTool(Player.TOOL_PIXEL);
+					}, Button.STATE_INACTIVE, 0);
+		}
+		if (lvlParm.getHuetralizerTool()) {
+			buttons[1] = new Button(125, 5, 100, 100, "data/Pinsel.png",
+					new ClickEvent() {
 
-					}
-				}, Button.STATE_INACTIVE, 0);
-		buttons[1] = new Button(125, 5, 100, 100, "data/Pinsel.png",
-				new ClickEvent() {
-
-					@Override
-					public void onClick(int x, int y) {
-						for (Button b : buttons) {
-							if (b.getState() == Button.STATE_ACTIVE) {
-								b.setState(Button.STATE_INACTIVE);
+						@Override
+						public void onClick(int x, int y) {
+							for (Button b : buttons) {
+								if (b != null) {
+									if (b.getState() == Button.STATE_ACTIVE) {
+										b.setState(Button.STATE_INACTIVE);
+									}
+								}
 							}
+							buttons[1].setState(Button.STATE_ACTIVE);
+							player.setTool(Player.TOOL_HUETRALIZER);
+
 						}
-						buttons[1].setState(Button.STATE_ACTIVE);
-						player.setTool(Player.TOOL_HUETRALIZER);
+					}, Button.STATE_INACTIVE, 5);
+		}
+		if (lvlParm.getColorSuckerTool()) {
+			buttons[2] = new Button(245, 5, 100, 100, "data/Pinsel.png",
+					new ClickEvent() {
 
-					}
-				}, Button.STATE_INACTIVE, 5);
-		buttons[2] = new Button(245, 5, 100, 100, "data/Pinsel.png",
-				new ClickEvent() {
-
-					@Override
-					public void onClick(int x, int y) {
-						for (Button b : buttons) {
-							if (b.getState() == Button.STATE_ACTIVE) {
-								b.setState(Button.STATE_INACTIVE);
+						@Override
+						public void onClick(int x, int y) {
+							for (Button b : buttons) {
+								if (b != null) {
+									if (b.getState() == Button.STATE_ACTIVE) {
+										b.setState(Button.STATE_INACTIVE);
+									}
+								}
 							}
+							buttons[2].setState(Button.STATE_ACTIVE);
+							player.setTool(Player.TOOL_COLOR_SUCKER);
+
 						}
-						buttons[2].setState(Button.STATE_ACTIVE);
-						player.setTool(Player.TOOL_COLOR_SUCKER);
+					}, Button.STATE_INACTIVE, 1);
+		}
+		if (lvlParm.getPixelSwapperTool()) {
+			buttons[3] = new Button(365, 5, 100, 100, "data/Pinsel.png",
+					new ClickEvent() {
 
-					}
-				}, Button.STATE_INACTIVE, 1);
-		buttons[3] = new Button(365, 5, 100, 100, "data/Pinsel.png",
-				new ClickEvent() {
-
-					@Override
-					public void onClick(int x, int y) {
-						for (Button b : buttons) {
-							if (b.getState() == Button.STATE_ACTIVE) {
-								b.setState(Button.STATE_INACTIVE);
+						@Override
+						public void onClick(int x, int y) {
+							for (Button b : buttons) {
+								if (b != null) {
+									if (b.getState() == Button.STATE_ACTIVE) {
+										b.setState(Button.STATE_INACTIVE);
+									}
+								}
 							}
+							buttons[3].setState(Button.STATE_ACTIVE);
+							player.setTool(Player.TOOL_PIXEL_SWAPPER);
+
 						}
-						buttons[3].setState(Button.STATE_ACTIVE);
-						player.setTool(Player.TOOL_PIXEL_SWAPPER);
+					}, Button.STATE_INACTIVE, 3);
+		}
+		if (lvlParm.getNegatronTool()) {
+			buttons[4] = new Button(485, 5, 100, 100, "data/Pinsel.png",
+					new ClickEvent() {
 
-					}
-				}, Button.STATE_INACTIVE, 3);
-		buttons[4] = new Button(485, 5, 100, 100, "data/Pinsel.png",
-				new ClickEvent() {
-
-					@Override
-					public void onClick(int x, int y) {
-						for (Button b : buttons) {
-							if (b.getState() == Button.STATE_ACTIVE) {
-								b.setState(Button.STATE_INACTIVE);
+						@Override
+						public void onClick(int x, int y) {
+							for (Button b : buttons) {
+								if (b != null) {
+									if (b.getState() == Button.STATE_ACTIVE) {
+										b.setState(Button.STATE_INACTIVE);
+									}
+								}
 							}
+							buttons[4].setState(Button.STATE_ACTIVE);
+							player.setTool(Player.TOOL_NEGATRON);
+
 						}
-						buttons[4].setState(Button.STATE_ACTIVE);
-						player.setTool(Player.TOOL_NEGATRON);
+					}, Button.STATE_INACTIVE, 4);
+		}
+		if (lvlParm.getWetWiperTool()) {
+			buttons[5] = new Button(605, 5, 100, 100, "data/Pinsel.png",
+					new ClickEvent() {
 
-					}
-				}, Button.STATE_INACTIVE, 4);
-		buttons[5] = new Button(605, 5, 100, 100, "data/Pinsel.png",
-				new ClickEvent() {
-
-					@Override
-					public void onClick(int x, int y) {
-						for (Button b : buttons) {
-							if (b.getState() == Button.STATE_ACTIVE) {
-								b.setState(Button.STATE_INACTIVE);
+						@Override
+						public void onClick(int x, int y) {
+							for (Button b : buttons) {
+								if (b != null) {
+									if (b.getState() == Button.STATE_ACTIVE) {
+										b.setState(Button.STATE_INACTIVE);
+									}
+								}
 							}
+							buttons[5].setState(Button.STATE_ACTIVE);
+							player.setTool(Player.TOOL_WETWIPER);
+
 						}
-						buttons[5].setState(Button.STATE_ACTIVE);
-						player.setTool(Player.TOOL_WETWIPER);
+					}, Button.STATE_INACTIVE, 2);
+		}
+		if (lvlParm.getWalkTool()) {
+			buttons[6] = new Button(725, 5, 100, 100, "data/Pinsel.png",
+					new ClickEvent() {
 
-					}
-				}, Button.STATE_INACTIVE, 2);
-		buttons[6] = new Button(725, 5, 100, 100, "data/Pinsel.png",
-				new ClickEvent() {
-
-					@Override
-					public void onClick(int x, int y) {
-						for (Button b : buttons) {
-							if (b.getState() == Button.STATE_ACTIVE) {
-								b.setState(Button.STATE_INACTIVE);
+						@Override
+						public void onClick(int x, int y) {
+							for (Button b : buttons) {
+								if (b != null) {
+									if (b.getState() == Button.STATE_ACTIVE) {
+										b.setState(Button.STATE_INACTIVE);
+									}
+								}
 							}
-						}
-						buttons[6].setState(Button.STATE_ACTIVE);
-						player.setTool(Player.TOOL_WALK);
+							buttons[6].setState(Button.STATE_ACTIVE);
+							player.setTool(Player.TOOL_WALK);
 
-					}
-				}, Button.STATE_ACTIVE, 8);
+						}
+					}, Button.STATE_ACTIVE, 8);
+		}
 		settings = new Button(Gdx.graphics.getWidth() - 100,
 				Gdx.graphics.getHeight() - 43, 36, 36,
 				"data/Circle-Settings.png", new ClickEvent() {
@@ -168,14 +198,15 @@ public class GameScreen implements Screen {
 		game.setScreen(new MenuScreen(game));
 	}
 
-	public GameScreen(Mmi game, String file) {
+	public GameScreen(Mmi game, LevelParameters lvlParm) {
 		this.game = game;
+		this.lvlParm = lvlParm;
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 
 		createButtons();
 
-		map = new Map(file);
+		map = new Map(lvlParm.file);
 		camera = new OrthographicCamera(1, h / w);
 		batch = new SpriteBatch();
 
@@ -184,7 +215,7 @@ public class GameScreen implements Screen {
 				% (w - Door.SIZE * 2) + Door.SIZE, Math.abs(rand.nextInt())
 				% (h - Door.SIZE * 2) + Door.SIZE));
 		door.deactivate();
-		texture = new Texture(Gdx.files.internal(file));
+		texture = new Texture(Gdx.files.internal(lvlParm.file));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
@@ -194,11 +225,13 @@ public class GameScreen implements Screen {
 		sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		sprite.setPosition(-sprite.getWidth() / 2, -sprite.getHeight() / 2);
 
-		player = new Player(new Vector2(w / 2, h / 2), Player.TOOL_WALK, map);
+		player = new Player(new Vector2(w / 2, h / 2), lvlParm.firstTool, map);
 
 		gameScreenInputHandler = new GameScreenInputHandler(this, player);
 		for (Button b : buttons) {
-			gameScreenInputHandler.addEvent(b.getOnClick());
+			if (b != null) {
+				gameScreenInputHandler.addEvent(b.getOnClick());
+			}
 		}
 		gameScreenInputHandler.addEvent(settings.getOnClick());
 		Gdx.input.setInputProcessor(gameScreenInputHandler);
@@ -207,8 +240,10 @@ public class GameScreen implements Screen {
 		map.calcRelativeColors();
 		musicController.setRelVolumes(map.getRelRed(), map.getRelGreen(),
 				map.getRelBlue());
-		
+
 		percentagePanel = new PercentagePanel();
+
+		createEnemies();
 
 	}
 
@@ -218,7 +253,9 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		update(delta);
+		if(!update(delta)) {
+			return;
+		}
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
@@ -233,7 +270,9 @@ public class GameScreen implements Screen {
 			e.render();
 		}
 		for (Button b : buttons) {
-			b.render();
+			if (b != null) {
+				b.render();
+			}
 		}
 
 		if (musicController.needVolumeUpdate(delta)) {
@@ -247,7 +286,20 @@ public class GameScreen implements Screen {
 				.getRelativeTouched())) + "%");
 	}
 
-	private void addEnemy(int enemy) {
+	private void createEnemies() {
+		final int numberOfEnemies = lvlParm.getNumberOfEnemys();
+		enemies = new Enemy[numberOfEnemies];
+		for (int i = 0; i < numberOfEnemies; i++) {
+			createEnemy(i);
+		}
+	}
+
+	private void createEnemy(int index) {
+		enemies[index] = new Enemy(new Vector2(),
+				lvlParm.getEnemyParameters(index).enemy, map, player);
+	}
+
+	private Vector2 calcEnemySpawn() {
 		float randWidth = rand.nextFloat();
 		float randHeight = rand.nextFloat();
 		if (Math.abs(randWidth - 0.5f) < Math.abs(randHeight - 0.5f)) {
@@ -263,40 +315,30 @@ public class GameScreen implements Screen {
 				randHeight = 0;
 			}
 		}
-		enemies.add(new Enemy(new Vector2(randWidth * Gdx.graphics.getWidth(),
-				randHeight * Gdx.graphics.getHeight()), enemy, map, player));
-	}
-
-	private void disposeEnemy() {
-		enemies.remove(enemies.size() - 1).dispose();
+		return new Vector2(randWidth * Gdx.graphics.getWidth(), randHeight
+				* Gdx.graphics.getHeight());
 	}
 
 	private void updateEnemies(float delta) {
-		if (map.getRelativeTouched() > 0.02f && enemies.size() < 1) {
-			addEnemy(Enemy.Hipster1Enemy);
-		} else if (map.getRelativeTouched() > 0.03f && enemies.size() < 2) {
-			addEnemy(Enemy.Hipster2Enemy);
-		} else if (map.getRelativeTouched() > 0.04f && enemies.size() < 3) {
-			addEnemy(Enemy.SpiesserClnEnemy);
-		}
-
-		if (map.getRelativeTouched() <= 0.03f && enemies.size() >= 3) {
-			disposeEnemy();
-		} else if (map.getRelativeTouched() <= 0.02f && enemies.size() >= 2) {
-			disposeEnemy();
-		} else if (map.getRelativeTouched() <= 0.01f && enemies.size() >= 1) {
-			disposeEnemy();
-		}
-
-		for (Enemy e : enemies) {
+		final float rt = map.getRelativeTouched();
+		final int noe = lvlParm.getNumberOfEnemys();
+		for (int i = 0; i < noe; i++) {
+			final EnemyParameters ep = lvlParm.getEnemyParameters(i);
+			final Enemy e = enemies[i];
+			if (!e.getActive() && rt > ep.enemySpawn) {
+				e.activate(calcEnemySpawn());
+			}
+			if (e.getActive() && rt < ep.enemyDespawn) {
+				e.deactivate();
+			}
 			e.update(delta);
 		}
 	}
 
-	public void update(float delta) {
-		updateEnemies(delta);
+	public boolean update(float delta) {
 		player.update(delta);
-		if (!door.isActive() && map.getRelativeTouched() >= 0.4) {
+		updateEnemies(delta);
+		if (!door.isActive() && map.getRelativeTouched() >= lvlParm.doorSpawn) {
 			door.activate(new Vector2(Math.abs(rand.nextInt())
 					% (Gdx.graphics.getWidth() - Door.SIZE * 2) + Door.SIZE,
 					Math.abs(rand.nextInt())
@@ -304,17 +346,19 @@ public class GameScreen implements Screen {
 							+ Door.SIZE));
 
 		}
-		if (map.getRelativeTouched() < 0.3) {
+		if (map.getRelativeTouched() < lvlParm.doorDespawn) {
 			door.deactivate();
 		}
 
+		collideEnemies();
 		if (door.isActive()
 				&& Intersector.overlapCircleRectangle(player.getHitbox(),
 						door.getHitbox())) {
-			game.prefs.putInt("level",level);
+			game.prefs.putInt("level", level);
 			game.nextLevel();
+			return false;
 		}
-		collideEnemies();
+		return true;
 	}
 
 	private void collideEnemies() {
@@ -342,6 +386,10 @@ public class GameScreen implements Screen {
 	public void hide() {
 		musicController.dispose();
 		player.disposeSounds();
+		map.dispose();
+		for (Enemy enemy : enemies) {
+			enemy.dispose();
+		}
 	}
 
 	@Override

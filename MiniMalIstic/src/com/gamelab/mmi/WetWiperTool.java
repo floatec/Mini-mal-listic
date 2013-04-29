@@ -14,7 +14,7 @@ public class WetWiperTool extends Tool {
 	public WetWiperTool(Map map) {
 		super(map);
 		lastDrawPos = new Vector2();
-		this.maxToolSize = 50.f;
+		this.maxToolSize = 100.f;
 	}
 
 	@Override

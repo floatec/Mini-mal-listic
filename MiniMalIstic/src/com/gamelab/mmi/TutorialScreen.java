@@ -82,8 +82,8 @@ public class TutorialScreen implements Screen {
 		if (2 < onScreen || onceKlicked) {
 			game.prefs.putInt("level", screenIndex);
 			game.nextScreen();
-			onceKlicked = true;
 		}
+		onceKlicked = true;
 	}
 
 	public void update(float delta) {

@@ -20,6 +20,7 @@ public class PixelTool extends Tool {
 	public PixelTool(LevelParameters lp, Map map, LevelTransporter lt) {
 		super(lp, map, getCurrentLevel(lt), getCurrentXP(lt));
 //		this.maxToolSize *= 0.75f;
+		this.growAdjust = 0.55f;
 	}
 	
 	@Override
@@ -37,7 +38,7 @@ public class PixelTool extends Tool {
 		
 		curDistanceUntilDraw = 0.8f*dynamicToolSize;
 		
-		int PixelRadius = (int)(dynamicToolSize/2.0f);
+		int PixelRadius = (int)(dynamicToolSize/1.5f);
 		
 		int r = (int) dynamicToolSize;
 		for (int x = -r; x <= r; x+= PixelRadius) {
@@ -52,7 +53,7 @@ public class PixelTool extends Tool {
 			}			
 		}
 		
-		increaseXP(currentPixelsChanged - oldPixelsChanged);
+		increaseXP((int) (growAdjust * (currentPixelsChanged - oldPixelsChanged)));
 		
 		pixmapHelper.reload();
 	}

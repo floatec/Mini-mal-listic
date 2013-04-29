@@ -231,7 +231,8 @@ public class GameScreen implements Screen {
 
 					@Override
 					public void onClick(int x, int y) {
-						showMenu();
+						//Bug here :)
+						//showMenu();
 					}
 				}, 0, 0);
 	}

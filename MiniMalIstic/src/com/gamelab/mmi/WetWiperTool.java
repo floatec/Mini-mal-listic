@@ -14,22 +14,26 @@ public class WetWiperTool extends Tool {
 	public WetWiperTool(Map map) {
 		super(map);
 		lastDrawPos = new Vector2();
+		this.maxToolSize = 50.f;
 	}
 
 	@Override
 	public void draw(Vector2 curPos, Vector2 lastPos, float radius,
 			float distance) {
-		float dynamicToolSize = (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());
-		dynamicToolSize *= maxToolSize;
+		float dynamicToolSize = getDynamicToolSize(radius);
 		dynamicToolSize = Math.max(dynamicToolSize, radius);
 		
 		curDistanceUntilDraw -= distance;
 		
 		if (curDistanceUntilDraw > 0) return;
 		
-		curDistanceUntilDraw = 0.3f*dynamicToolSize;
+		curDistanceUntilDraw = (float) (0.4f * Math.sqrt(dynamicToolSize));
 		
-		int PixelRadius = (int)(dynamicToolSize/2.0f);
+		int PixelRadius = 3;//(int)(dynamicToolSize/3.0f);
+		
+		int pLastX = (int) (lastDrawPos.x);
+		int pLastY = (int) (lastDrawPos.y);		
+		Color lastAVGColor = getAverageArroundPixel(pLastX, pLastY, (int) 0.5f * PixelRadius);
 		
 		int r = (int) dynamicToolSize;
 		for (int x = -r; x <= r; x+= 1) {
@@ -38,11 +42,6 @@ public class WetWiperTool extends Tool {
 					int pX = (int) (curPos.x + x);
 					int pY = (int) (curPos.y + y);
 					
-					int pLastX = (int) (lastDrawPos.x);
-					int pLastY = (int) (lastDrawPos.y);
-					
-					Color lastAVGColor = getAverageArroundPixel(pLastX, pLastY, (int) 0.5f * PixelRadius);
-					
 					int value = pixmapHelper.pixmap.getPixel(pX, Gdx.graphics.getHeight() - pY);
 					Color valColor = new Color();
 					Color.rgba8888ToColor(valColor, value);
@@ -50,9 +49,14 @@ public class WetWiperTool extends Tool {
 					valColor.r = (0.5f * (valColor.r + lastAVGColor.r));
 					valColor.g = (0.5f * (valColor.g + lastAVGColor.g));
 					valColor.b = (0.5f * (valColor.b + lastAVGColor.b));
+					valColor.a = 1.0f - ((float) (x * x + y * y ) / (float) (r * r));
 					
 					pixmapHelper.pixmap.drawPixel(pX, Gdx.graphics.getHeight() -pY, Color.rgba8888(valColor));
-					currentPixelsChanged += 1;
+
+					if (!map.getRecentlyTouched(pX, pY)) {
+						currentPixelsChanged += 1;
+					}
+					
 					map.touchPixel(pX, pY);					
 				}							
 			}			

@@ -17,15 +17,14 @@ public class HuetralizerTool extends Tool {
 	@Override
 	public void draw(Vector2 curPos, Vector2 lastPos, float radius,
 			float distance) {
-		float dynamicToolSize = (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());
-		dynamicToolSize *= maxToolSize;
+		float dynamicToolSize = getDynamicToolSize(radius);
 		dynamicToolSize = Math.max(dynamicToolSize, radius);
 		
 		curDistanceUntilDraw -= distance;
 		
 		if (curDistanceUntilDraw > 0) return;
-		
-		curDistanceUntilDraw = 0.4f*dynamicToolSize;
+
+		curDistanceUntilDraw = (float) (0.4f * Math.sqrt(dynamicToolSize));
 		
 		int r = (int) dynamicToolSize;
 		for (int x = -r; x <= r; x++) {
@@ -33,14 +32,18 @@ public class HuetralizerTool extends Tool {
 				if (x * x + y * y <= r * r) {
 					int pX = (int) (curPos.x + x);
 					int pY = (int) (curPos.y + y);
+					if (!map.getRecentlyTouched(pX, pY)) {
+						currentPixelsChanged += 1;
+					}
+					
 					map.touchPixel(pX, pY);
 					
 					int value = pixmapHelper.pixmap.getPixel(pX, Gdx.graphics.getHeight() - pY);
 					Color valColor = new Color();
 					Color.rgba8888ToColor(valColor, value);
 					float v = Math.max(valColor.r, Math.max(valColor.g, valColor.b));
-					currentPixelsChanged += 1;
-					pixmapHelper.pixmap.drawPixel(pX, Gdx.graphics.getHeight() -pY, v>=0.5f?0xffffffff:0x000000ff);
+					
+					pixmapHelper.pixmap.drawPixel(pX, Gdx.graphics.getHeight() -pY, v>=0.5f?0xffffffff:0x000000ff);				
 				}							
 			}			
 		}

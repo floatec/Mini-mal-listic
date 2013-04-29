@@ -13,15 +13,15 @@ public class ColorSuckerTool extends Tool {
 	@Override
 	public void draw(Vector2 curPos, Vector2 lastPos, float radius,
 			float distance) {
-		float dynamicToolSize = (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());
-		dynamicToolSize *= maxToolSize;
+		
+		float dynamicToolSize = getDynamicToolSize(radius);
 		dynamicToolSize = Math.max(dynamicToolSize, radius);
 		
 		curDistanceUntilDraw -= distance;
 		
 		if (curDistanceUntilDraw > 0) return;
-		
-		curDistanceUntilDraw = 0.4f*dynamicToolSize;
+
+		curDistanceUntilDraw = (float) (0.4f * Math.sqrt(dynamicToolSize));
 		
 		int r = (int) dynamicToolSize;
 		for (int x = -r; x <= r; x++) {

@@ -11,13 +11,14 @@ public class PixelTool extends Tool {
 
 	public PixelTool(Map map) {
 		super(map);
+		this.maxToolSize = 75.f;
 	}
 	
 	@Override
 	public void draw(Vector2 curPos, Vector2 lastPos, float radius,
 			float distance) {
-		float dynamicToolSize = (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());
-		dynamicToolSize *= maxToolSize;
+		
+		float dynamicToolSize = getDynamicToolSize(radius);
 		dynamicToolSize = Math.max(dynamicToolSize, radius);	
 		
 		curDistanceUntilDraw -= distance;

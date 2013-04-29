@@ -27,7 +27,7 @@ public class ToolSoundController {
 		toolSounds[Player.TOOL_HUETRALIZER] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/huetralizer.mp3"));
 		toolSounds[Player.TOOL_NEGATRON] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/negatron.mp3"));
 		toolSounds[Player.TOOL_WETWIPER] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/wetwiper.mp3"));
-		toolSounds[Player.TOOL_WALK] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/pixelizer.mp3"));
+		toolSounds[Player.TOOL_WALK] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/walk_listic.mp3"));
 		
 		volume = 0.05f;
 		

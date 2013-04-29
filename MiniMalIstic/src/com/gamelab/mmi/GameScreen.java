@@ -205,7 +205,9 @@ public class GameScreen implements Screen {
 
 		musicController = new MusicController();
 		map.calcRelativeColors();
-
+		musicController.setRelVolumes(map.getRelRed(), map.getRelGreen(),
+				map.getRelBlue());
+		
 		percentagePanel = new PercentagePanel();
 
 	}

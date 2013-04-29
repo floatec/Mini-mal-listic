@@ -56,24 +56,28 @@ public class Map {
 		float countBlue = 0;
 		
 		for (int x = 0; x < mapOrig.getWidth() ; x++) {
+			float rowSum = 0;
 			for (int y = 0; y < mapOrig.getHeight(); y++) {
 				int value = mapOrig.getPixel(x, y);
 				
 				Color c = new Color();
 				Color.rgba8888ToColor(c, value);
 				
+				rowSum += c.r + c.g + c.b;
+				
 				countRed += c.r;
 				countGreen += c.g;
 				countBlue += c.b;
-			}			
-		}
-		
+			}
+			countRed /= rowSum;
+			countGreen /= rowSum;
+			countBlue /= rowSum;
+		}		
 		float sum = countRed + countGreen + countBlue;
 		
 		relativeRed = countRed / sum;
 		relativeGreen = countGreen / sum;
-		relativeBlue = countBlue / sum;
-		
+		relativeBlue = countBlue / sum;		
 	} 
 	
 	public Pixmap getMapOrig() {

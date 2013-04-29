@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.sun.corba.se.impl.presentation.rmi.DynamicAccessPermission;
+import com.sun.org.apache.bcel.internal.generic.LNEG;
 
 public abstract class Tool {
 	
@@ -46,6 +48,14 @@ public abstract class Tool {
 	}
 	
 	public abstract void draw(Vector2 curPos, Vector2 lastPos, float radius, float distance);
+	
+	protected float getDynamicToolSize(float radius) {
+		float dynamicToolSize = (float) currentPixelsChanged / (float) (Gdx.graphics.getWidth() * Gdx.graphics.getHeight());
+		dynamicToolSize = (float) Math.sqrt(dynamicToolSize);
+		dynamicToolSize *= maxToolSize;
+		
+		return dynamicToolSize;
+	}
 	
 	public void decreaseToolSize() {
 		currentPixelsChanged = 0;

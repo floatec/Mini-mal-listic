@@ -97,10 +97,10 @@ public class Enemy {
 
 		playerTextures = new PlayerTexture[numberOfEnemyTextures];
 
-		createTextureForTool(Hipster1Enemy, "data/Hipster-gro§-w.png");
-		createTextureForTool(Hipster2Enemy, "data/Kunststudentin-gro§-w.png");
-		createTextureForTool(SpiesserFlwEnemy, "data/Spiesser-gro§-w.png");
-		createTextureForTool(SpiesserClnEnemy, "data/Spiesser-gro§-w.png");
+		createTextureForTool(Hipster1Enemy, "data/Hipster-big-w.png");
+		createTextureForTool(Hipster2Enemy, "data/Kunststudentin-big-w.png");
+		createTextureForTool(SpiesserFlwEnemy, "data/Spiesser-big-w.png");
+		createTextureForTool(SpiesserClnEnemy, "data/Spiesser-big-w.png");
 	
 		this.hitbox = new Circle(origin,
 				this.playerTextures[currentPlayerTexture].getFrameHeight()/2);

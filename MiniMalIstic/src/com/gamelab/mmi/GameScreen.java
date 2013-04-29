@@ -227,11 +227,11 @@ public class GameScreen implements Screen {
 		map.getMapPh().sprite.draw(batch);
 		batch.end();
 
+		door.render();
 		player.render();
 		for (Enemy e : enemies) {
 			e.render();
 		}
-		door.render();
 		for (Button b : buttons) {
 			b.render();
 		}
@@ -296,7 +296,6 @@ public class GameScreen implements Screen {
 	public void update(float delta) {
 		updateEnemies(delta);
 		player.update(delta);
-		// <<<<<<< HEAD
 		if (!door.isActive() && map.getRelativeTouched() >= 0.4) {
 			door.activate(new Vector2(Math.abs(rand.nextInt())
 					% (Gdx.graphics.getWidth() - Door.SIZE * 2) + Door.SIZE,
@@ -314,6 +313,13 @@ public class GameScreen implements Screen {
 						door.getHitbox())) {
 			game.prefs.putInt("level",level);
 			game.nextLevel();
+		}
+		collideEnemies();
+	}
+
+	private void collideEnemies() {
+		for (Enemy e : enemies) {
+			e.collide();
 		}
 	}
 

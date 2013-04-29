@@ -2,6 +2,7 @@ package com.gamelab.mmi;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.sun.xml.internal.bind.v2.runtime.reflect.Accessor.SetterOnlyReflection;
 
@@ -16,6 +17,7 @@ public class Enemy {
 	
 	public static final int aiDefault = 0;
 	public static final int aiMove = 1;
+	public static final int aiIdle = 2;
 	
 	public static final int enemyEraseTool = 0;
 	
@@ -40,6 +42,7 @@ public class Enemy {
 	private float idleRadius;
 	private float idleRadiusSq;
 	private float slothDist;
+	private float enemyRadius;
 	
 	public void move(Vector2 wc) {
 		this.lockAt = wc.cpy().sub(pos);
@@ -77,8 +80,7 @@ public class Enemy {
 		}
 		
 		playerTextures[currentPlayerTexture].update(delta);
-		this.hitbox.set(origin.x, origin.y,
-				this.playerTextures[currentPlayerTexture].getFrameHeight());		
+		this.hitbox.set(origin.x, origin.y,enemyRadius);		
 	}
 	
 	public void setSpiesserChaseRadius(float radius) {
@@ -117,18 +119,17 @@ public class Enemy {
 		createTextureForTool(SpiesserFlwEnemy, "data/Spiesser-big-w.png");
 		createTextureForTool(SpiesserClnEnemy, "data/Spiesser-big-w.png");
 	
-		this.hitbox = new Circle(origin,
-				this.playerTextures[currentPlayerTexture].getFrameHeight()/2);
-		
 		tools = new Tool[numberOfEnemies];
 		tools[Hipster1Enemy] = new EnemyEraseTool(map);
 		tools[Hipster2Enemy] = new WalkTool(map);
 		tools[SpiesserFlwEnemy] = new WalkTool(map);
 		tools[SpiesserClnEnemy] = new EnemyEraseTool(map);
 	
-		toolSize = 40.0f;
+		toolSize = 32.0f;
 		length = 0.0f;
 		rotation = 0.0f;
+		enemyRadius = 16.0f;
+		this.hitbox = new Circle(origin,enemyRadius);
 		setEnemy(enemy);
 	}
 	
@@ -156,31 +157,36 @@ public class Enemy {
 	}
 	
 	private Vector2 searchBlock(int radius) {
-		Vector2 out = new Vector2();
 		int w = Gdx.graphics.getWidth();
 		int h = Gdx.graphics.getHeight();
 		int t = 0; 
+		int outX = 0;
+		int outY = 0;
 		int sqDist = w*w + h*h;
 		int minY = 0;
 		int maxY = h-1;
 		int minX = 0;
 		int maxX = w-1;
 		boolean found = false;
+		int posX = (int) pos.x;
+		int posY = (int) pos.y;
+		int diffX = 0;
+		int diffY = 0;
 
 		if(radius>0) {
-			t = (int)pos.y-radius;
+			t = posY-radius;
 			if(t>0) {
 				minY = t;
 			}
-			t = (int)pos.y+radius;
+			t = posY+radius;
 			if(t<h-1) {
 				maxY = t;
 			}
-			t = (int)pos.x-radius;
+			t = posX-radius;
 			if(t>0) {
 				minX = t;
 			}
-			t = (int)pos.x+radius;
+			t = posX+radius;
 			if(t<w-1) {
 				maxX = t;
 			}
@@ -188,16 +194,18 @@ public class Enemy {
 		
 		for(int i=minY; i<maxY; i++) {
 			for(int j=minX; j<maxX; j++) {
-				t = i*i+j*j; 
+				diffY = i-posY;
+				diffX = j-posX;
+				t = diffY*diffY+diffX*diffX; 
 				if((t<sqDist)&&map.getEverTouched(j, i)) {
-					out.x = j;
-					out.y = i;
+					outX = j;
+					outY = i;
 					sqDist = t;
 					found = true;
 				}
 			}
 		}
-		return found?out:null;
+		return found?new Vector2(outX, outY):null;
 	}
 	
 	private Vector2 searchTouched() {
@@ -217,6 +225,11 @@ public class Enemy {
 		case aiDefault:
 			Vector2 found = searchTouched();
 			if(found!=null) {
+				Vector2 v = pos.cpy().sub(found);
+				if(v.len2()<1) {
+					found.x += (float) (4*2*(Math.random()-0.5)*toolSize);
+					found.y += (float) (4*2*(Math.random()-0.5)*toolSize);
+				}
 				move(found);
 				aiPhase = aiMove;
 			}
@@ -243,6 +256,11 @@ public class Enemy {
 				aiPhase = aiDefault;
 			}
 			break;
+		case aiIdle:
+			if(player.getPos().cpy().sub(pos).len2()>=idleRadiusSq) {
+				aiPhase = aiDefault;
+			}
+			break;
 		default:
 			aiPhase = aiDefault;
 			break;
@@ -251,7 +269,7 @@ public class Enemy {
 	
 	private void spiesserFlwAi() {
 		Vector2 diff = player.getPos().cpy().sub(pos);
-		if(diff.x*diff.x+diff.y*diff.y>spiesserChaseRadiusSq) {
+		if(diff.len2()>spiesserChaseRadiusSq) {
 			setEnemy(SpiesserClnEnemy);
 			cleanAi();
 		} else {
@@ -261,7 +279,7 @@ public class Enemy {
 	
 	private void spiesserClnAi() {
 		Vector2 diff = player.getPos().cpy().sub(pos);
-		if(diff.x*diff.x+diff.y*diff.y<spiesserChaseRadiusSq) {
+		if(diff.len2()<spiesserChaseRadiusSq) {
 			setEnemy(SpiesserFlwEnemy);
 			followAi();
 		} else {
@@ -307,6 +325,22 @@ public class Enemy {
 	public void dispose() {
 		for (int i = 0; i < playerTextures.length; i++) {
 			playerTextures[i].dispose();
+		}
+	}
+
+	public void collide() {
+		switch (enemy) {
+		case Hipster2Enemy:
+		case SpiesserFlwEnemy:
+			if(Intersector.overlapCircles(player.getHitbox(), hitbox)) {
+				aiPhase = aiIdle;
+				length = 0;
+				//TODO player.resetBrush();
+			}
+			break;
+
+		default:
+			break;
 		}
 	}
 

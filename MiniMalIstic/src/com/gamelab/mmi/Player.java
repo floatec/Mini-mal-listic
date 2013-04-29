@@ -37,6 +37,7 @@ public class Player {
 	private PlayerTexture[] playerTextures;
 	private int currentPlayerTexture;
 	private Map map;
+	private float playerRadius;
 	
 	private ToolSoundController toolSounds;
 
@@ -107,8 +108,7 @@ public class Player {
 		}
 		
 		playerTextures[currentPlayerTexture].update(delta);
-		this.hitbox.set(origin.x, origin.y,
-				this.playerTextures[currentPlayerTexture].getFrameHeight());		
+		this.hitbox.set(origin.x, origin.y, playerRadius);		
 	}
 
 	public Circle getHitbox() {
@@ -140,9 +140,6 @@ public class Player {
 		createTextureForTool(TOOL_WETWIPER, "data/Listic-WW-c-w-big.png");
 		createTextureForTool(TOOL_WALK, "data/Listic-SansPencil-c-w-big.png");
 		
-		this.hitbox = new Circle(origin,
-				this.playerTextures[currentPlayerTexture].getFrameHeight()/2);
-		
 		tools = new Tool[numberOfTools];
 		tools[TOOL_PIXEL] = new PixelTool(map);
 		tools[TOOL_HUETRALIZER] = new HuetralizerTool(map);
@@ -158,6 +155,8 @@ public class Player {
 		toolSize = 10.0f;
 		length = 0.0f;
 		rotation = 0.0f;
+		playerRadius = 16.0f;
+		this.hitbox = new Circle(origin, playerRadius);
 	}
 
 	public void render() {		

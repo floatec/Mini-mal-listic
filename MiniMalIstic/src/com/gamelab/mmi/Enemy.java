@@ -23,7 +23,7 @@ public class Enemy {
 	private Vector2 lockAt = new Vector2(0, 1);
 
 	private float length;
-	private int tool;
+	private int enemy;
 	private float toolSize;
 	private double rotation;
 	private float speed;
@@ -35,6 +35,11 @@ public class Enemy {
 	private Map map;
 	private int aiPhase;
 	private Player player;
+	private float spiesserChaseRadius;
+	private float spiesserChaseRadiusSq;
+	private float idleRadius;
+	private float idleRadiusSq;
+	private float slothDist;
 	
 	public void move(Vector2 wc) {
 		this.lockAt = wc.cpy().sub(pos);
@@ -58,22 +63,32 @@ public class Enemy {
 			
 			deltaBrush.rotate((float) this.rotation + 180);
 					
-			tools[tool].draw(pos.cpy().add(deltaBrush), oldPos, toolSize, delta * speed);
+			tools[enemy].draw(pos.cpy().add(deltaBrush), oldPos, toolSize, delta * speed);
 		} else {
 			pos.add(this.lockAt.cpy().mul(this.length));
 			this.length = 0;
 		}
 		
 		if (this.length > 0) {
-			currentPlayerTexture = 2 * tool;			
+			currentPlayerTexture = 2 * enemy;			
 		} else {
-			currentPlayerTexture = 2 * tool + 1;
+			currentPlayerTexture = 2 * enemy + 1;
 			playerTextures[currentPlayerTexture].resetAnimationTime();
 		}
 		
 		playerTextures[currentPlayerTexture].update(delta);
 		this.hitbox.set(origin.x, origin.y,
 				this.playerTextures[currentPlayerTexture].getFrameHeight());		
+	}
+	
+	public void setSpiesserChaseRadius(float radius) {
+		spiesserChaseRadius = radius;
+		spiesserChaseRadiusSq = radius*radius;
+	}
+	
+	public void setIdleRadius(float radius) {
+		idleRadius = radius;
+		idleRadiusSq = radius*radius;
 	}
 
 	public Circle getHitbox() {
@@ -86,14 +101,14 @@ public class Enemy {
 		
 	}
 
-	public Enemy(Vector2 pos, int tool, Map map, Player player) {
+	public Enemy(Vector2 pos, int enemy, Map map, Player player) {
 		this.map = map;
 		this.player = player;
 		this.pos = pos;
 		this.origin = pos;
-		this.tool = tool;
-		currentPlayerTexture = 2 * tool + 1;
-		aiPhase = aiDefault;
+		
+		setIdleRadius(300.0f);
+		setSpiesserChaseRadius(200.0f);
 
 		playerTextures = new PlayerTexture[numberOfEnemyTextures];
 
@@ -111,20 +126,20 @@ public class Enemy {
 		tools[SpiesserFlwEnemy] = new WalkTool(map);
 		tools[SpiesserClnEnemy] = new EnemyEraseTool(map);
 	
-		speed = 70.0f;
 		toolSize = 40.0f;
 		length = 0.0f;
 		rotation = 0.0f;
+		setEnemy(enemy);
 	}
 	
 	private void ai() {
-		switch (tool) {
+		switch (enemy) {
 		case Hipster1Enemy:
-			hipster1Ai();
+			cleanAi();
 			break;
 
 		case Hipster2Enemy:
-			hipster2Ai();
+			followAi();
 			break;
 
 		case SpiesserFlwEnemy:
@@ -190,14 +205,14 @@ public class Enemy {
 		if(out!=null) {
 			return out;
 		}
-		out = searchBlock(200);
+		out = searchBlock(240);
 		if(out!=null) {
 			return out;
 		}
 		return searchBlock(0);
 	}
 	
-	private void hipster1Ai() {
+	private void cleanAi() {
 		switch (aiPhase) {
 		case aiDefault:
 			Vector2 found = searchTouched();
@@ -217,14 +232,14 @@ public class Enemy {
 		}
 	}
 	
-	private void hipster2Ai() {
+	private void followAi() {
 		switch (aiPhase) {
 		case aiDefault:
 			move(player.getPos());
 			aiPhase = aiMove;
 			break;
 		case aiMove:
-			if(length>200.0f||length==0.0f) {
+			if(length>slothDist||length==0.0f) {
 				aiPhase = aiDefault;
 			}
 			break;
@@ -236,29 +251,50 @@ public class Enemy {
 	
 	private void spiesserFlwAi() {
 		Vector2 diff = player.getPos().cpy().sub(pos);
-		if(diff.x*diff.x+diff.y*diff.y>300.0f*300.0f) {
-			setTool(SpiesserClnEnemy);
-			aiPhase = aiDefault;
-			hipster1Ai();
-			return;
+		if(diff.x*diff.x+diff.y*diff.y>spiesserChaseRadiusSq) {
+			setEnemy(SpiesserClnEnemy);
+			cleanAi();
+		} else {
+			followAi();
 		}
-		hipster2Ai();
 	}
 	
 	private void spiesserClnAi() {
 		Vector2 diff = player.getPos().cpy().sub(pos);
-		if(diff.x*diff.x+diff.y*diff.y<300.0f*300.0f) {
-			setTool(SpiesserFlwEnemy);
-			aiPhase = aiDefault;
-			hipster2Ai();
-			return;
+		if(diff.x*diff.x+diff.y*diff.y<spiesserChaseRadiusSq) {
+			setEnemy(SpiesserFlwEnemy);
+			followAi();
+		} else {
+			cleanAi();
 		}
-		hipster1Ai();
 	}
 
-	public void setTool(int tool) {
-		this.tool = tool;
-		currentPlayerTexture = 2 * tool + 1;
+	public void setEnemy(int enemy) {
+		switch (enemy) {
+		case Hipster1Enemy:
+			speed = 80.0f;
+			break;
+
+		case Hipster2Enemy:
+			speed = 90.0f;
+			slothDist = 100.0f;
+			break;
+
+		case SpiesserClnEnemy:
+			speed = 60.0f;
+			break;
+
+		case SpiesserFlwEnemy:
+			speed = 70.0f;
+			slothDist = 50.0f;
+			break;
+
+		default:
+			return;
+		}
+		aiPhase = aiDefault;
+		this.enemy = enemy;
+		currentPlayerTexture = 2 * enemy + 1;
 	}
 
 	private void createTextureForTool(int _tool, String texture) {

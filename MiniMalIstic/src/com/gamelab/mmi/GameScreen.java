@@ -43,7 +43,12 @@ public class GameScreen implements Screen {
 	private void createButtons() {
 		buttons = new Button[Player.numberOfTools];
 		if (lvlParm.getPixelTool()) {
-			buttons[0] = new Button(5, 5, 100, 100, "data/Pinsel.png",
+			buttons[0] = new Button(
+					5,
+					5,
+					100,
+					100,
+					"data/Pinsel.png",
 					new ClickEvent() {
 
 						@Override
@@ -59,10 +64,17 @@ public class GameScreen implements Screen {
 							player.setTool(Player.TOOL_PIXEL);
 
 						}
-					}, Button.STATE_INACTIVE, 0);
+					},
+					lvlParm.firstTool == Player.TOOL_PIXEL ? Button.STATE_ACTIVE
+							: Button.STATE_INACTIVE, 0);
 		}
 		if (lvlParm.getHuetralizerTool()) {
-			buttons[1] = new Button(125, 5, 100, 100, "data/Pinsel.png",
+			buttons[1] = new Button(
+					125,
+					5,
+					100,
+					100,
+					"data/Pinsel.png",
 					new ClickEvent() {
 
 						@Override
@@ -78,10 +90,17 @@ public class GameScreen implements Screen {
 							player.setTool(Player.TOOL_HUETRALIZER);
 
 						}
-					}, Button.STATE_INACTIVE, 5);
+					},
+					lvlParm.firstTool == Player.TOOL_HUETRALIZER ? Button.STATE_ACTIVE
+							: Button.STATE_INACTIVE, 5);
 		}
 		if (lvlParm.getColorSuckerTool()) {
-			buttons[2] = new Button(245, 5, 100, 100, "data/Pinsel.png",
+			buttons[2] = new Button(
+					245,
+					5,
+					100,
+					100,
+					"data/Pinsel.png",
 					new ClickEvent() {
 
 						@Override
@@ -97,10 +116,17 @@ public class GameScreen implements Screen {
 							player.setTool(Player.TOOL_COLOR_SUCKER);
 
 						}
-					}, Button.STATE_INACTIVE, 1);
+					},
+					lvlParm.firstTool == Player.TOOL_COLOR_SUCKER ? Button.STATE_ACTIVE
+							: Button.STATE_INACTIVE, 1);
 		}
 		if (lvlParm.getPixelSwapperTool()) {
-			buttons[3] = new Button(365, 5, 100, 100, "data/Pinsel.png",
+			buttons[3] = new Button(
+					365,
+					5,
+					100,
+					100,
+					"data/Pinsel.png",
 					new ClickEvent() {
 
 						@Override
@@ -116,10 +142,17 @@ public class GameScreen implements Screen {
 							player.setTool(Player.TOOL_PIXEL_SWAPPER);
 
 						}
-					}, Button.STATE_INACTIVE, 3);
+					},
+					lvlParm.firstTool == Player.TOOL_PIXEL_SWAPPER ? Button.STATE_ACTIVE
+							: Button.STATE_INACTIVE, 3);
 		}
 		if (lvlParm.getNegatronTool()) {
-			buttons[4] = new Button(485, 5, 100, 100, "data/Pinsel.png",
+			buttons[4] = new Button(
+					485,
+					5,
+					100,
+					100,
+					"data/Pinsel.png",
 					new ClickEvent() {
 
 						@Override
@@ -135,10 +168,17 @@ public class GameScreen implements Screen {
 							player.setTool(Player.TOOL_NEGATRON);
 
 						}
-					}, Button.STATE_INACTIVE, 4);
+					},
+					lvlParm.firstTool == Player.TOOL_NEGATRON ? Button.STATE_ACTIVE
+							: Button.STATE_INACTIVE, 4);
 		}
 		if (lvlParm.getWetWiperTool()) {
-			buttons[5] = new Button(605, 5, 100, 100, "data/Pinsel.png",
+			buttons[5] = new Button(
+					605,
+					5,
+					100,
+					100,
+					"data/Pinsel.png",
 					new ClickEvent() {
 
 						@Override
@@ -154,10 +194,17 @@ public class GameScreen implements Screen {
 							player.setTool(Player.TOOL_WETWIPER);
 
 						}
-					}, Button.STATE_INACTIVE, 2);
+					},
+					lvlParm.firstTool == Player.TOOL_WETWIPER ? Button.STATE_ACTIVE
+							: Button.STATE_INACTIVE, 2);
 		}
 		if (lvlParm.getWalkTool()) {
-			buttons[6] = new Button(725, 5, 100, 100, "data/Pinsel.png",
+			buttons[6] = new Button(
+					725,
+					5,
+					100,
+					100,
+					"data/Pinsel.png",
 					new ClickEvent() {
 
 						@Override
@@ -173,7 +220,9 @@ public class GameScreen implements Screen {
 							player.setTool(Player.TOOL_WALK);
 
 						}
-					}, Button.STATE_ACTIVE, 8);
+					},
+					lvlParm.firstTool == Player.TOOL_WALK ? Button.STATE_ACTIVE
+							: Button.STATE_INACTIVE, 8);
 		}
 		settings = new Button(Gdx.graphics.getWidth() - 100,
 				Gdx.graphics.getHeight() - 43, 36, 36,
@@ -199,7 +248,7 @@ public class GameScreen implements Screen {
 		game.setScreen(new MenuScreen(game));
 	}
 
-	public GameScreen(Mmi game, LevelParameters lvlParm) {
+	public GameScreen(Mmi game, LevelParameters lvlParm, LevelTransporter lt) {
 		this.game = game;
 		this.lvlParm = lvlParm;
 		float w = Gdx.graphics.getWidth();
@@ -226,7 +275,7 @@ public class GameScreen implements Screen {
 		sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		sprite.setPosition(-sprite.getWidth() / 2, -sprite.getHeight() / 2);
 
-		player = new Player(new Vector2(w / 2, h / 2), lvlParm.firstTool, map);
+		player = new Player(new Vector2(w / 2, h / 2), lvlParm.firstTool, map, lt, lvlParm);
 
 		gameScreenInputHandler = new GameScreenInputHandler(this, player);
 		for (Button b : buttons) {
@@ -254,7 +303,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		if(!update(delta)) {
+		if (!update(delta)) {
 			return;
 		}
 		Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -386,7 +435,9 @@ public class GameScreen implements Screen {
 	@Override
 	public void hide() {
 		musicController.dispose();
-		player.disposeSounds();
+		batch.dispose();
+		texture.dispose();
+		player.dispose();
 		map.dispose();
 		for (Enemy enemy : enemies) {
 			enemy.dispose();
@@ -407,10 +458,6 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		batch.dispose();
-		texture.dispose();
-
-		player.dispose();
 	}
 
 }

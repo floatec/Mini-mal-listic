@@ -9,8 +9,16 @@ import com.badlogic.gdx.math.Vector2;
 
 public class NegatronTool extends Tool {
 
-	public NegatronTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
-		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
+	private static int getCurrentLevel(LevelTransporter lt) {
+		return lt!=null?lt.negatronToolXp.currentLevel:0;
+	}
+	
+	private static float getCurrentXP(LevelTransporter lt) {
+		return lt!=null?lt.negatronToolXp.currentXp:0;
+	}
+	
+	public NegatronTool(LevelParameters lp, Map map, LevelTransporter lt) {
+		super(lp, map, getCurrentLevel(lt), getCurrentXP(lt));
 	}
 
 	@Override

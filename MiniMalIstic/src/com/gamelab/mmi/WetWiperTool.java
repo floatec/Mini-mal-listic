@@ -11,8 +11,16 @@ public class WetWiperTool extends Tool {
 	
 	private Vector2 lastDrawPos;
 
-	public WetWiperTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
-		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
+	private static int getCurrentLevel(LevelTransporter lt) {
+		return lt!=null?lt.wetWiperToolXp.currentLevel:0;
+	}
+	
+	private static float getCurrentXP(LevelTransporter lt) {
+		return lt!=null?lt.wetWiperToolXp.currentXp:0;
+	}
+	
+	public WetWiperTool(LevelParameters lp, Map map, LevelTransporter lt) {
+		super(lp, map, getCurrentLevel(lt), getCurrentXP(lt));
 		lastDrawPos = new Vector2();
 		this.maxToolSize = 100.f;
 	}

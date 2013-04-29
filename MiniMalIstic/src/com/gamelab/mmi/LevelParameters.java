@@ -3,7 +3,7 @@ package com.gamelab.mmi;
 import java.util.ArrayList;
 
 public class LevelParameters {
-
+	
 	public static final int pixelToolBit = 1 << Player.TOOL_PIXEL;
 	public static final int colorSuckerToolBit = 1 << Player.TOOL_COLOR_SUCKER;
 	public static final int negatronToolBit = 1 << Player.TOOL_NEGATRON;

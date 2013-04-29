@@ -9,8 +9,16 @@ import com.badlogic.gdx.math.Vector2;
 
 public class PixelTool extends Tool {
 
-	public PixelTool(Map map, int currentLevel, int maxLevel, float currentXP, float maxToolSize) {
-		super(map, currentLevel, maxLevel, currentXP, maxToolSize);
+	private static int getCurrentLevel(LevelTransporter lt) {
+		return lt!=null?lt.pixelToolXp.currentLevel:0;
+	}
+	
+	private static float getCurrentXP(LevelTransporter lt) {
+		return lt!=null?lt.pixelToolXp.currentXp:0;
+	}
+	
+	public PixelTool(LevelParameters lp, Map map, LevelTransporter lt) {
+		super(lp, map, getCurrentLevel(lt), getCurrentXP(lt));
 //		this.maxToolSize *= 0.75f;
 		this.growAdjust = 0.55f;
 	}

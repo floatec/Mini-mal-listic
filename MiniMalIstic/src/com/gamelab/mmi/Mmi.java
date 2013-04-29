@@ -11,6 +11,8 @@ public class Mmi extends Game {
 	private GameScreen gameScreen;
 	public boolean gameactive = false;
 	public Preferences prefs;
+	
+	private LevelTransporter lt;
 
 	private int currentScreen = 0;
 	private LevelParameters levels[];
@@ -21,6 +23,7 @@ public class Mmi extends Game {
 
 	@Override
 	public void create() {
+		lt = new LevelTransporter();
 		createLevels();
 		prefs = Preferences.userRoot().node(this.getClass().getName());
 		setScreen(new SplashScreen(this, "data/Logo.png"));
@@ -28,7 +31,7 @@ public class Mmi extends Game {
 
 	public void nextLevel() {
 		this.gameScreen = new GameScreen(this, levels[currentScreen++
-				% levels.length]);
+				% levels.length], lt);
 		gameScreen.setLevel(currentScreen);
 		setScreen(gameScreen);
 	}
@@ -40,7 +43,7 @@ public class Mmi extends Game {
 			gameactive = true;
 			currentScreen = 0;
 			this.gameScreen = new GameScreen(this, levels[currentScreen++
-					% levels.length]);
+					% levels.length], lt);
 			Screen tut3 = new TutorialScrenn(this, "data/Tutorial3.png", 2,
 					gameScreen);
 			Screen tut2 = new TutorialScrenn(this, "data/Tutorial2.png", 1,
@@ -55,7 +58,7 @@ public class Mmi extends Game {
 	public void continueGame() {
 		currentScreen = prefs.getInt("level", -1);
 		this.gameScreen = new GameScreen(this, levels[currentScreen++
-				% levels.length]);
+				% levels.length], lt);
 		gameScreen.setLevel(currentScreen);
 		setScreen(gameScreen);
 	}

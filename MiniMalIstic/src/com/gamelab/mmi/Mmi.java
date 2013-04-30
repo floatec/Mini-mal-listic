@@ -9,7 +9,6 @@ import com.badlogic.gdx.Screen;
 public class Mmi extends Game {
 
 	private Screen currentScreen;
-	public boolean gameactive = false;
 	public Preferences prefs;
 	
 	private LevelTransporter lt;
@@ -56,13 +55,8 @@ public class Mmi extends Game {
 	}
 
 	public void startGame() {
-		if (gameactive) {
-			setScreen(currentScreen);
-		} else {
-			gameactive = true;
-			currentScreenIndex = 0;
-			nextScreen();
-		}
+		currentScreenIndex = 0;
+		nextScreen();
 	}
 
 	public void continueGame() {

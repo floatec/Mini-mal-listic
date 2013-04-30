@@ -23,9 +23,9 @@ public abstract class Tool {
 	protected int maxLevel = 0;
 	protected float currentExp = 0;
 	
-	protected static float[] levelCaps = {0.1f, 0.25f, 0.5f, 0.7f};
+	protected static float[] levelCaps = {0.2f, 0.45f, 0.65f, 0.85f};
 	//protected static float[] growSpeed = {0.25f, 0.45f, 0.65f, 1.0f};
-	protected static float[] growSpeed = {1.0f, 1.15f, 1.2f, 1.25f, 1.25f};
+	protected static float[] growSpeed = {1.0f, 1.05f, 1.07f, 1.09f, 1.09f};
 	
 	protected float growAdjust = 1.0f;
 	

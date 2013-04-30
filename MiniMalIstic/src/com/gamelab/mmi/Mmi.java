@@ -130,7 +130,7 @@ public class Mmi extends Game {
 
 	private void createLevel00() {
 		final LevelParameters lp = new LevelParameters("data/levels/level01.png", 0.10f,
-				0.00f, 0.30f, 1, Player.TOOL_WALK, LevelParameters.walkToolBit
+				0.00f, 0.30f, 1, Player.TOOL_PIXEL, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit);
 		screens.add(lp);
 	}
@@ -139,7 +139,7 @@ public class Mmi extends Game {
 		final LevelParameters lp = new LevelParameters("data/levels/level02.png", 0.20f,
 				0.10f, 0.30f, 1, Player.TOOL_WALK,
 				LevelParameters.walkToolBit | LevelParameters.pixelToolBit
-						| LevelParameters.colorSuckerToolBit);
+						| LevelParameters.huetralizerToolBit);
 		screens.add(lp);
 	}
 
@@ -147,7 +147,7 @@ public class Mmi extends Game {
 		final LevelParameters lp = new LevelParameters("data/levels/level03.png", 0.20f,
 				0.10f, 0.30f, 1, Player.TOOL_WALK, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
-						| LevelParameters.colorSuckerToolBit);
+						| LevelParameters.huetralizerToolBit);
 		lp.addEnemy(new EnemyParameters(Enemy.Hipster1Enemy, 0.10f,
 				0.05f));
 		screens.add(lp);

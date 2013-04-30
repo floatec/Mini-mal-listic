@@ -81,7 +81,7 @@ public class TutorialScreen implements Screen {
 	}
 
 	private void callback() {
-		if (2 < onScreen || onceKlicked) {
+		if (0.1 < onScreen || onceKlicked) {
 			if(saveScreenIndex) {
 				game.prefs.putInt("level", screenIndex);
 			}

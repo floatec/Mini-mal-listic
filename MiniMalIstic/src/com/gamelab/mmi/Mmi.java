@@ -76,7 +76,7 @@ public class Mmi extends Game {
 	}
 	
 	private String getRandomFile() {
-		return randFiles[((int) (Math.random()*randFiles.length))*16%randFiles.length];
+		return randFiles[(int) (Math.random()*randFiles.length)];
 	}
 	
 	public void startSandBox() {

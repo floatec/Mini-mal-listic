@@ -225,14 +225,13 @@ public class GameScreen implements Screen {
 					lvlParm.firstTool == Player.TOOL_WALK ? Button.STATE_ACTIVE
 							: Button.STATE_INACTIVE, 8);
 		}
-		settings = new Button(Gdx.graphics.getWidth() - 100,
+		settings = new Button(Gdx.graphics.getWidth() - 45,
 				Gdx.graphics.getHeight() - 43, 36, 36,
 				"data/Circle-Settings.png", new ClickEvent() {
 
 					@Override
 					public void onClick(int x, int y) {
-						//Bug here :)
-						//showMenu();
+						game.showMenu();
 					}
 				}, 0, 0);
 	}
@@ -243,10 +242,6 @@ public class GameScreen implements Screen {
 
 	public int getScreenIndex() {
 		return screenIndex;
-	}
-
-	private void showMenu() {
-		game.setScreen(new MenuScreen(game));
 	}
 
 	public GameScreen(Mmi game, LevelParameters lvlParm, LevelTransporter lt) {

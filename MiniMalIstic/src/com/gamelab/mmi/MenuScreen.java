@@ -35,6 +35,10 @@ public class MenuScreen implements Screen {
 	private void continueGame(){
 		game.continueGame();
 	}
+	
+	private void showCredits() {
+		game.showCredits();
+	}
 
 	public MenuScreen(Mmi game) {
 		this.game = game;
@@ -78,8 +82,7 @@ public class MenuScreen implements Screen {
 
 					@Override
 					public void onClick(int x, int y) {
-						Gdx.app.exit();
-
+						showCredits();
 					}
 				}, Button.STATE_ACTIVE, 0);
 		buttons[3] = new Button(Gdx.graphics.getWidth() / 2 - 70, Gdx.graphics.getHeight()-27-80-3*55 - 400, 141	, 30,

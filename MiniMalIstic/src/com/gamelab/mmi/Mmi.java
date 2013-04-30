@@ -8,6 +8,9 @@ import com.badlogic.gdx.Screen;
 
 public class Mmi extends Game {
 
+	public static final int creditsScreenStart = 0;
+	public static final int campaignScreenStart = 2;
+	
 	private Screen currentScreen;
 	public Preferences prefs;
 	
@@ -55,7 +58,12 @@ public class Mmi extends Game {
 	}
 
 	public void startGame() {
-		currentScreenIndex = 0;
+		currentScreenIndex = campaignScreenStart;
+		nextScreen();
+	}
+	
+	public void showCredits() {
+		currentScreenIndex = creditsScreenStart;
 		nextScreen();
 	}
 
@@ -95,6 +103,10 @@ public class Mmi extends Game {
 
 	private void createLevels() {
 		screens = new ArrayList<ScreenParameters>();
+		//credits
+		screens.add(new TutorialParameters("data/tuts/Tutorial_Credits.png", 1));
+		screens.add(new ReturnToMenueParameters());
+		//campaign
 		screens.add(new TutorialParameters("data/Tutorial1.png", 1));
 		screens.add(new TutorialParameters("data/Tutorial2.png", 1));
 		screens.add(new TutorialParameters("data/Tutorial3.png", 2));

@@ -55,8 +55,8 @@ public class MenuScreen implements Screen {
 					@Override
 					public void onClick(int x, int y) {
 						startgame();
-
 					}
+					
 				}, Button.STATE_ACTIVE, 0);
 		buttons[1] = new Button(Gdx.graphics.getWidth() / 2 - 35, Gdx.graphics.getHeight()-27-80-55 - 400, 70	, 30,
 				"data/Menu-points/Load.png", new ClickEvent() {

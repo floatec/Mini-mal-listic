@@ -37,7 +37,7 @@ public class MenuScreen implements Screen {
 	}
 	
 	private void startSandbox() {
-		//game.startSandbox();
+		game.startSandBox();
 	}
 	
 	private void showCredits() {

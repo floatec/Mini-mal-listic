@@ -401,7 +401,9 @@ public class GameScreen implements Screen {
 		if (door.isActive()
 				&& Intersector.overlapCircleRectangle(player.getHitbox(),
 						door.getHitbox())) {
-			game.prefs.putInt("level", screenIndex);
+			if(lvlParm.save) {
+				game.prefs.putInt("level", screenIndex);
+			}
 			game.nextScreen();
 			return false;
 		}

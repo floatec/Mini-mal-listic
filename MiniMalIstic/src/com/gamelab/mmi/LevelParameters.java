@@ -25,10 +25,11 @@ public class LevelParameters extends ScreenParameters {
 	public final int firstTool;
 	public final int toolFlags;
 	public final int toolCount;
+	public final boolean save;
 
 	public LevelParameters(final String file, final float doorSpawn,
 			final float doorDespawn, final float toolMaxRadius,
-			final int toolMaxLevel, final int firstTool, final int toolFlags) {
+			final int toolMaxLevel, final int firstTool, final int toolFlags, final boolean save) {
 		this.enemies = new ArrayList<EnemyParameters>();
 		this.file = file;
 		this.doorSpawn = doorSpawn;
@@ -38,6 +39,7 @@ public class LevelParameters extends ScreenParameters {
 		this.firstTool = firstTool;
 		this.toolFlags = toolFlags&allToolsMask;
 		this.toolCount = countFlags(); 
+		this.save = save;
 	}
 	
 	private int countFlags() {

@@ -25,7 +25,7 @@ public class MenuScreen implements Screen {
 	private SpriteBatch batch = new SpriteBatch();
 	private Texture texture;
 	private Sprite sprite;
-	private Button[] buttons = new Button[4];
+	private Button[] buttons = new Button[5];
 	
 	private Music music;
 
@@ -34,6 +34,10 @@ public class MenuScreen implements Screen {
 	}
 	private void continueGame(){
 		game.continueGame();
+	}
+	
+	private void startSandbox() {
+		//game.startSandbox();
 	}
 	
 	private void showCredits() {
@@ -59,7 +63,7 @@ public class MenuScreen implements Screen {
 //
 //					}
 //				}, Button.STATE_ACTIVE, 0);
-		buttons[0] = new Button(Gdx.graphics.getWidth() / 2 - 75, Gdx.graphics.getHeight()-27-80 - 400, 151	, 25,
+		buttons[0] = new Button(Gdx.graphics.getWidth() / 2 - 75, Gdx.graphics.getHeight()-27-80 - 360, 151	, 25,
 				"data/Menu-points/New-Game.png", new ClickEvent() {
 
 					@Override
@@ -68,7 +72,7 @@ public class MenuScreen implements Screen {
 					}
 					
 				}, Button.STATE_ACTIVE, 0);
-		buttons[1] = new Button(Gdx.graphics.getWidth() / 2 - 35, Gdx.graphics.getHeight()-27-80-55 - 400, 70	, 30,
+		buttons[1] = new Button(Gdx.graphics.getWidth() / 2 - 35, Gdx.graphics.getHeight()-27-80-55 - 360, 70	, 30,
 				"data/Menu-points/Load.png", new ClickEvent() {
 
 					@Override
@@ -77,7 +81,15 @@ public class MenuScreen implements Screen {
 						continueGame();
 					}
 				}, Button.STATE_ACTIVE, 0);
-		buttons[2] = new Button(Gdx.graphics.getWidth() / 2 - 40, Gdx.graphics.getHeight()-27-80-2*55 - 400, 80	, 30,
+		buttons[2] = new Button(Gdx.graphics.getWidth() / 2 - 62, Gdx.graphics.getHeight()-27-80-2*55 - 360, 124, 30,
+				"data/Menu-points/Sandbox.png", new ClickEvent() {
+
+					@Override
+					public void onClick(int x, int y) {
+						startSandbox();
+					}
+				}, Button.STATE_ACTIVE, 0);
+		buttons[3] = new Button(Gdx.graphics.getWidth() / 2 - 40, Gdx.graphics.getHeight()-27-80-3*55 - 360, 80	, 30,
 				"data/Menu-points/Credits.png", new ClickEvent() {
 
 					@Override
@@ -85,7 +97,7 @@ public class MenuScreen implements Screen {
 						showCredits();
 					}
 				}, Button.STATE_ACTIVE, 0);
-		buttons[3] = new Button(Gdx.graphics.getWidth() / 2 - 70, Gdx.graphics.getHeight()-27-80-3*55 - 400, 141	, 30,
+		buttons[4] = new Button(Gdx.graphics.getWidth() / 2 - 70, Gdx.graphics.getHeight()-27-80-4*55 - 360, 141	, 30,
 				"data/Menu-points/End-Game.png", new ClickEvent() {
 
 					@Override

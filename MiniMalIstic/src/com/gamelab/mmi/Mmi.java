@@ -51,7 +51,7 @@ public class Mmi extends Game {
 	}
 
 	public void setScreenTutorial(TutorialParameters tutorialParameters) {
-		final TutorialScreen ts = new TutorialScreen(this, tutorialParameters.file, tutorialParameters.frames);
+		final TutorialScreen ts = new TutorialScreen(this, tutorialParameters.file, tutorialParameters.frames, tutorialParameters.save);
 		currentScreen = ts;
 		ts.setScreenIndex(currentScreenIndex);
 		setScreen(ts);
@@ -104,31 +104,31 @@ public class Mmi extends Game {
 	private void createLevels() {
 		screens = new ArrayList<ScreenParameters>();
 		//credits
-		screens.add(new TutorialParameters("data/tuts/Tutorial_Credits.png", 1));
+		screens.add(new TutorialParameters("data/tuts/Tutorial_Credits.png", 1, false));
 		screens.add(new ReturnToMenueParameters());
 		//campaign
-		screens.add(new TutorialParameters("data/Tutorial1.png", 1));
-		screens.add(new TutorialParameters("data/Tutorial2.png", 1));
-		screens.add(new TutorialParameters("data/Tutorial3.png", 2));
+		screens.add(new TutorialParameters("data/Tutorial1.png", 1, true));
+		screens.add(new TutorialParameters("data/Tutorial2.png", 1, true));
+		screens.add(new TutorialParameters("data/Tutorial3.png", 2, true));
 		createLevel00();
-		screens.add(new TutorialParameters("data/tuts/Tutorial_Colorsucker.png", 1));
+		screens.add(new TutorialParameters("data/tuts/Tutorial_Colorsucker.png", 1, true));
 		createLevel01();
-		screens.add(new TutorialParameters("data/tuts/Warning-Enemy-Hipster.png", 1));
+		screens.add(new TutorialParameters("data/tuts/Warning-Enemy-Hipster.png", 1, true));
 		createLevel02();
-		screens.add(new TutorialParameters("data/tuts/Tutorial_Huetralizer.png", 1));
+		screens.add(new TutorialParameters("data/tuts/Tutorial_Huetralizer.png", 1, true));
 		createLevel03();
-		screens.add(new TutorialParameters("data/tuts/Warning-Enemy-Art-student.png", 1));
+		screens.add(new TutorialParameters("data/tuts/Warning-Enemy-Art-student.png", 1, true));
 		createLevel04();
-		screens.add(new TutorialParameters("data/tuts/Tutorial_Negatron.png", 1));
+		screens.add(new TutorialParameters("data/tuts/Tutorial_Negatron.png", 1, true));
 		createLevel05();
-		screens.add(new TutorialParameters("data/tuts/Tutorial_Pixelswapper.png", 1));
+		screens.add(new TutorialParameters("data/tuts/Tutorial_Pixelswapper.png", 1, true));
 		createLevel06();
-		screens.add(new TutorialParameters("data/tuts/Warning-Enemy-Spiesser.png", 1));
+		screens.add(new TutorialParameters("data/tuts/Warning-Enemy-Spiesser.png", 1, true));
 		createLevel07();
-		screens.add(new TutorialParameters("data/tuts/Tutorial_Wetwhiper.png", 1));
+		screens.add(new TutorialParameters("data/tuts/Tutorial_Wetwhiper.png", 1, true));
 		createLevel08();
-		screens.add(new TutorialParameters("data/tuts/Tutorial_Coming-soon.png", 1));
-		screens.add(new TutorialParameters("data/tuts/Tutorial_Credits.png", 1));
+		screens.add(new TutorialParameters("data/tuts/Tutorial_Coming-soon.png", 1, true));
+		screens.add(new TutorialParameters("data/tuts/Tutorial_Credits.png", 1, true));
 //		createLevel09();
 		
 		screens.add(new ReturnToMenueParameters());

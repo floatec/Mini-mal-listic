@@ -35,10 +35,12 @@ public class TutorialScreen implements Screen {
 	private float frameDuration = 0.4f;
 	float onScreen = 0;
 	private int screenIndex;
+	private boolean saveScreenIndex;
 	
 	private boolean onceKlicked = false;
 
-	public TutorialScreen(Mmi game, String file, int frames) {
+	public TutorialScreen(Mmi game, String file, int frames, boolean saveScreenIndex) {
+		this.saveScreenIndex = saveScreenIndex;
 		this.game = game;
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
@@ -80,7 +82,9 @@ public class TutorialScreen implements Screen {
 
 	private void callback() {
 		if (2 < onScreen || onceKlicked) {
-			game.prefs.putInt("level", screenIndex);
+			if(saveScreenIndex) {
+				game.prefs.putInt("level", screenIndex);
+			}
 			game.nextScreen();
 		}
 		onceKlicked = true;

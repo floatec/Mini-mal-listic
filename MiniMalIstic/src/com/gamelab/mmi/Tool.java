@@ -25,7 +25,7 @@ public abstract class Tool {
 	
 	protected static float[] levelCaps = {0.1f, 0.25f, 0.5f, 0.7f};
 	//protected static float[] growSpeed = {0.25f, 0.45f, 0.65f, 1.0f};
-	protected static float[] growSpeed = {1.0f, 1.15f, 1.2f, 1.25f};
+	protected static float[] growSpeed = {1.0f, 1.15f, 1.2f, 1.25f, 1.25f};
 	
 	protected float growAdjust = 1.0f;
 	
@@ -69,6 +69,10 @@ public abstract class Tool {
 		return currentExp;
 	}
 	
+	public float getLevelProgress() {
+		return currentExp / levelCaps[currentLevel];		
+	}
+	
 	public int getCurrentLevel() {
 		return currentLevel;
 	}
@@ -79,7 +83,13 @@ public abstract class Tool {
 		//dynamicToolSize *= growAdjust * growSpeed[currentLevel] * 100.f;
 		dynamicToolSize *= growAdjust * 50.f;
 		
-		dynamicToolSize = (float) Math.pow(dynamicToolSize, growSpeed[currentLevel]);
+		float curGrowSpeed = growSpeed[currentLevel];
+		if (currentLevel < 4)
+			curGrowSpeed = (1.0f - getLevelProgress()) * growSpeed[currentLevel] + getLevelProgress() * growSpeed[currentLevel+1];
+		
+		dynamicToolSize = (float) Math.pow(dynamicToolSize, curGrowSpeed);
+		
+		//dynamicToolSize = (float) Math.pow(dynamicToolSize, growSpeed[currentLevel]);
 		dynamicToolSize = Math.min(dynamicToolSize, 100.f * maxToolSize);
 		
 		return dynamicToolSize;

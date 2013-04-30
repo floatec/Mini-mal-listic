@@ -155,7 +155,7 @@ public class Mmi extends Game {
 
 	private void createLevel03() {
 		final LevelParameters lp = new LevelParameters("data/levels/level04.png", 0.30f,
-				0.10f, 0.50f, 2, Player.TOOL_WALK, LevelParameters.walkToolBit
+				0.10f, 0.40f, 2, Player.TOOL_WALK, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.colorSuckerToolBit
 						| LevelParameters.huetralizerToolBit);
@@ -166,7 +166,7 @@ public class Mmi extends Game {
 
 	private void createLevel04() {
 		final LevelParameters lp = new LevelParameters("data/levels/level05.png", 0.30f,
-				0.30f, 0.50f, 4, Player.TOOL_WALK, LevelParameters.walkToolBit
+				0.30f, 0.40f, 2, Player.TOOL_WALK, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.colorSuckerToolBit
 						| LevelParameters.huetralizerToolBit);
@@ -179,7 +179,7 @@ public class Mmi extends Game {
 
 	private void createLevel05() {
 		final LevelParameters lp = new LevelParameters("data/levels/level06.png", 0.30f,
-				0.30f, 0.50f, 4, Player.TOOL_WALK, LevelParameters.walkToolBit
+				0.30f, 0.4f, 2, Player.TOOL_WALK, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.colorSuckerToolBit
 						| LevelParameters.negatronToolBit
@@ -193,7 +193,7 @@ public class Mmi extends Game {
 
 	private void createLevel06() {
 		final LevelParameters lp = new LevelParameters("data/levels/level07.png", 0.40f,
-				0.30f, 0.75f, 4, Player.TOOL_WALK, LevelParameters.walkToolBit
+				0.30f, 0.55f, 3, Player.TOOL_WALK, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.colorSuckerToolBit
 						| LevelParameters.negatronToolBit
@@ -208,7 +208,7 @@ public class Mmi extends Game {
 
 	private void createLevel07() {
 		final LevelParameters lp = new LevelParameters("data/levels/level08.png", 0.40f,
-				0.30f, 0.75f, 4, Player.TOOL_WALK, LevelParameters.walkToolBit
+				0.30f, 0.55f, 3, Player.TOOL_WALK, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.colorSuckerToolBit
 						| LevelParameters.negatronToolBit
@@ -225,7 +225,7 @@ public class Mmi extends Game {
 
 	private void createLevel08() {
 		final LevelParameters lp = new LevelParameters("data/levels/level09.png", 0.40f,
-				0.30f, 0.75f, 4, Player.TOOL_WALK, LevelParameters.walkToolBit
+				0.30f, 0.55f, 3, Player.TOOL_WALK, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.colorSuckerToolBit
 						| LevelParameters.negatronToolBit

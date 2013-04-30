@@ -7,6 +7,7 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -25,6 +26,8 @@ public class MenuScreen implements Screen {
 	private Texture texture;
 	private Sprite sprite;
 	private Button[] buttons = new Button[4];
+	
+	private Music music;
 
 	private void startgame() {
 		game.startGame();
@@ -39,7 +42,10 @@ public class MenuScreen implements Screen {
 		float h = Gdx.graphics.getHeight();
 		
 		texture = new Texture(Gdx.files.internal("data/Menu-points/layout.png"));
-
+		music = Gdx.audio.newMusic(Gdx.files.internal("data/audio/menu_start_screen.mp3"));
+		music.setLooping(true);
+		music.play();
+		
 //		buttons[0] = new Button(Gdx.graphics.getWidth() / 2 - 49, Gdx.graphics.getHeight()-27-80, 95	, 27,
 //				game.gameactive?"data/Menu-points/New-Game.png":"data/Menu-points/New-Game.png", new ClickEvent() {
 //
@@ -140,6 +146,8 @@ public class MenuScreen implements Screen {
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
+		music.stop();
+		music.dispose();
 	}
 
 	@Override

@@ -200,12 +200,7 @@ public class GameScreen implements Screen {
 							: Button.STATE_INACTIVE, 2);
 		}
 		if (lvlParm.getWalkTool()) {
-			buttons[6] = new Button(
-					725,
-					5,
-					100,
-					100,
-					"data/Pinsel.png",
+			buttons[6] = new Button(725, 5, 100, 100, "data/Pinsel.png",
 					new ClickEvent() {
 
 						@Override
@@ -272,7 +267,8 @@ public class GameScreen implements Screen {
 		sprite.setOrigin(sprite.getWidth() / 2, sprite.getHeight() / 2);
 		sprite.setPosition(-sprite.getWidth() / 2, -sprite.getHeight() / 2);
 
-		player = new Player(new Vector2(w / 2, h / 2), lvlParm.firstTool, map, lt, lvlParm);
+		player = new Player(new Vector2(w / 2, h / 2), lvlParm.firstTool, map,
+				lt, lvlParm);
 
 		gameScreenInputHandler = new GameScreenInputHandler(this, player);
 		for (Button b : buttons) {
@@ -398,14 +394,16 @@ public class GameScreen implements Screen {
 		}
 
 		collideEnemies();
-		if (door.isActive()
-				&& Intersector.overlapCircleRectangle(player.getHitbox(),
-						door.getHitbox())) {
-			if(lvlParm.save) {
-				game.prefs.putInt("level", screenIndex);
+		if (door.isActive()) {
+			door.update(delta);
+			if (Intersector.overlapCircleRectangle(player.getHitbox(),
+					door.getHitbox())) {
+				if (lvlParm.save) {
+					game.prefs.putInt("level", screenIndex);
+				}
+				game.nextScreen();
+				return false;
 			}
-			game.nextScreen();
-			return false;
 		}
 		return true;
 	}

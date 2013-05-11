@@ -25,7 +25,7 @@ public abstract class Tool {
 	
 	protected static float[] levelCaps = {0.2f, 0.45f, 0.65f, 0.85f};
 	//protected static float[] growSpeed = {0.25f, 0.45f, 0.65f, 1.0f};
-	protected static float[] growSpeed = {1.0f, 1.05f, 1.07f, 1.09f, 1.09f};
+	protected static float[] growSpeed = {1.10f, 1.15f, 1.20f, 1.25f, 1.30f};
 	
 	protected float growAdjust = 1.0f;
 	

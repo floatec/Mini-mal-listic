@@ -28,7 +28,6 @@ public class TutorialScreen implements Screen {
 	private Animation animation;
 	private TextureRegion[] walkframes;
 	private TextureRegion currentFrame;
-	private float animationTime;
 
 	private int frameWidth;
 	private int frameHeight;
@@ -37,7 +36,6 @@ public class TutorialScreen implements Screen {
 	private int screenIndex;
 	private boolean saveScreenIndex;
 	
-	private boolean onceKlicked = false;
 
 	public TutorialScreen(Mmi game, String file, int frames, boolean saveScreenIndex) {
 		this.saveScreenIndex = saveScreenIndex;
@@ -61,7 +59,6 @@ public class TutorialScreen implements Screen {
 		}
 		animation = new Animation(frameDuration, walkframes);
 		this.sb = new SpriteBatch();
-		this.animationTime = 0;
 
 	}
 
@@ -81,13 +78,10 @@ public class TutorialScreen implements Screen {
 	}
 
 	private void callback() {
-		if (0.1 < onScreen || onceKlicked) {
-			if(saveScreenIndex) {
-				game.prefs.putInt("level", screenIndex);
-			}
-			game.nextScreen();
+		if(saveScreenIndex) {
+			game.prefs.putInt("level", screenIndex);
 		}
-		onceKlicked = true;
+		game.nextScreen();
 	}
 
 	public void update(float delta) {
@@ -107,7 +101,7 @@ public class TutorialScreen implements Screen {
 			@Override
 			public boolean touchUp(int screenX, int screenY, int pointer,
 					int button) {
-				callback();
+				// TODO Auto-generated method stub
 				return false;
 			}
 
@@ -120,7 +114,7 @@ public class TutorialScreen implements Screen {
 			@Override
 			public boolean touchDown(int screenX, int screenY, int pointer,
 					int button) {
-				// TODO Auto-generated method stub
+				callback();
 				return false;
 			}
 

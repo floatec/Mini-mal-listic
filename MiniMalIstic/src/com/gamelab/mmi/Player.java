@@ -89,7 +89,7 @@ public class Player {
 			deltaBrush.rotate((float) this.rotation + 180);
 			
 			tools[tool].draw(pos.cpy().add(deltaBrush), oldPos, toolSize, delta * speed);
-			toolSounds.changeVolume(tools[tool].getRelPixelChanged());
+//			toolSounds.changeVolume(tools[tool].getRelPixelChanged());
 			
 		} else {
 			pos.add(this.lockAt.cpy().mul(this.length));

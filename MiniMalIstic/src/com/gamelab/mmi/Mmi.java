@@ -7,21 +7,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 
 public class Mmi extends Game {
-	
-	private static final String[] randFiles =  {
-		"data/levels/level01.png",
-		"data/levels/level02.png",
-		"data/levels/level03.png",
-		"data/levels/level04.png",
-		"data/levels/level05.png",
-		"data/levels/level06.png",
-		"data/levels/level07.png",
-		"data/levels/level08.png",
-		"data/levels/level09.png",
-		"data/levels/level10.png",
-		"data/levels/level11.png",
-		"data/levels/level12.png",
-	};
+
+	private static final String[] randFiles = { "data/levels/level01.png",
+			"data/levels/level02.png", "data/levels/level03.png",
+			"data/levels/level04.png", "data/levels/level05.png",
+			"data/levels/level06.png", "data/levels/level07.png",
+			"data/levels/level08.png", "data/levels/level09.png",
+			"data/levels/level10.png", "data/levels/level11.png",
+			"data/levels/level12.png", };
 
 	private int creditsScreenStart;
 	private int sandBoxScreenStart;
@@ -74,21 +67,21 @@ public class Mmi extends Game {
 		ts.setScreenIndex(currentScreenIndex);
 		setScreen(ts);
 	}
-	
+
 	private String getRandomFile() {
-		return randFiles[(int) (Math.random()*randFiles.length)];
+		return randFiles[(int) (Math.random() * randFiles.length)];
 	}
-	
+
 	public void startSandBox() {
 		currentScreenIndex = sandBoxScreenStart;
-		screens.set(sandBoxScreenStart, new LevelParameters(getRandomFile(), 0.40f, 0.30f, 0.55f, 3,
-				Player.TOOL_WALK, LevelParameters.walkToolBit
-				| LevelParameters.pixelToolBit
-				| LevelParameters.colorSuckerToolBit
-				| LevelParameters.negatronToolBit
-				| LevelParameters.huetralizerToolBit
-				| LevelParameters.pixelSwapperToolBit
-				| LevelParameters.wetWiperToolBit, false));
+		screens.set(sandBoxScreenStart, new LevelParameters(getRandomFile(),
+				0.40f, 0.30f, 0.55f, 3, Player.TOOL_WALK,
+				LevelParameters.walkToolBit | LevelParameters.pixelToolBit
+						| LevelParameters.colorSuckerToolBit
+						| LevelParameters.negatronToolBit
+						| LevelParameters.huetralizerToolBit
+						| LevelParameters.pixelSwapperToolBit
+						| LevelParameters.wetWiperToolBit, false));
 		nextScreen();
 	}
 
@@ -185,7 +178,7 @@ public class Mmi extends Game {
 
 	private void createLevel00() {
 		final LevelParameters lp = new LevelParameters(
-				"data/levels/level01.png", 0.10f, 0.00f, 0.30f, 1,
+				"data/levels/level01.png", 0.20f, 0.10f, 0.70f, 1,
 				Player.TOOL_PIXEL, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit, true);
 		screens.add(lp);
@@ -193,8 +186,8 @@ public class Mmi extends Game {
 
 	private void createLevel01() {
 		final LevelParameters lp = new LevelParameters(
-				"data/levels/level02.png", 0.20f, 0.10f, 0.30f, 1,
-				Player.TOOL_WALK, LevelParameters.walkToolBit
+				"data/levels/level02.png", 0.20f, 0.10f, 0.70f, 1,
+				Player.TOOL_HUETRALIZER, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.huetralizerToolBit, true);
 		screens.add(lp);
@@ -202,8 +195,8 @@ public class Mmi extends Game {
 
 	private void createLevel02() {
 		final LevelParameters lp = new LevelParameters(
-				"data/levels/level03.png", 0.20f, 0.10f, 0.30f, 1,
-				Player.TOOL_WALK, LevelParameters.walkToolBit
+				"data/levels/level03.png", 0.30f, 0.20f, 0.70f, 1,
+				Player.TOOL_HUETRALIZER, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.huetralizerToolBit, true);
 		lp.addEnemy(new EnemyParameters(Enemy.Hipster1Enemy, 0.10f, 0.05f));
@@ -212,8 +205,8 @@ public class Mmi extends Game {
 
 	private void createLevel03() {
 		final LevelParameters lp = new LevelParameters(
-				"data/levels/level04.png", 0.30f, 0.10f, 0.40f, 2,
-				Player.TOOL_WALK, LevelParameters.walkToolBit
+				"data/levels/level04.png", 0.40f, 0.30f, 0.70f, 2,
+				Player.TOOL_COLOR_SUCKER, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.colorSuckerToolBit
 						| LevelParameters.huetralizerToolBit, true);
@@ -223,8 +216,8 @@ public class Mmi extends Game {
 
 	private void createLevel04() {
 		final LevelParameters lp = new LevelParameters(
-				"data/levels/level05.png", 0.30f, 0.20f, 0.40f, 2,
-				Player.TOOL_WALK, LevelParameters.walkToolBit
+				"data/levels/level05.png", 0.50f, 0.40f, 0.70f, 2,
+				Player.TOOL_COLOR_SUCKER, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.colorSuckerToolBit
 						| LevelParameters.huetralizerToolBit, true);
@@ -235,12 +228,12 @@ public class Mmi extends Game {
 
 	private void createLevel05() {
 		final LevelParameters lp = new LevelParameters(
-				"data/levels/level06.png", 0.30f, 0.20f, 0.4f, 2,
-				Player.TOOL_WALK, LevelParameters.walkToolBit
+				"data/levels/level07.png", 0.55f, 0.45f, 0.70f, 2,
+				Player.TOOL_PIXEL_SWAPPER, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.colorSuckerToolBit
-						| LevelParameters.negatronToolBit
-						| LevelParameters.huetralizerToolBit, true);
+						| LevelParameters.huetralizerToolBit
+						| LevelParameters.pixelSwapperToolBit, true);
 		lp.addEnemy(new EnemyParameters(Enemy.Hipster1Enemy, 0.10f, 0.05f));
 		lp.addEnemy(new EnemyParameters(Enemy.Hipster2Enemy, 0.20f, 0.15f));
 		screens.add(lp);
@@ -248,13 +241,13 @@ public class Mmi extends Game {
 
 	private void createLevel06() {
 		final LevelParameters lp = new LevelParameters(
-				"data/levels/level07.png", 0.40f, 0.30f, 0.45f, 3,
-				Player.TOOL_WALK, LevelParameters.walkToolBit
+				"data/levels/level06.png", 0.60f, 0.50f, 0.70f, 3,
+				Player.TOOL_NEGATRON, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.colorSuckerToolBit
 						| LevelParameters.negatronToolBit
-						| LevelParameters.huetralizerToolBit
-						| LevelParameters.pixelSwapperToolBit, true);
+						| LevelParameters.pixelSwapperToolBit
+						| LevelParameters.huetralizerToolBit, true);
 		lp.addEnemy(new EnemyParameters(Enemy.Hipster1Enemy, 0.10f, 0.05f));
 		lp.addEnemy(new EnemyParameters(Enemy.Hipster2Enemy, 0.20f, 0.15f));
 		screens.add(lp);
@@ -262,13 +255,13 @@ public class Mmi extends Game {
 
 	private void createLevel07() {
 		final LevelParameters lp = new LevelParameters(
-				"data/levels/level08.png", 0.40f, 0.30f, 0.55f, 3,
-				Player.TOOL_WALK, LevelParameters.walkToolBit
+				"data/levels/level08.png", 0.65f, 0.55f, 0.70f, 3,
+				Player.TOOL_NEGATRON, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.colorSuckerToolBit
 						| LevelParameters.negatronToolBit
-						| LevelParameters.huetralizerToolBit
-						| LevelParameters.pixelSwapperToolBit, true);
+						| LevelParameters.pixelSwapperToolBit
+						| LevelParameters.huetralizerToolBit, true);
 		lp.addEnemy(new EnemyParameters(Enemy.Hipster1Enemy, 0.10f, 0.05f));
 		lp.addEnemy(new EnemyParameters(Enemy.Hipster2Enemy, 0.20f, 0.15f));
 		lp.addEnemy(new EnemyParameters(Enemy.SpiesserClnEnemy, 0.30f, 0.25f));
@@ -277,8 +270,8 @@ public class Mmi extends Game {
 
 	private void createLevel08() {
 		final LevelParameters lp = new LevelParameters(
-				"data/levels/level09.png", 0.40f, 0.30f, 0.55f, 3,
-				Player.TOOL_WALK, LevelParameters.walkToolBit
+				"data/levels/level09.png", 0.70f, 0.60f, 0.70f, 3,
+				Player.TOOL_WETWIPER, LevelParameters.walkToolBit
 						| LevelParameters.pixelToolBit
 						| LevelParameters.colorSuckerToolBit
 						| LevelParameters.negatronToolBit

@@ -29,7 +29,7 @@ public class ToolSoundController {
 		toolSounds[Player.TOOL_WETWIPER] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/wetwiper.mp3"));
 		toolSounds[Player.TOOL_WALK] = Gdx.audio.newSound(Gdx.files.internal("data/sounds/walk_listic.mp3"));
 		
-		volume = 0.05f;
+		volume = 0.70f;
 		
 		for (int i = 0; i < Player.numberOfTools; i++)
 			soundID[i] = 0;
